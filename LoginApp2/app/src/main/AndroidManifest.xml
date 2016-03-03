@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="id.co.okhome.loginapp2">
 
@@ -25,7 +24,16 @@
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
-            android:parentActivityName="id.co.okhome.loginapp2.LoginActivity"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.co.okhome.loginapp2.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

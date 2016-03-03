@@ -1,6 +1,7 @@
 package id.co.okhome.loginapp2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -23,6 +24,7 @@ import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public final static String EXTRA_MESSAGE = "id.co.okhome.loginapp2.MESSAGE";
     private EditText appId, appPassword;
 
     @Override
@@ -46,6 +48,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.btn_login:
                 attemptLogin();
+                break;
+            case R.id.btn_signup:
+                Intent intent = new Intent(this, SignupActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -93,11 +99,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String result = stringBuilder.toString();
 
                 if (result.equals("success")) {
-                    Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_LONG).show();
                     return true;
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_LONG).show();
                     return false;
                 }
 
@@ -109,6 +113,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         @Override
         protected void onPostExecute(Boolean aBoolean) {
+            if (aBoolean) {
+                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                String message = appId.getText().toString();
+                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+            }
             super.onPostExecute(aBoolean);
         }
     }
