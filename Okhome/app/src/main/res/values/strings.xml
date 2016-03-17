@@ -14,5 +14,20 @@
     <string name="text_signup_password">Insert Password</string>
     <string name="text_signup_passwordRe">Please Insert Password Again</string>
     <string name="btn_register">Register</string>
+    <string name="upcoming_order">UPCOMING ORDER</string>
+    <string name="current_balance">YOUR CURRENT BALANCE</string>
+    <string name="newOrder">NEW"\n"ORDER</string>
+    <string name="changeOrder">CHANGE"\n"ORDER</string>
+    <string name="orderHistory">ORDER"\n"HISTORY</string>
+    <string name="topUp">TOP"\n"UP</string>
+    <string name="customerService">CUSTOMER SERVICE</string>
+    <string name="basic_options">BASIC OPTIONS</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="home_type">Type of your home</string>
+    <string name="home_size">Size of your home (square meter)</string>
+    <string name="home_existence">Will you be at home?</string>
+    <string name="pet_existence">Do you have pet?</string>
+
 
 </resources>

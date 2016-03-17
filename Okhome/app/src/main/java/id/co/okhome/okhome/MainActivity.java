@@ -31,12 +31,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
-        TextView textView = new TextView(this);
-        textView.setTextSize(40);
-        textView.setText(message + " Welcome!");
+        TextView textView = (TextView) findViewById(R.id.welcome);
+        textView.setText("Welcome "+ message);
 
         findViewById(R.id.btn_toLogin).setOnClickListener(this);
-        findViewById(R.id.btn_toOrder).setOnClickListener(this);
+        findViewById(R.id.btn_newOrder).setOnClickListener(this);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intentToLogin = new Intent(this, LoginActivity.class);
                 startActivity(intentToLogin);
                 break;
-            case R.id.btn_toOrder:
+            case R.id.btn_newOrder:
                 Intent intentToOrder = new Intent(this, OrderActivity.class);
                 startActivity(intentToOrder);
                 break;
