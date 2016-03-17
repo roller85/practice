@@ -155,10 +155,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
                 Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
                 String message = appEmail.getText().toString();
-                intent.putExtra(EXTRA_MESSAGE, message);
-                startActivity(intent);
+                intentMain.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intentMain);
                 finish();
             }
             else {

@@ -1,9 +1,9 @@
 package id.co.okhome.okhome;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -13,6 +13,7 @@ import android.view.View;
 
 public class OrderActivity extends AppCompatActivity {
 
+    //public final static String EXTRA_MESSAGE3 = "id.co.okhome.okhome.MESSAGE3";
     private SectionsPagerAdapter mSectionPagerAdapter;
     private ViewPager mViewPager;
     private Fragment[] arrFragments;

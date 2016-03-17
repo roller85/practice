@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public final static String EXTRA_MESSAGE2 = "id.co.okhome.okhome.MESSAGE2";
+    private String email = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
         TextView textView = (TextView) findViewById(R.id.welcome);
         textView.setText("Welcome "+ message);
+        email = message;
 
         findViewById(R.id.btn_toLogin).setOnClickListener(this);
         findViewById(R.id.btn_newOrder).setOnClickListener(this);
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_newOrder:
                 Intent intentToOrder = new Intent(this, OrderActivity.class);
+                intentToOrder.putExtra(EXTRA_MESSAGE2, email);
                 startActivity(intentToOrder);
                 break;
         }

@@ -265,6 +265,14 @@
             android:id="@+id/estimated_time"
             android:text="0" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_end_of_basic_info1"
+            android:text="NEXT"
+            android:layout_gravity="center"
+            android:textAlignment="center" />
+
     </LinearLayout>
 
 
