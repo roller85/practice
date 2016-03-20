@@ -1,12 +1,25 @@
 package id.co.okhome.okhome;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.io.IOException;
+
+import id.co.okhome.okhome.Server.ServerAPI;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 public class BasicInfoFragment1 extends Fragment {
@@ -27,6 +40,9 @@ public class BasicInfoFragment1 extends Fragment {
     public TextView number_of_bedrooms;
     public TextView number_of_bathrooms;
     public String email;
+    RadioGroup homeType;
+    RadioGroup homeSize;
+    RadioGroup homeExistence;
 
     public BasicInfoFragment1() {
         // Required empty public constructor
@@ -79,9 +95,38 @@ public class BasicInfoFragment1 extends Fragment {
             }
         });
 
+        homeType = (RadioGroup) fragment1View.findViewById(R.id.homeType);
+        homeType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                switch (checkedId) {
+                    case R.id.btn_apartment:
+                        home_type = "APT";
+                        break;
+                    case R.id.btn_house:
+                        home_type = "House";
+                        break;
+                    case R.id.btn_boarding_house:
+                        home_type = "Boarding House";
+                        break;
+                }
+            }
+        });
+
+        /*
         fragment1View.findViewById(R.id.btn_apartment).setOnClickListener(new View.OnClickListener() {
+            private boolean pressed = false;
             @Override
             public void onClick(View v) {
+                pressed = !pressed;
+                v.setSelected(pressed);
+                if(pressed = true) {
+                    home_type = "APT";
+                }
+                else {
+                    home_type = ""
+                }
                 home_type = "";
                 home_type = "APT";
             }
@@ -90,6 +135,7 @@ public class BasicInfoFragment1 extends Fragment {
         fragment1View.findViewById(R.id.btn_house).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.setSelected(true);
                 home_type = "";
                 home_type = "House";
             }
@@ -98,14 +144,40 @@ public class BasicInfoFragment1 extends Fragment {
         fragment1View.findViewById(R.id.btn_boarding_house).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.setSelected(true);
                 home_type = "";
                 home_type = "Boarding House";
             }
         });
+        */
 
+        homeSize = (RadioGroup) fragment1View.findViewById(R.id.homeSize);
+        homeSize.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                switch (checkedId) {
+                    case R.id.btn_size_50:
+                        home_size = "<50";
+                        break;
+                    case R.id.btn_size_50_100:
+                        home_size = "50-100";
+                        break;
+                    case R.id.btn_size_100_150:
+                        home_size = "100-150";
+                        break;
+                    case R.id.btn_size_150:
+                        home_size = ">150";
+                        break;
+                }
+            }
+        });
+
+        /*
         fragment1View.findViewById(R.id.btn_size_50).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.setSelected(true);
                 home_size = "";
                 home_size = "<50";
             }
@@ -114,6 +186,7 @@ public class BasicInfoFragment1 extends Fragment {
         fragment1View.findViewById(R.id.btn_size_50_100).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.setSelected(true);
                 home_size = "";
                 home_size = "50 - 100";
             }
@@ -122,6 +195,7 @@ public class BasicInfoFragment1 extends Fragment {
         fragment1View.findViewById(R.id.btn_size_100_150).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.setSelected(true);
                 home_size = "";
                 home_size = "100 - 150";
             }
@@ -130,14 +204,34 @@ public class BasicInfoFragment1 extends Fragment {
         fragment1View.findViewById(R.id.btn_size_150).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.setSelected(true);
                 home_size = "";
                 home_size = ">150";
             }
         });
+        */
 
+        homeExistence = (RadioGroup) fragment1View.findViewById(R.id.homeExistence);
+        homeExistence.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                switch (checkedId) {
+                    case R.id.btn_home_existence_yes:
+                        homeowner_existence = true;
+                        break;
+                    case R.id.btn_home_existence_no:
+                        homeowner_existence = false;
+                        break;
+                }
+            }
+        });
+
+        /*
         fragment1View.findViewById(R.id.btn_home_existence_yes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.setSelected(true);
                 homeowner_existence = true;
             }
         });
@@ -145,35 +239,49 @@ public class BasicInfoFragment1 extends Fragment {
         fragment1View.findViewById(R.id.btn_home_existence_no).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.setSelected(true);
                 homeowner_existence = false;
             }
         });
+        */
 
         fragment1View.findViewById(R.id.btn_cat_existence).setOnClickListener(new View.OnClickListener() {
+            private boolean pressed = false;
             @Override
             public void onClick(View v) {
-                pet_cat_existence = true;
+                pressed = !pressed;
+                v.setSelected(pressed);
+                pet_cat_existence = pressed;
             }
         });
 
         fragment1View.findViewById(R.id.btn_dog_existence).setOnClickListener(new View.OnClickListener() {
+            private boolean pressed = false;
             @Override
             public void onClick(View v) {
-                pet_dog_existence = true;
+                pressed = !pressed;
+                v.setSelected(pressed);
+                pet_dog_existence = pressed;
             }
         });
 
         fragment1View.findViewById(R.id.btn_other_existence).setOnClickListener(new View.OnClickListener() {
+            private boolean pressed = false;
             @Override
             public void onClick(View v) {
-                pet_other_existence = true;
+                pressed = !pressed;
+                v.setSelected(pressed);
+                pet_other_existence = pressed;
             }
         });
 
         fragment1View.findViewById(R.id.btn_no_existence).setOnClickListener(new View.OnClickListener() {
+            private boolean pressed = false;
             @Override
             public void onClick(View v) {
-                pet_nonexist = true;
+                pressed = !pressed;
+                v.setSelected(pressed);
+                pet_nonexist = pressed;
             }
         });
 
@@ -189,6 +297,39 @@ public class BasicInfoFragment1 extends Fragment {
 
     private void attempAddBasicInfo1() {
 
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        OkHttpClient client = new OkHttpClient();
+
+        Uri.Builder builder = new Uri.Builder()
+                .appendQueryParameter("email", email)
+                .appendQueryParameter("bedroom", String.valueOf(number_of_bedroom))
+                .appendQueryParameter("bathroom", String.valueOf(number_of_bathroom))
+                .appendQueryParameter("homeType", home_type)
+                .appendQueryParameter("homeSize", home_size)
+                .appendQueryParameter("homeownerExistence", String.valueOf(homeowner_existence))
+                .appendQueryParameter("catExistence", String.valueOf(pet_cat_existence))
+                .appendQueryParameter("dogExistence", String.valueOf(pet_dog_existence))
+                .appendQueryParameter("otherExistence", String.valueOf(pet_other_existence))
+                .appendQueryParameter("nonexist", String.valueOf(pet_nonexist));
+        String content = builder.build().getEncodedQuery();
+
+        RequestBody body = RequestBody.create(mediaType, content);
+        Request request = new Request.Builder()
+                .url(ServerAPI.BASICINFO1ADD)
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Snackbar.make(getActivity().findViewById(R.id.fragment_basic_info), "Okhttp : " + e.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Snackbar.make(getActivity().findViewById(R.id.fragment_basic_info), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void incrementOfBedroom() {

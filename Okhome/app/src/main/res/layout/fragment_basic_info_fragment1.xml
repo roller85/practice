@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_basic_info"
     tools:context="id.co.okhome.okhome.BasicInfoFragment1">
 
     <!-- TODO: Update blank fragment layout -->
@@ -88,12 +89,13 @@
             android:text="@string/home_type"
             android:layout_gravity="left"/>
 
-        <LinearLayout
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/homeType"
             android:orientation="horizontal">
 
-            <Button
+            <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="APT"
@@ -102,7 +104,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/btn_color_selector"/>
 
-            <Button
+            <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_house"
@@ -112,7 +114,7 @@
                 android:textAlignment="center"
                 android:background="@drawable/btn_color_selector"/>
 
-            <Button
+            <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Boarding House"
@@ -121,7 +123,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/btn_color_selector"/>
 
-        </LinearLayout>
+        </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
@@ -129,12 +131,13 @@
             android:text="@string/home_size"
             android:layout_gravity="center"/>
 
-        <LinearLayout
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/homeSize"
             android:orientation="horizontal">
 
-            <Button
+            <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="50"
@@ -143,7 +146,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/btn_color_selector"/>
 
-            <Button
+            <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_size_50_100"
@@ -153,7 +156,7 @@
                 android:textAlignment="center"
                 android:background="@drawable/btn_color_selector"/>
 
-            <Button
+            <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100 - 150"
@@ -162,7 +165,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/btn_color_selector"/>
 
-            <Button
+            <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="150"
@@ -171,7 +174,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/btn_color_selector"/>
 
-        </LinearLayout>
+        </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
@@ -179,12 +182,13 @@
             android:text="@string/home_existence"
             android:layout_gravity="center"/>
 
-        <LinearLayout
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/homeExistence"
             android:orientation="horizontal">
 
-            <Button
+            <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Yes"
@@ -193,7 +197,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/btn_color_selector"/>
 
-            <Button
+            <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_home_existence_no"
@@ -203,7 +207,7 @@
                 android:textAlignment="center"
                 android:background="@drawable/btn_color_selector"/>
 
-        </LinearLayout>
+        </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
@@ -256,14 +260,6 @@
                 android:background="@drawable/btn_color_selector"/>
 
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:id="@+id/estimated_time"
-            android:text="0" />
 
         <Button
             android:layout_width="match_parent"
