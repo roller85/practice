@@ -22,12 +22,42 @@
     <string name="topUp">TOP"\n"UP</string>
     <string name="customerService">CUSTOMER SERVICE</string>
     <string name="basic_options">BASIC OPTIONS</string>
+    <string name="weekly_unit">Rp / week</string>
+    <string name="rupia_unit">Rp</string>
+    <string name="multiply_unit"> x </string>
+    <string name="hour_unit">hrs</string>
+    <string name="day_unit">days</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="home_type">Type of your home</string>
     <string name="home_size">Size of your home (square meter)</string>
     <string name="home_existence">Will you be at home?</string>
     <string name="pet_existence">Do you have pet?</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="tell_us_more">TELL US MORE</string>
+    <string name="detailed_info">  (sample)"\n"- I want special cleaning on refridge </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="regular_package">Regular Package</string>
+    <string name="triple_package">3 Times a week</string>
+    <string name="double_package">Twice a week</string>
+    <string name="single_package">Once a week</string>
+    <string name="regular_package_price_per_hour">100.000/hr</string>
+    <string name="onetime_package">Single Package</string>
+    <string name="onetime_package_price_per_hour">150.000/hr</string>
+    <string name="just_this_once_package">Just for this time</string>
+    <string name="weekly_charge">Weekly Charge</string>
+    <string name="cleaning_package_warning">If you select the Regular Package"\n"We will visit regularly until the balance allows</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
 
 
 </resources>

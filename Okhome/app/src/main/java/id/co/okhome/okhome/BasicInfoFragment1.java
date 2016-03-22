@@ -1,5 +1,6 @@
 package id.co.okhome.okhome;
 
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -24,9 +26,6 @@ import okhttp3.Response;
 
 public class BasicInfoFragment1 extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-    public static final String Name = "Basic Information";
 
     private int number_of_bedroom = 2;
     private int number_of_bathroom = 2;
@@ -288,7 +287,12 @@ public class BasicInfoFragment1 extends Fragment {
         fragment1View.findViewById(R.id.btn_end_of_basic_info1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                attempAddBasicInfo1();
+                if (home_type != null & home_size != null) {
+                    attempAddBasicInfo1();
+                }
+                else {
+                    Toast.makeText(getActivity(), "Fill Out All The Information", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -322,13 +326,16 @@ public class BasicInfoFragment1 extends Fragment {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Snackbar.make(getActivity().findViewById(R.id.fragment_basic_info), "Okhttp : " + e.getMessage(), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getActivity().findViewById(R.id.fragment_basic_info1), "Okhttp : " + e.getMessage(), Snackbar.LENGTH_LONG).show();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Snackbar.make(getActivity().findViewById(R.id.fragment_basic_info), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getActivity().findViewById(R.id.fragment_basic_info1), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
+            OrderActivity activity = (OrderActivity) getActivity();
+                activity.nextFragment(BasicInfoFragment2.newInstance());
             }
+
         });
     }
 
@@ -338,8 +345,15 @@ public class BasicInfoFragment1 extends Fragment {
     }
 
     public void decrementOfBedroom() {
-        number_of_bedroom = number_of_bedroom - 1;
-        displayNumberOfBedroom(number_of_bedroom, number_of_bedrooms);
+        if(number_of_bedroom > 0) {
+            number_of_bedroom = number_of_bedroom - 1;
+            displayNumberOfBedroom(number_of_bedroom, number_of_bedrooms);
+        }
+        else {
+            Toast.makeText(getActivity(), "Number Of Bedroom Cannot be Minus", Toast.LENGTH_SHORT).show();
+            displayNumberOfBedroom(number_of_bedroom, number_of_bedrooms);
+        }
+
     }
 
     public void incrementOfBathroom() {
@@ -348,8 +362,14 @@ public class BasicInfoFragment1 extends Fragment {
     }
 
     public void decrementOfBathroom() {
-        number_of_bathroom = number_of_bathroom - 1;
-        displayNumberOfBathroom(number_of_bathroom, number_of_bathrooms);
+        if(number_of_bathroom > 0) {
+            number_of_bathroom = number_of_bathroom - 1;
+            displayNumberOfBathroom(number_of_bathroom, number_of_bathrooms);
+        }
+        else {
+            Toast.makeText(getActivity(), "Number Of Bathroom Cannot be Minus", Toast.LENGTH_SHORT).show();
+            displayNumberOfBathroom(number_of_bathroom, number_of_bathrooms);
+        }
     }
 
     private void displayNumberOfBedroom(int number, TextView tv) {
