@@ -91,7 +91,7 @@ public class PackageSelection extends Fragment {
                 editor.putInt(OrderActivity.EXTRA_MESSAGE3, cleaning_period);
                 editor.commit();
                 OrderActivity activity = (OrderActivity) getActivity();
-                activity.nextFragment(SelectDay.newInstance());
+                activity.nextFragment(SelectDay.newInstance(), "select_day");
             }
         });
 

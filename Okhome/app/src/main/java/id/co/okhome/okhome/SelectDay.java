@@ -212,6 +212,22 @@ public class SelectDay extends Fragment {
             public void onClick(View v) {
                 if (btnLimit == mSchedule.size()) {
                     allocateSchedule();
+
+                    SharedPreferences shared1 = getActivity().getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor1 = shared1.edit();
+                    editor1.putInt(OrderActivity.EXTRA_MESSAGE4, visitDay1);
+                    editor1.commit();
+
+                    SharedPreferences shared2 = getActivity().getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.putInt(OrderActivity.EXTRA_MESSAGE5, visitDay2);
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getActivity().getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putInt(OrderActivity.EXTRA_MESSAGE6, visitDay3);
+                    editor3.commit();
+
                     Toast.makeText(getActivity(),"VisitDay1 ="+visitDay1+"VisitDay2 ="+visitDay2+"VisitDay3 ="+visitDay3,Toast.LENGTH_LONG).show();
                     attmpAddCleanigPackage();
                 }
@@ -271,6 +287,8 @@ public class SelectDay extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Snackbar.make(getActivity().findViewById(R.id.fragment_select_day), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
+                OrderActivity activity = (OrderActivity) getActivity();
+                activity.nextFragment(TimeSelection.newInstance(), "time_selection");
 
             }
         });

@@ -10,9 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class OrderActivity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity{
 
     public final static String EXTRA_MESSAGE3 = "id.co.okhome.okhome.MESSAGE3";
+    public final static String EXTRA_MESSAGE4 = "id.co.okhome.okhome.MESSAGE4";
+    public final static String EXTRA_MESSAGE5 = "id.co.okhome.okhome.MESSAGE5";
+    public final static String EXTRA_MESSAGE6 = "id.co.okhome.okhome.MESSAGE6";
     /*
     private SectionsPagerAdapter mSectionPagerAdapter;
     private ViewPager mViewPager;
@@ -43,6 +46,9 @@ public class OrderActivity extends AppCompatActivity {
             BasicInfoFragment1 fragment1 = new BasicInfoFragment1();
             fragment1.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment1).commit();
+
+            TimePickerFragment timePickerFragment = new TimePickerFragment();
+            getSupportFragmentManager().beginTransaction().add(timePickerFragment, "time_picker_fragment");
         }
 
 
@@ -65,14 +71,14 @@ public class OrderActivity extends AppCompatActivity {
         */
     }
 
-    public void nextFragment(Fragment fr) {
+    public void nextFragment(Fragment fr, String mtag) {
         FragmentManager fm = getSupportFragmentManager();
 
         Fragment fragment = fr;
 
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
-        ft.replace(R.id.fragment_container, fragment);
+        ft.replace(R.id.fragment_container,fragment, mtag);
         ft.commit();
     }
 

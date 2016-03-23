@@ -333,7 +333,7 @@ public class BasicInfoFragment1 extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 Snackbar.make(getActivity().findViewById(R.id.fragment_basic_info1), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
             OrderActivity activity = (OrderActivity) getActivity();
-                activity.nextFragment(BasicInfoFragment2.newInstance());
+                activity.nextFragment(BasicInfoFragment2.newInstance(), "basic_info_fragment2");
             }
 
         });
