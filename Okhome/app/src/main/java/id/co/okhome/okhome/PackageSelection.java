@@ -80,15 +80,16 @@ public class PackageSelection extends Fragment {
                 }
             }
         });
-        SharedPreferences shared = getActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = shared.edit();
-        editor.putInt(OrderActivity.EXTRA_MESSAGE3, cleaning_period);
-        editor.commit();
+
 
         fragment3View.findViewById(R.id.btn_end_of_package_selection).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                SharedPreferences shared = getActivity().getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putInt(OrderActivity.EXTRA_MESSAGE3, cleaning_period);
+                editor.commit();
                 OrderActivity activity = (OrderActivity) getActivity();
                 activity.nextFragment(SelectDay.newInstance());
             }

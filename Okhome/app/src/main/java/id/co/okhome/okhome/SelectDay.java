@@ -2,16 +2,29 @@ package id.co.okhome.okhome;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import id.co.okhome.okhome.Server.ServerAPI;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 public class SelectDay extends Fragment {
@@ -23,7 +36,7 @@ public class SelectDay extends Fragment {
     private int cleaning_period;
     private int btnLimit;
     private int btnPressed = 0;
-    private ArrayList<Integer>  mSchedule;
+    private ArrayList<Integer> mSchedule;
 
 
 
@@ -48,6 +61,8 @@ public class SelectDay extends Fragment {
         SharedPreferences shared = getActivity().getPreferences(Context.MODE_PRIVATE);
         cleaning_period = shared.getInt(OrderActivity.EXTRA_MESSAGE3,0);
 
+        Toast.makeText(getActivity(),"Cleaning period is "+cleaning_period, Toast.LENGTH_LONG).show();
+
         switch (cleaning_period) {
             case 0:
                 btnLimit = 1;
@@ -63,7 +78,7 @@ public class SelectDay extends Fragment {
                 break;
         }
 
-        while (btnPressed < btnLimit) {
+        mSchedule = new ArrayList<>();
 
             ToggleButton tog_monday = (ToggleButton) fragment4View.findViewById(R.id.btn_monday);
             tog_monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -73,6 +88,12 @@ public class SelectDay extends Fragment {
                         mSchedule.add(1);
                         btnPressed = btnPressed + 1;
                     } else {
+                        for (int i = 0; i < mSchedule.size(); i++) {
+                            if (mSchedule.get(i) == 1) {
+                                mSchedule.remove(i);
+                                btnPressed = btnPressed - 1;
+                            }
+                        }
                     }
                 }
             });
@@ -85,6 +106,12 @@ public class SelectDay extends Fragment {
                         mSchedule.add(2);
                         btnPressed = btnPressed + 1;
                     } else {
+                        for (int i = 0; i < mSchedule.size(); i++) {
+                            if (mSchedule.get(i) == 2) {
+                                mSchedule.remove(i);
+                                btnPressed = btnPressed - 1;
+                            }
+                        }
                     }
                 }
             });
@@ -97,6 +124,12 @@ public class SelectDay extends Fragment {
                         mSchedule.add(3);
                         btnPressed = btnPressed + 1;
                     } else {
+                        for (int i = 0; i < mSchedule.size(); i++) {
+                            if (mSchedule.get(i) == 3) {
+                                mSchedule.remove(i);
+                                btnPressed = btnPressed - 1;
+                            }
+                        }
                     }
                 }
             });
@@ -109,6 +142,12 @@ public class SelectDay extends Fragment {
                         mSchedule.add(4);
                         btnPressed = btnPressed + 1;
                     } else {
+                        for (int i = 0; i < mSchedule.size(); i++) {
+                            if (mSchedule.get(i) == 4) {
+                                mSchedule.remove(i);
+                                btnPressed = btnPressed - 1;
+                            }
+                        }
                     }
                 }
             });
@@ -121,6 +160,12 @@ public class SelectDay extends Fragment {
                         mSchedule.add(5);
                         btnPressed = btnPressed + 1;
                     } else {
+                        for (int i = 0; i < mSchedule.size(); i++) {
+                            if (mSchedule.get(i) == 5) {
+                                mSchedule.remove(i);
+                                btnPressed = btnPressed - 1;
+                            }
+                        }
                     }
                 }
             });
@@ -133,6 +178,12 @@ public class SelectDay extends Fragment {
                         mSchedule.add(6);
                         btnPressed = btnPressed + 1;
                     } else {
+                        for (int i = 0; i < mSchedule.size(); i++) {
+                            if (mSchedule.get(i) == 6) {
+                                mSchedule.remove(i);
+                                btnPressed = btnPressed - 1;
+                            }
+                        }
                     }
                 }
             });
@@ -145,26 +196,84 @@ public class SelectDay extends Fragment {
                         mSchedule.add(7);
                         btnPressed = btnPressed + 1;
                     } else {
+                        for (int i = 0; i < mSchedule.size(); i++) {
+                            if (mSchedule.get(i) == 7) {
+                                mSchedule.remove(i);
+                                btnPressed = btnPressed - 1;
+                            }
+                        }
                     }
                 }
             });
 
-        }
+        fragment4View.findViewById(R.id.btn_end_of_select_day).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                if (btnLimit == mSchedule.size()) {
+                    allocateSchedule();
+                    Toast.makeText(getActivity(),"VisitDay1 ="+visitDay1+"VisitDay2 ="+visitDay2+"VisitDay3 ="+visitDay3,Toast.LENGTH_LONG).show();
+                    attmpAddCleanigPackage();
+                }
+                else {
+                    Toast.makeText(getActivity(), "You need to choose more or less days", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+
+
+
+        return fragment4View;
+    }
+
+    public void allocateSchedule() {
         Collections.sort(mSchedule);
-        for(int i = 0; i < mSchedule.size(); i++) {
-            if(i==0) {
+        for(int i = 0; i <btnLimit; i++)
+        {
+            if (i == 0) {
                 visitDay1 = mSchedule.get(i);
-            }
-            else if (i==1) {
+            } else if (i == 1) {
                 visitDay2 = mSchedule.get(i);
-            }
-            else {
+            } else {
                 visitDay3 = mSchedule.get(i);
             }
         }
+    }
 
-        return fragment4View;
+    public void attmpAddCleanigPackage() {
+
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        OkHttpClient client = new OkHttpClient();
+
+        Uri.Builder builder = new Uri.Builder()
+                .appendQueryParameter("email", email)
+                .appendQueryParameter("period", String.valueOf(cleaning_period))
+                .appendQueryParameter("visitDay1", String.valueOf(visitDay1))
+                .appendQueryParameter("visitDay2", String.valueOf(visitDay2))
+                .appendQueryParameter("visitDay3", String.valueOf(visitDay3));
+        String content = builder.build().getEncodedQuery();
+
+        RequestBody body = RequestBody.create(mediaType, content);
+        Request request = new Request.Builder()
+                .url(ServerAPI.CLEANINGPACKAGE)
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Snackbar.make(getActivity().findViewById(R.id.fragment_select_day), "Okhttp : " + e.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Snackbar.make(getActivity().findViewById(R.id.fragment_select_day), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
+
+            }
+        });
     }
 
 
