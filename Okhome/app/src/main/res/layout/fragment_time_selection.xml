@@ -29,7 +29,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="pick time day #1"
             android:id="@+id/time_picker1"/>
 
         <TextView

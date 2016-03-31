@@ -23,6 +23,8 @@ public class TimeSelection extends Fragment implements TimePickerFragment.PickTi
     private int hourDay1;
     private int minDay1;
     Button btn1;
+    Button btn2;
+    Button btn3;
 
     public TimeSelection() {
         // Required empty public constructor
