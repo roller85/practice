@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import id.co.okhome.okhome.Data.UserOrder;
+
 public class OrderActivity extends AppCompatActivity{
 
     public final static String EXTRA_MESSAGE3 = "id.co.okhome.okhome.MESSAGE3";
@@ -22,9 +24,24 @@ public class OrderActivity extends AppCompatActivity{
     private Fragment[] arrFragments;
     */
 
+    private UserOrder userOrder;
+
+    public UserOrder GetUserOrder() {
+        return userOrder;
+    }
+
+    /*
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable("tempData", userOrder);
+        super.onSaveInstanceState(outState);
+    }
+    */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        userOrder = (UserOrder) savedInstanceState.getSerializable("tempData");
         setContentView(R.layout.activity_order);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,8 +64,10 @@ public class OrderActivity extends AppCompatActivity{
             fragment1.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment1).commit();
 
+            /*
             TimePickerFragment timePickerFragment = new TimePickerFragment();
             getSupportFragmentManager().beginTransaction().add(timePickerFragment, "time_picker_fragment");
+            */
         }
 
 

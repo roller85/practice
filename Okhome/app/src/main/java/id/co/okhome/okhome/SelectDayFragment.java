@@ -27,7 +27,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class SelectDay extends Fragment {
+public class SelectDayFragment extends Fragment {
+
+    public static final String TAG = "SelectDayFragment";
 
     private int visitDay1;
     private int visitDay2;
@@ -40,12 +42,13 @@ public class SelectDay extends Fragment {
 
 
 
-    public SelectDay() {
+
+    public SelectDayFragment() {
         // Required empty public constructor
     }
 
-    public static SelectDay newInstance() {
-        SelectDay fragment = new SelectDay();
+    public static SelectDayFragment newInstance() {
+        SelectDayFragment fragment = new SelectDayFragment();
         return fragment;
     }
 
@@ -288,7 +291,8 @@ public class SelectDay extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 Snackbar.make(getActivity().findViewById(R.id.fragment_select_day), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
                 OrderActivity activity = (OrderActivity) getActivity();
-                activity.nextFragment(TimeSelection.newInstance(), "time_selection");
+                activity.GetUserOrder().AddVisitDayInfo(visitDay1, visitDay2, visitDay3);
+                activity.nextFragment(TimeSelectionFragment.newInstance(), TimeSelectionFragment.TAG);
 
             }
         });

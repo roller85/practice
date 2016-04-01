@@ -81,8 +81,13 @@ public class BasicInfoFragment2 extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Snackbar.make(getActivity().findViewById(R.id.fragment_basic_info2), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
+
                 OrderActivity activity = (OrderActivity) getActivity();
-                activity.nextFragment(PackageSelection.newInstance(), "package_selection");
+
+                String homeDetailInfo = detailedInfo.getText().toString();
+                activity.GetUserOrder().AddHomeDetailInfo(homeDetailInfo);
+
+                activity.nextFragment(PackageSelectionFragment.newInstance(), PackageSelectionFragment.TAG);
             }
         });
     }

@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 
 
-public class PackageSelection extends Fragment {
+public class PackageSelectionFragment extends Fragment {
+
+    public static final String TAG = "PackageSelectionFragment";
 
     private int cleaning_period;
     private String email;
@@ -24,12 +26,12 @@ public class PackageSelection extends Fragment {
     private int cleaning_days;
     private int charge_per_week;
 
-    public PackageSelection() {
+    public PackageSelectionFragment() {
         // Required empty public constructor
     }
 
-    public static PackageSelection newInstance() {
-        PackageSelection fragment = new PackageSelection();
+    public static PackageSelectionFragment newInstance() {
+        PackageSelectionFragment fragment = new PackageSelectionFragment();
         return fragment;
     }
 
@@ -81,7 +83,6 @@ public class PackageSelection extends Fragment {
             }
         });
 
-
         fragment3View.findViewById(R.id.btn_end_of_package_selection).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -91,7 +92,8 @@ public class PackageSelection extends Fragment {
                 editor.putInt(OrderActivity.EXTRA_MESSAGE3, cleaning_period);
                 editor.commit();
                 OrderActivity activity = (OrderActivity) getActivity();
-                activity.nextFragment(SelectDay.newInstance(), "select_day");
+                activity.GetUserOrder().AddPeriodInfo(cleaning_period);
+                activity.nextFragment(SelectDayFragment.newInstance(), SelectDayFragment.TAG);
             }
         });
 

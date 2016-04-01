@@ -63,6 +63,10 @@ public class BasicInfoFragment1 extends Fragment {
         number_of_bedrooms = (TextView) fragment1View.findViewById(R.id.number_of_bedrooms);
         number_of_bathrooms = (TextView) fragment1View.findViewById(R.id.number_of_bathrooms);
         email = getActivity().getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE2);
+        pet_cat_existence = false;
+        pet_dog_existence = false;
+        pet_other_existence = false;
+        pet_nonexist = false;
 
         //increasing number of bedroom
         fragment1View.findViewById(R.id.btn_increment_bedroom).setOnClickListener(new View.OnClickListener() {
@@ -246,6 +250,7 @@ public class BasicInfoFragment1 extends Fragment {
 
         fragment1View.findViewById(R.id.btn_cat_existence).setOnClickListener(new View.OnClickListener() {
             private boolean pressed = false;
+
             @Override
             public void onClick(View v) {
                 pressed = !pressed;
@@ -256,6 +261,7 @@ public class BasicInfoFragment1 extends Fragment {
 
         fragment1View.findViewById(R.id.btn_dog_existence).setOnClickListener(new View.OnClickListener() {
             private boolean pressed = false;
+
             @Override
             public void onClick(View v) {
                 pressed = !pressed;
@@ -266,6 +272,7 @@ public class BasicInfoFragment1 extends Fragment {
 
         fragment1View.findViewById(R.id.btn_other_existence).setOnClickListener(new View.OnClickListener() {
             private boolean pressed = false;
+
             @Override
             public void onClick(View v) {
                 pressed = !pressed;
@@ -276,6 +283,7 @@ public class BasicInfoFragment1 extends Fragment {
 
         fragment1View.findViewById(R.id.btn_no_existence).setOnClickListener(new View.OnClickListener() {
             private boolean pressed = false;
+
             @Override
             public void onClick(View v) {
                 pressed = !pressed;
@@ -287,10 +295,9 @@ public class BasicInfoFragment1 extends Fragment {
         fragment1View.findViewById(R.id.btn_end_of_basic_info1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (home_type != null & home_size != null) {
+                if (home_type != null && home_size != null) {
                     attempAddBasicInfo1();
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Fill Out All The Information", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -332,7 +339,9 @@ public class BasicInfoFragment1 extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Snackbar.make(getActivity().findViewById(R.id.fragment_basic_info1), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
-            OrderActivity activity = (OrderActivity) getActivity();
+                OrderActivity activity = (OrderActivity) getActivity();
+                activity.GetUserOrder().AddHomeInfo(number_of_bedroom, number_of_bathroom, home_type, home_size, homeowner_existence);
+                activity.GetUserOrder().AddPetInfo(pet_cat_existence, pet_dog_existence, pet_other_existence, pet_nonexist);
                 activity.nextFragment(BasicInfoFragment2.newInstance(), "basic_info_fragment2");
             }
 

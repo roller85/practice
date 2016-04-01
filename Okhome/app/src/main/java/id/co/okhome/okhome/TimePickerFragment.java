@@ -15,6 +15,8 @@ import java.util.Calendar;
 /**
  * A simple {@link Fragment} subclass.
  */
+
+/*
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
     public interface PickTime {
@@ -31,7 +33,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     @Override
     public Dialog onCreateDialog(Bundle savedInstancesState) {
 
-        TimeSelection fragment = (TimeSelection) getParentFragment();
+        TimeSelectionFragment fragment = (TimeSelectionFragment) getParentFragment();
         mCallback = fragment;
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
@@ -55,3 +57,4 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     }
 
 }
+*/
