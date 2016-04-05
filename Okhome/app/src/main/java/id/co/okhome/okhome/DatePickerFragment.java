@@ -1,17 +1,9 @@
+
 package id.co.okhome.okhome;
 
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
+/*
 
-import java.util.Calendar;
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class DatePickerFragment extends DialogFragment {
 
 
@@ -43,6 +35,7 @@ public class DatePickerFragment extends DialogFragment {
             e.printStackTrace();
         }
         */
+/*
         DatePickerDialog dialog = new DatePickerDialog(getActivity(), timeSelectionFragment , year, month, setDay);
         dialog.getDatePicker().setMinDate(cal.getTimeInMillis());
 
@@ -52,3 +45,4 @@ public class DatePickerFragment extends DialogFragment {
 
 
 }
+*/

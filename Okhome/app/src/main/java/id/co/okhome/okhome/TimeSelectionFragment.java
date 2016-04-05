@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -223,15 +222,6 @@ public class TimeSelectionFragment extends Fragment implements DatePickerDialog.
         calculateNearestCleaningDay(visitDay1, visitDay2, visitDay3);
         view4 = (TextView) fragment5View.findViewById(R.id.startDate);
 
-
-        fragment5View.findViewById(R.id.startDayPicker).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment dateFragment = new DatePickerFragment();
-                dateFragment.show(getChildFragmentManager(), "datePicker");
-            }
-        });
-
         view4.setText(String.valueOf(startDate) + " " + startMonth + " " + startDay);
 
         fragment5View.findViewById(R.id.btn_end_of_time_selection).setOnClickListener(new View.OnClickListener() {
@@ -239,7 +229,8 @@ public class TimeSelectionFragment extends Fragment implements DatePickerDialog.
             public void onClick(View v) {
                 OrderActivity activity = (OrderActivity) getActivity();
                 activity.GetUserOrder().AddVisitTimeInfo(day1Time, day2Time, day3Time);
-                activity.GetUserOrder().AddStartDayInfo(startDate, startMonthInt, startYear);
+                activity.GetUserOrder().AddStartDayInfo(startDate, startDate, startMonthInt, startYear);
+                activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
             }
         });
 

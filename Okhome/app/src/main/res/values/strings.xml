@@ -71,6 +71,28 @@
     <string name="twenty_zero">20:00</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="choose_first_date">Choose Your Date</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="register_address_page">ADDRESS</string>
+    <string name="service_area_region">DKI Jakarta</string>
+    <string name="service_area_city">South Jakarta</string>
+    <string name="address_announcement1">*Sorry we currently service only in South Jakarta area"\n"
+        Please let us know if you want us to expand the service area</string>
+    <string name="detailed_address">Rest of Address(detail)</string>
+    <string name="location_detail">Location Detail (how to get your home)</string>
+    <string name="host_name">Host Name</string>
+    <string name="host_phone_number">Host Phone Number</string>
+
+
+    <string-array name="district_array">
+        <item>KEBAYORAN BARU</item>
+        <item>MAMPANG PRAPATAN</item>
+        <item>SETIABUDI</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

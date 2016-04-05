@@ -34,6 +34,7 @@ public class SelectDayFragment extends Fragment {
     private int visitDay1;
     private int visitDay2;
     private int visitDay3;
+    private int pressed_toggle_button;
     private String email;
     private int cleaning_period;
     private int btnLimit;
@@ -62,7 +63,10 @@ public class SelectDayFragment extends Fragment {
 
         email = getActivity().getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE2);
         SharedPreferences shared = getActivity().getPreferences(Context.MODE_PRIVATE);
-        cleaning_period = shared.getInt(OrderActivity.EXTRA_MESSAGE3,0);
+        cleaning_period = shared.getInt(OrderActivity.EXTRA_MESSAGE3, 0);
+
+        OrderActivity activity = (OrderActivity) getActivity();
+        pressed_toggle_button = activity.GetUserOrder().GetStartDay();
 
         Toast.makeText(getActivity(),"Cleaning period is "+cleaning_period, Toast.LENGTH_LONG).show();
 
@@ -82,6 +86,52 @@ public class SelectDayFragment extends Fragment {
         }
 
         mSchedule = new ArrayList<>();
+
+        switch (pressed_toggle_button) {
+            case 1:
+                ToggleButton tog_monday = (ToggleButton) fragment4View.findViewById(R.id.btn_monday);
+                tog_monday.setChecked(true);
+                mSchedule.add(1);
+                btnPressed = btnPressed+1;
+                break;
+            case 2:
+                ToggleButton tog_tuesday = (ToggleButton) fragment4View.findViewById(R.id.btn_tuesday);
+                tog_tuesday.setChecked(true);
+                mSchedule.add(2);
+                btnPressed = btnPressed+1;
+                break;
+            case 3:
+                ToggleButton tog_wednesday = (ToggleButton) fragment4View.findViewById(R.id.btn_wednesday);
+                tog_wednesday.setChecked(true);
+                mSchedule.add(3);
+                btnPressed = btnPressed+1;
+                break;
+            case 4:
+                ToggleButton tog_thursday = (ToggleButton) fragment4View.findViewById(R.id.btn_thursday);
+                tog_thursday.setChecked(true);
+                mSchedule.add(4);
+                btnPressed = btnPressed+1;
+                break;
+            case 5:
+                ToggleButton tog_friday = (ToggleButton) fragment4View.findViewById(R.id.btn_friday);
+                tog_friday.setChecked(true);
+                mSchedule.add(5);
+                btnPressed = btnPressed+1;
+                break;
+            case 6:
+                ToggleButton tog_saturday = (ToggleButton) fragment4View.findViewById(R.id.btn_saturday);
+                tog_saturday.setChecked(true);
+                mSchedule.add(6);
+                btnPressed = btnPressed+1;
+                break;
+            case 7:
+                ToggleButton tog_sunday = (ToggleButton) fragment4View.findViewById(R.id.btn_sunday);
+                tog_sunday.setChecked(true);
+                mSchedule.add(7);
+                btnPressed = btnPressed+1;
+                break;
+        }
+
 
             ToggleButton tog_monday = (ToggleButton) fragment4View.findViewById(R.id.btn_monday);
             tog_monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -10,6 +10,7 @@ public class UserOrder implements Serializable {
     private PetInfo petInfo;
     private ScheduleInfo scheduleInfo;
     private CleaningDayInfo cleaningDayInfo;
+    private AddressInfo addressInfo;
 
     public void AddHomeInfo(int numberOfBedroom, int numberOfBathroom, String homeType, String homeSize, boolean homeownerExistence) {
         this.homeInfo = new HomeInfo(numberOfBedroom, numberOfBathroom, homeType, homeSize, homeownerExistence);
@@ -96,19 +97,51 @@ public class UserOrder implements Serializable {
         }
     }
 
-    public void AddStartDayInfo(int day, int month, int year) {
-        this.cleaningDayInfo = new CleaningDayInfo(day, month, year);
+    public void AddStartDayInfo(int day, int date, int month, int year) {
+        this.cleaningDayInfo = new CleaningDayInfo(day, date, month, year);
+    }
+
+    public int GetStartDay() {
+        return cleaningDayInfo.startDay;
     }
 
     public class CleaningDayInfo {
         private int startDay;
+        private int startDate;
         private int startMonth;
         private int startYear;
 
-        public CleaningDayInfo(int day, int month, int year) {
+        public CleaningDayInfo(int day, int date, int month, int year) {
             this.startDay = day;
+            this.startDate = date;
             this.startMonth = month;
             this.startYear = year;
+        }
+
+    }
+
+    public void AddAddressInfo(String region, String city, String district, String detailed_address, String location_detail, String host_name, String host_phone_number) {
+        this.addressInfo = new AddressInfo(region, city, district, detailed_address, location_detail, host_name, host_phone_number);
+    }
+
+    public class AddressInfo {
+        private String host_region;
+        private String host_city;
+        private String host_district;
+        private String host_detailed_address;
+        private String host_location_detail;
+        private String host_name;
+        private String host_phone_number;
+
+        public AddressInfo(String region, String city, String district, String detailed_address, String location_detail,
+                           String host_name, String host_phone_number) {
+            this.host_region = region;
+            this.host_city = city;
+            this.host_district = district;
+            this.host_detailed_address = detailed_address;
+            this.host_location_detail = location_detail;
+            this.host_name = host_name;
+            this.host_phone_number = host_phone_number;
         }
     }
 }

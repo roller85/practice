@@ -6,6 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.Toast;
+
+import org.joda.time.DateTime;
+
+import java.util.Calendar;
 
 
 /**
@@ -13,9 +19,21 @@ import android.view.ViewGroup;
  */
 public class SelectDateFragment extends Fragment {
 
+    public static final String TAG = "SelectDateFragment";
+
+    DatePicker datePicker;
+    private int firstStartDate;
+    private int firstStartDay;
+    private int firstStartMonth;
+    private int firstStartYear;
 
     public SelectDateFragment() {
         // Required empty public constructor
+    }
+
+    public static SelectDateFragment newInstance() {
+        SelectDateFragment fragment = new SelectDateFragment();
+        return fragment;
     }
 
 
@@ -23,7 +41,38 @@ public class SelectDateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_select_date, container, false);
+        View fragment6View = inflater.inflate(R.layout.fragment_select_date, container, false);
+
+        datePicker = (DatePicker) fragment6View.findViewById(R.id.first_date_picker);
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.add(Calendar.DAY_OF_MONTH, 2);
+        datePicker.setMinDate(calendar.getTimeInMillis());
+        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                DateTime dt = new DateTime(year, monthOfYear+1, dayOfMonth, 0, 0, 0);
+                firstStartDay = dt.getDayOfWeek();
+                firstStartDate = dt.getDayOfMonth();
+                firstStartMonth = dt.getMonthOfYear();
+                firstStartYear = dt.getYear();
+                Toast.makeText(getActivity(), firstStartYear+"/"+firstStartMonth+"/"+firstStartDate,Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        fragment6View.findViewById(R.id.btn_end_of_select_date_fragment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderActivity activity = (OrderActivity) getActivity();
+                activity.GetUserOrder().AddStartDayInfo(firstStartDay, firstStartDate, firstStartMonth, firstStartYear);
+                activity.nextFragment(SelectDayFragment.newInstance(), SelectDayFragment.TAG);
+            }
+        });
+
+        return fragment6View;
     }
 
 }
