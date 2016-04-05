@@ -59,8 +59,8 @@ public class UserOrder implements Serializable {
         }
     }
 
-    public void AddPeriodInfo(int period) {
-        this.scheduleInfo = new ScheduleInfo(period);
+    public void AddPeriodInfo(int period, int duration) {
+        this.scheduleInfo = new ScheduleInfo(period, duration);
     }
 
     public void AddVisitDayInfo(int visitDay1, int visitDay2, int visitDay3) {
@@ -71,8 +71,13 @@ public class UserOrder implements Serializable {
         this.scheduleInfo = new ScheduleInfo(timeDay1, timeDay2, timeDay3);
     }
 
+    public String GetStartTimeDay1() {
+        return scheduleInfo.timeDay1;
+    }
+
     public class ScheduleInfo {
         private int period;
+        private int duration;
         private int visitDay1;
         private int visitDay2;
         private int visitDay3;
@@ -80,8 +85,10 @@ public class UserOrder implements Serializable {
         private String timeDay2;
         private String timeDay3;
 
-        public ScheduleInfo(int period) {
+
+        public ScheduleInfo(int period, int duration) {
             this.period = period;
+            this.duration = duration;
         }
 
         public ScheduleInfo(int visitDay1, int visitDay2, int visitDay3) {
@@ -95,6 +102,7 @@ public class UserOrder implements Serializable {
             this.timeDay2 = timeDay2;
             this.timeDay3 = timeDay3;
         }
+
     }
 
     public void AddStartDayInfo(int day, int date, int month, int year) {
@@ -103,6 +111,12 @@ public class UserOrder implements Serializable {
 
     public int GetStartDay() {
         return cleaningDayInfo.startDay;
+    }
+    public int GetStartMonth() {
+        return cleaningDayInfo.startMonth;
+    }
+    public int GetStartDate() {
+        return cleaningDayInfo.startDate;
     }
 
     public class CleaningDayInfo {
