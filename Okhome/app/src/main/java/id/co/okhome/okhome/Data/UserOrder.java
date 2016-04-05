@@ -1,8 +1,5 @@
 package id.co.okhome.okhome.Data;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import java.io.Serializable;
 
 /**
@@ -12,6 +9,7 @@ public class UserOrder implements Serializable {
     private HomeInfo homeInfo;
     private PetInfo petInfo;
     private ScheduleInfo scheduleInfo;
+    private CleaningDayInfo cleaningDayInfo;
 
     public void AddHomeInfo(int numberOfBedroom, int numberOfBathroom, String homeType, String homeSize, boolean homeownerExistence) {
         this.homeInfo = new HomeInfo(numberOfBedroom, numberOfBathroom, homeType, homeSize, homeownerExistence);
@@ -81,8 +79,6 @@ public class UserOrder implements Serializable {
         private String timeDay2;
         private String timeDay3;
 
-        DateTimeFormatter fmt = DateTimeFormat.shortTime();
-
         public ScheduleInfo(int period) {
             this.period = period;
         }
@@ -97,6 +93,22 @@ public class UserOrder implements Serializable {
             this.timeDay1 = timeDay1;
             this.timeDay2 = timeDay2;
             this.timeDay3 = timeDay3;
+        }
+    }
+
+    public void AddStartDayInfo(int day, int month, int year) {
+        this.cleaningDayInfo = new CleaningDayInfo(day, month, year);
+    }
+
+    public class CleaningDayInfo {
+        private int startDay;
+        private int startMonth;
+        private int startYear;
+
+        public CleaningDayInfo(int day, int month, int year) {
+            this.startDay = day;
+            this.startMonth = month;
+            this.startYear = year;
         }
     }
 }

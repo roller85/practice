@@ -41,6 +41,7 @@ public class OrderActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userOrder = new UserOrder();
 //        userOrder = (UserOrder) savedInstanceState.getSerializable("tempData");
         setContentView(R.layout.activity_order);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,6 +64,9 @@ public class OrderActivity extends AppCompatActivity{
             BasicInfoFragment1 fragment1 = new BasicInfoFragment1();
             fragment1.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment1).commit();
+
+            DatePickerFragment datePickerFragment = new DatePickerFragment();
+            getSupportFragmentManager().beginTransaction().add(datePickerFragment, "datePicker");
 
             /*
             TimePickerFragment timePickerFragment = new TimePickerFragment();

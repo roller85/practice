@@ -1,19 +1,23 @@
 package id.co.okhome.okhome;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
 
-public class TimeSelectionFragment extends Fragment  {
+public class TimeSelectionFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     public static final String TAG = "TimeSelectionFragment";
 
@@ -34,8 +38,12 @@ public class TimeSelectionFragment extends Fragment  {
     public String day2Time;
     public String day3Time;
     private String startMonth;
+    private int startMonthInt;
     private int startDate;
     private String startDay;
+    private int startYear;
+    private String startSchedule;
+    public TextView view4;
 
     public TimeSelectionFragment() {
         // Required empty public constructor
@@ -209,9 +217,31 @@ public class TimeSelectionFragment extends Fragment  {
                 break;
         }
 
+        DateTime dt = new DateTime();
+        Toast.makeText(getActivity(), "Today is: " + dt, Toast.LENGTH_LONG).show();
+
         calculateNearestCleaningDay(visitDay1, visitDay2, visitDay3);
-        TextView view4 = (TextView) fragment5View.findViewById(R.id.startDate);
+        view4 = (TextView) fragment5View.findViewById(R.id.startDate);
+
+
+        fragment5View.findViewById(R.id.startDayPicker).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment dateFragment = new DatePickerFragment();
+                dateFragment.show(getChildFragmentManager(), "datePicker");
+            }
+        });
+
         view4.setText(String.valueOf(startDate) + " " + startMonth + " " + startDay);
+
+        fragment5View.findViewById(R.id.btn_end_of_time_selection).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderActivity activity = (OrderActivity) getActivity();
+                activity.GetUserOrder().AddVisitTimeInfo(day1Time, day2Time, day3Time);
+                activity.GetUserOrder().AddStartDayInfo(startDate, startMonthInt, startYear);
+            }
+        });
 
         return fragment5View;
     }
@@ -321,9 +351,10 @@ public class TimeSelectionFragment extends Fragment  {
         int dow = result.getDayOfWeek();
 
         while(!found) {
-            if(dow+i == day1 || dow+i == day2 || dow+i == day3) {
+            if((dow+i)%7 == day1 || (dow+i)%7 == day2 || (dow+i)%7 == day3) {
                 found = true;
                 startDate = result.plusDays(i).getDayOfMonth();
+                startMonthInt = result.plusDays(i).getMonthOfYear();
                 DateTime.Property pdow = result.plusDays(i).monthOfYear();
                 startMonth = pdow.getAsShortText();
                 int date = result.plusDays(i).getDayOfWeek();
@@ -336,5 +367,37 @@ public class TimeSelectionFragment extends Fragment  {
 
     }
 
+    public String intToMonth(int month) {
+        if (month==1) { return "JAN";
+        } else if (month==2) { return  "FEB";
+        } else if (month==3) { return "MAR";
+        } else if (month==4) { return  "APR";
+        } else if (month==5) { return "MAY";
+        } else if (month==6) { return "JUN";
+        } else if (month==7) { return "JUL";
+        } else if (month==8) { return "AUG";
+        } else if (month==9) { return "SEP";
+        } else if (month==10) { return "OCT";
+        } else if (month==11) { return "SEP";
+        } else { return "DEC";
+        }
+    }
+
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        DateTime dt = new DateTime(year,monthOfYear,dayOfMonth,0,0,0);
+        startYear = year;
+        startMonthInt = monthOfYear;
+        DateTime.Property pdow = dt.monthOfYear();
+        startDate = dt.getDayOfMonth();
+        startMonth = pdow.getAsShortText();
+        startDay = intIntoDay(dt.getDayOfWeek());
+        view4.setText(String.valueOf(startDate) + " " + startMonth + " " + startDay);
+    }
+
+    public int getStartDate() {
+        return startDate;
+    }
 
 }
