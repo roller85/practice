@@ -65,8 +65,10 @@ public class OrderActivity extends AppCompatActivity{
             fragment1.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment1).commit();
 
+            /*
             DatePickerFragment datePickerFragment = new DatePickerFragment();
             getSupportFragmentManager().beginTransaction().add(datePickerFragment, "datePicker");
+            */
 
             /*
             TimePickerFragment timePickerFragment = new TimePickerFragment();

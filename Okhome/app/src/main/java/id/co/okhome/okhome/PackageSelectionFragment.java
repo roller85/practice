@@ -93,6 +93,7 @@ public class PackageSelectionFragment extends Fragment {
                 editor.commit();
                 OrderActivity activity = (OrderActivity) getActivity();
                 activity.GetUserOrder().AddPeriodInfo(cleaning_period, cleaning_hours);
+                activity.GetUserOrder().AddPriceInfo(charge_per_hour, cleaning_hours, cleaning_days, charge_per_week);
                 activity.nextFragment(SelectDateFragment.newInstance(), SelectDateFragment.TAG);
             }
         });

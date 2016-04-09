@@ -250,16 +250,6 @@
             android:layout_height="match_parent"
             android:id="@+id/startDate" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/want_another_day" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/startDayPicker"/>
-
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

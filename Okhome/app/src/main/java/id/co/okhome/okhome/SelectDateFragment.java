@@ -58,7 +58,7 @@ public class SelectDateFragment extends Fragment {
                 firstStartDate = dt.getDayOfMonth();
                 firstStartMonth = dt.getMonthOfYear();
                 firstStartYear = dt.getYear();
-                Toast.makeText(getActivity(), firstStartYear+"/"+firstStartMonth+"/"+firstStartDate,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), firstStartYear+"/"+firstStartMonth+"/"+firstStartDate+"/"+firstStartDay,Toast.LENGTH_SHORT).show();
 
             }
         });

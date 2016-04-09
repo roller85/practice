@@ -126,30 +126,7 @@ public class TimeSelectionFragment extends Fragment implements DatePickerDialog.
         rg1_day1.setOnCheckedChangeListener(listener1);
         rg2_day1.setOnCheckedChangeListener(listener2);
 
-        int chkId1_day1 = rg1_day1.getCheckedRadioButtonId();
-        int chkId2_day1 = rg2_day1.getCheckedRadioButtonId();
-        int chk_day1 = chkId1_day1 == -1 ? chkId2_day1 : chkId1_day1;
 
-        switch (chk_day1) {
-            case R.id.btn_eight_thirty_day1:
-                day1Time = getString(R.string.eight_thirty);
-                break;
-            case R.id.btn_nine_zero_day1:
-                day1Time = getString(R.string.nine_zero);
-                break;
-            case R.id.btn_fourteen_zero_day1:
-                day1Time = getString(R.string.fourteen_zero);
-                break;
-            case R.id.btn_fourteen_thirty_day1:
-                day1Time = getString(R.string.fourteen_thirty);
-                break;
-            case R.id.btn_nineteen_thirty_day1:
-                day1Time = getString(R.string.nineteen_thirty);
-                break;
-            case R.id.btn_twenty_zero_day1:
-                day1Time = getString(R.string.twenty_zero);
-                break;
-        }
 
         rg1_day2 = (RadioGroup) fragment5View.findViewById(R.id.rdb_select_time1_day2);
         rg2_day2 = (RadioGroup) fragment5View.findViewById(R.id.rdb_select_time2_day2);
@@ -157,31 +134,6 @@ public class TimeSelectionFragment extends Fragment implements DatePickerDialog.
         rg2_day2.clearCheck();
         rg1_day2.setOnCheckedChangeListener(listener3);
         rg2_day2.setOnCheckedChangeListener(listener4);
-
-        int chkId1_day2 = rg1_day2.getCheckedRadioButtonId();
-        int chkId2_day2 = rg2_day2.getCheckedRadioButtonId();
-        int chk_day2 = chkId1_day2 == -1 ? chkId2_day2 : chkId1_day2;
-
-        switch (chk_day2) {
-            case R.id.btn_eight_thirty_day2:
-                day2Time = getString(R.string.eight_thirty);
-                break;
-            case R.id.btn_nine_zero_day2:
-                day2Time = getString(R.string.nine_zero);
-                break;
-            case R.id.btn_fourteen_zero_day2:
-                day2Time = getString(R.string.fourteen_zero);
-                break;
-            case R.id.btn_fourteen_thirty_day2:
-                day2Time = getString(R.string.fourteen_thirty);
-                break;
-            case R.id.btn_nineteen_thirty_day2:
-                day2Time = getString(R.string.nineteen_thirty);
-                break;
-            case R.id.btn_twenty_zero_day2:
-                day2Time = getString(R.string.twenty_zero);
-                break;
-        }
 
 
         rg1_day3 = (RadioGroup) fragment5View.findViewById(R.id.rdb_select_time1_day3);
@@ -191,30 +143,7 @@ public class TimeSelectionFragment extends Fragment implements DatePickerDialog.
         rg1_day3.setOnCheckedChangeListener(listener5);
         rg2_day3.setOnCheckedChangeListener(listener6);
 
-        int chkId1_day3 = rg1_day3.getCheckedRadioButtonId();
-        int chkId2_day3 = rg2_day3.getCheckedRadioButtonId();
-        int chk_day3 = chkId1_day3 == -1 ? chkId2_day3 : chkId1_day3;
 
-        switch (chk_day3) {
-            case R.id.btn_eight_thirty_day3:
-                day3Time = getString(R.string.eight_thirty);
-                break;
-            case R.id.btn_nine_zero_day3:
-                day3Time = getString(R.string.nine_zero);
-                break;
-            case R.id.btn_fourteen_zero_day3:
-                day3Time = getString(R.string.fourteen_zero);
-                break;
-            case R.id.btn_fourteen_thirty_day3:
-                day3Time = getString(R.string.fourteen_thirty);
-                break;
-            case R.id.btn_nineteen_thirty_day3:
-                day3Time = getString(R.string.nineteen_thirty);
-                break;
-            case R.id.btn_twenty_zero_day3:
-                day3Time = getString(R.string.twenty_zero);
-                break;
-        }
 
         DateTime dt = new DateTime();
         Toast.makeText(getActivity(), "Today is: " + dt, Toast.LENGTH_LONG).show();
@@ -227,9 +156,83 @@ public class TimeSelectionFragment extends Fragment implements DatePickerDialog.
         fragment5View.findViewById(R.id.btn_end_of_time_selection).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int chkId1_day1 = rg1_day1.getCheckedRadioButtonId();
+                int chkId2_day1 = rg2_day1.getCheckedRadioButtonId();
+                int chk_day1 = chkId1_day1 == -1 ? chkId2_day1 : chkId1_day1;
+
+                switch (chk_day1) {
+                    case R.id.btn_eight_thirty_day1:
+                        day1Time = getString(R.string.eight_thirty);
+                        break;
+                    case R.id.btn_nine_zero_day1:
+                        day1Time = getString(R.string.nine_zero);
+                        break;
+                    case R.id.btn_fourteen_zero_day1:
+                        day1Time = getString(R.string.fourteen_zero);
+                        break;
+                    case R.id.btn_fourteen_thirty_day1:
+                        day1Time = getString(R.string.fourteen_thirty);
+                        break;
+                    case R.id.btn_nineteen_thirty_day1:
+                        day1Time = getString(R.string.nineteen_thirty);
+                        break;
+                    case R.id.btn_twenty_zero_day1:
+                        day1Time = getString(R.string.twenty_zero);
+                        break;
+                }
+
+                int chkId1_day2 = rg1_day2.getCheckedRadioButtonId();
+                int chkId2_day2 = rg2_day2.getCheckedRadioButtonId();
+                int chk_day2 = chkId1_day2 == -1 ? chkId2_day2 : chkId1_day2;
+
+                switch (chk_day2) {
+                    case R.id.btn_eight_thirty_day2:
+                        day2Time = getString(R.string.eight_thirty);
+                        break;
+                    case R.id.btn_nine_zero_day2:
+                        day2Time = getString(R.string.nine_zero);
+                        break;
+                    case R.id.btn_fourteen_zero_day2:
+                        day2Time = getString(R.string.fourteen_zero);
+                        break;
+                    case R.id.btn_fourteen_thirty_day2:
+                        day2Time = getString(R.string.fourteen_thirty);
+                        break;
+                    case R.id.btn_nineteen_thirty_day2:
+                        day2Time = getString(R.string.nineteen_thirty);
+                        break;
+                    case R.id.btn_twenty_zero_day2:
+                        day2Time = getString(R.string.twenty_zero);
+                        break;
+                }
+
+                int chkId1_day3 = rg1_day3.getCheckedRadioButtonId();
+                int chkId2_day3 = rg2_day3.getCheckedRadioButtonId();
+                int chk_day3 = chkId1_day3 == -1 ? chkId2_day3 : chkId1_day3;
+
+                switch (chk_day3) {
+                    case R.id.btn_eight_thirty_day3:
+                        day3Time = getString(R.string.eight_thirty);
+                        break;
+                    case R.id.btn_nine_zero_day3:
+                        day3Time = getString(R.string.nine_zero);
+                        break;
+                    case R.id.btn_fourteen_zero_day3:
+                        day3Time = getString(R.string.fourteen_zero);
+                        break;
+                    case R.id.btn_fourteen_thirty_day3:
+                        day3Time = getString(R.string.fourteen_thirty);
+                        break;
+                    case R.id.btn_nineteen_thirty_day3:
+                        day3Time = getString(R.string.nineteen_thirty);
+                        break;
+                    case R.id.btn_twenty_zero_day3:
+                        day3Time = getString(R.string.twenty_zero);
+                        break;
+                }
+
                 OrderActivity activity = (OrderActivity) getActivity();
                 activity.GetUserOrder().AddVisitTimeInfo(day1Time, day2Time, day3Time);
-                activity.GetUserOrder().AddStartDayInfo(startDate, startDate, startMonthInt, startYear);
                 activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
             }
         });

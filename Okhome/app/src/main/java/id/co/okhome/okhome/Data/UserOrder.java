@@ -11,6 +11,29 @@ public class UserOrder implements Serializable {
     private ScheduleInfo scheduleInfo;
     private CleaningDayInfo cleaningDayInfo;
     private AddressInfo addressInfo;
+    private PriceInfo priceInfo;
+
+    public void AddPriceInfo(int chargePerHour, int cleaningHours, int cleaningDays, int chargePerWeek) {
+        this.priceInfo = new PriceInfo(chargePerHour, cleaningHours, cleaningDays, chargePerWeek);
+    }
+
+    public int GetChargePerWeek() {
+        return priceInfo.chargePerWeek;
+    }
+
+    public class PriceInfo {
+        private int chargePerHour;
+        private int cleaningHours;
+        private int cleaningDays;
+        private int chargePerWeek;
+
+        public PriceInfo(int chargePerHour, int cleaningHours, int cleaningDays, int chargePerWeek) {
+            this.chargePerHour = chargePerHour;
+            this.cleaningHours = cleaningHours;
+            this.cleaningDays = cleaningDays;
+            this.chargePerWeek = chargePerWeek;
+        }
+    }
 
     public void AddHomeInfo(int numberOfBedroom, int numberOfBathroom, String homeType, String homeSize, boolean homeownerExistence) {
         this.homeInfo = new HomeInfo(numberOfBedroom, numberOfBathroom, homeType, homeSize, homeownerExistence);
@@ -75,6 +98,22 @@ public class UserOrder implements Serializable {
         return scheduleInfo.timeDay1;
     }
 
+    public int GetDurationInfo() {
+        return scheduleInfo.duration;
+    }
+    
+    public int GetVisitDay1() {
+        return scheduleInfo.visitDay1;
+    }
+
+    public int GetVisitDay2() {
+        return scheduleInfo.visitDay2;
+    }
+
+    public int GetVisitDay3() {
+        return scheduleInfo.visitDay3;
+    }
+
     public class ScheduleInfo {
         private int period;
         private int duration;
@@ -86,9 +125,9 @@ public class UserOrder implements Serializable {
         private String timeDay3;
 
 
-        public ScheduleInfo(int period, int duration) {
-            this.period = period;
-            this.duration = duration;
+        public ScheduleInfo(int period1, int duration1) {
+            this.period = period1;
+            this.duration = duration1;
         }
 
         public ScheduleInfo(int visitDay1, int visitDay2, int visitDay3) {
