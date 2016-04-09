@@ -7,8 +7,11 @@ import java.io.Serializable;
  */
 public class UserOrder implements Serializable {
     private HomeInfo homeInfo;
+    private HomeInfo homeInfo1;
     private PetInfo petInfo;
     private ScheduleInfo scheduleInfo;
+    private ScheduleInfo scheduleInfo1;
+    private ScheduleInfo scheduleInfo2;
     private CleaningDayInfo cleaningDayInfo;
     private AddressInfo addressInfo;
     private PriceInfo priceInfo;
@@ -40,7 +43,7 @@ public class UserOrder implements Serializable {
     }
 
     public void AddHomeDetailInfo(String homeDetail) {
-        this.homeInfo = new HomeInfo(homeDetail);
+        this.homeInfo1 = new HomeInfo(homeDetail);
     }
 
     public class HomeInfo {
@@ -87,15 +90,15 @@ public class UserOrder implements Serializable {
     }
 
     public void AddVisitDayInfo(int visitDay1, int visitDay2, int visitDay3) {
-        this.scheduleInfo = new ScheduleInfo(visitDay1, visitDay2, visitDay3);
+        this.scheduleInfo1 = new ScheduleInfo(visitDay1, visitDay2, visitDay3);
     }
 
     public void AddVisitTimeInfo(String timeDay1, String timeDay2, String timeDay3) {
-        this.scheduleInfo = new ScheduleInfo(timeDay1, timeDay2, timeDay3);
+        this.scheduleInfo2 = new ScheduleInfo(timeDay1, timeDay2, timeDay3);
     }
 
     public String GetStartTimeDay1() {
-        return scheduleInfo.timeDay1;
+        return scheduleInfo2.timeDay1;
     }
 
     public int GetDurationInfo() {
@@ -103,15 +106,15 @@ public class UserOrder implements Serializable {
     }
     
     public int GetVisitDay1() {
-        return scheduleInfo.visitDay1;
+        return scheduleInfo1.visitDay1;
     }
 
     public int GetVisitDay2() {
-        return scheduleInfo.visitDay2;
+        return scheduleInfo1.visitDay2;
     }
 
     public int GetVisitDay3() {
-        return scheduleInfo.visitDay3;
+        return scheduleInfo1.visitDay3;
     }
 
     public class ScheduleInfo {

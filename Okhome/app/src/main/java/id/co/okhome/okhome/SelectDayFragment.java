@@ -342,8 +342,16 @@ public class SelectDayFragment extends Fragment {
                 Snackbar.make(getActivity().findViewById(R.id.fragment_select_day), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
                 OrderActivity activity = (OrderActivity) getActivity();
                 activity.GetUserOrder().AddVisitDayInfo(visitDay1, visitDay2, visitDay3);
-                activity.nextFragment(TimeSelectionFragment.newInstance(), TimeSelectionFragment.TAG);
-
+                switch (btnLimit) {
+                    case 1:
+                        activity.nextFragment(TimeSelectionOneDayFragment.newInstance(), TimeSelectionOneDayFragment.TAG);
+                        break;
+                    case 2:
+                        activity.nextFragment(TimeSelectionTwoDaysFragment.newInstance(), TimeSelectionTwoDaysFragment.TAG);
+                        break;
+                    case 3:
+                        activity.nextFragment(TimeSelectionThreeDaysFragment.newInstance(), TimeSelectionThreeDaysFragment.TAG);
+                }
             }
         });
     }

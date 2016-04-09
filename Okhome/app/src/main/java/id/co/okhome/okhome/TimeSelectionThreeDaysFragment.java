@@ -1,6 +1,5 @@
 package id.co.okhome.okhome;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,9 +14,9 @@ import android.widget.Toast;
 import org.joda.time.DateTime;
 
 
-public class TimeSelectionFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class TimeSelectionThreeDaysFragment extends Fragment {
 
-    public static final String TAG = "TimeSelectionFragment";
+    public static final String TAG = "TimeSelectionThreeDaysFragment";
 
     private String email;
     private int visitDay1;
@@ -44,12 +42,12 @@ public class TimeSelectionFragment extends Fragment implements DatePickerDialog.
     private String startSchedule;
     public TextView view4;
 
-    public TimeSelectionFragment() {
+    public TimeSelectionThreeDaysFragment() {
         // Required empty public constructor
     }
 
-    public static TimeSelectionFragment newInstance() {
-        TimeSelectionFragment fragment = new TimeSelectionFragment();
+    public static TimeSelectionThreeDaysFragment newInstance() {
+        TimeSelectionThreeDaysFragment fragment = new TimeSelectionThreeDaysFragment();
         return fragment;
     }
 
@@ -57,7 +55,7 @@ public class TimeSelectionFragment extends Fragment implements DatePickerDialog.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View fragment5View = inflater.inflate(R.layout.fragment_time_selection, container, false);
+        final View fragment5View = inflater.inflate(R.layout.fragment_time_selection_three_days, container, false);
 
         email = getActivity().getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE2);
 
@@ -148,63 +146,67 @@ public class TimeSelectionFragment extends Fragment implements DatePickerDialog.
         DateTime dt = new DateTime();
         Toast.makeText(getActivity(), "Today is: " + dt, Toast.LENGTH_LONG).show();
 
-        calculateNearestCleaningDay(visitDay1, visitDay2, visitDay3);
         view4 = (TextView) fragment5View.findViewById(R.id.startDate);
-
+        OrderActivity activity = (OrderActivity) getActivity();
+        startDate = activity.GetUserOrder().GetStartDate();
+        int month = activity.GetUserOrder().GetStartMonth();
+        startMonth = intToMonth(month);
+        int day = activity.GetUserOrder().GetStartDay();
+        startDay = intIntoDay(day);
         view4.setText(String.valueOf(startDate) + " " + startMonth + " " + startDay);
 
-        fragment5View.findViewById(R.id.btn_end_of_time_selection).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int chkId1_day1 = rg1_day1.getCheckedRadioButtonId();
-                int chkId2_day1 = rg2_day1.getCheckedRadioButtonId();
-                int chk_day1 = chkId1_day1 == -1 ? chkId2_day1 : chkId1_day1;
+            fragment5View.findViewById(R.id.btn_end_of_time_selection).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int chkId1_day1 = rg1_day1.getCheckedRadioButtonId();
+                    int chkId2_day1 = rg2_day1.getCheckedRadioButtonId();
+                    int chk_day1 = chkId1_day1 == -1 ? chkId2_day1 : chkId1_day1;
 
-                switch (chk_day1) {
-                    case R.id.btn_eight_thirty_day1:
-                        day1Time = getString(R.string.eight_thirty);
-                        break;
-                    case R.id.btn_nine_zero_day1:
-                        day1Time = getString(R.string.nine_zero);
-                        break;
-                    case R.id.btn_fourteen_zero_day1:
-                        day1Time = getString(R.string.fourteen_zero);
-                        break;
-                    case R.id.btn_fourteen_thirty_day1:
-                        day1Time = getString(R.string.fourteen_thirty);
-                        break;
-                    case R.id.btn_nineteen_thirty_day1:
-                        day1Time = getString(R.string.nineteen_thirty);
-                        break;
-                    case R.id.btn_twenty_zero_day1:
-                        day1Time = getString(R.string.twenty_zero);
-                        break;
-                }
+                    switch (chk_day1) {
+                        case R.id.btn_eight_thirty_day1:
+                            day1Time = getString(R.string.eight_thirty);
+                            break;
+                        case R.id.btn_nine_zero_day1:
+                            day1Time = getString(R.string.nine_zero);
+                            break;
+                        case R.id.btn_fourteen_zero_day1:
+                            day1Time = getString(R.string.fourteen_zero);
+                            break;
+                        case R.id.btn_fourteen_thirty_day1:
+                            day1Time = getString(R.string.fourteen_thirty);
+                            break;
+                        case R.id.btn_nineteen_thirty_day1:
+                            day1Time = getString(R.string.nineteen_thirty);
+                            break;
+                        case R.id.btn_twenty_zero_day1:
+                            day1Time = getString(R.string.twenty_zero);
+                            break;
+                    }
 
-                int chkId1_day2 = rg1_day2.getCheckedRadioButtonId();
-                int chkId2_day2 = rg2_day2.getCheckedRadioButtonId();
-                int chk_day2 = chkId1_day2 == -1 ? chkId2_day2 : chkId1_day2;
+                    int chkId1_day2 = rg1_day2.getCheckedRadioButtonId();
+                    int chkId2_day2 = rg2_day2.getCheckedRadioButtonId();
+                    int chk_day2 = chkId1_day2 == -1 ? chkId2_day2 : chkId1_day2;
 
-                switch (chk_day2) {
-                    case R.id.btn_eight_thirty_day2:
-                        day2Time = getString(R.string.eight_thirty);
-                        break;
-                    case R.id.btn_nine_zero_day2:
-                        day2Time = getString(R.string.nine_zero);
-                        break;
-                    case R.id.btn_fourteen_zero_day2:
-                        day2Time = getString(R.string.fourteen_zero);
-                        break;
-                    case R.id.btn_fourteen_thirty_day2:
-                        day2Time = getString(R.string.fourteen_thirty);
-                        break;
-                    case R.id.btn_nineteen_thirty_day2:
-                        day2Time = getString(R.string.nineteen_thirty);
-                        break;
-                    case R.id.btn_twenty_zero_day2:
-                        day2Time = getString(R.string.twenty_zero);
-                        break;
-                }
+                    switch (chk_day2) {
+                        case R.id.btn_eight_thirty_day2:
+                            day2Time = getString(R.string.eight_thirty);
+                            break;
+                        case R.id.btn_nine_zero_day2:
+                            day2Time = getString(R.string.nine_zero);
+                            break;
+                        case R.id.btn_fourteen_zero_day2:
+                            day2Time = getString(R.string.fourteen_zero);
+                            break;
+                        case R.id.btn_fourteen_thirty_day2:
+                            day2Time = getString(R.string.fourteen_thirty);
+                            break;
+                        case R.id.btn_nineteen_thirty_day2:
+                            day2Time = getString(R.string.nineteen_thirty);
+                            break;
+                        case R.id.btn_twenty_zero_day2:
+                            day2Time = getString(R.string.twenty_zero);
+                            break;
+                    }
 
                 int chkId1_day3 = rg1_day3.getCheckedRadioButtonId();
                 int chkId2_day3 = rg2_day3.getCheckedRadioButtonId();
@@ -336,31 +338,6 @@ public class TimeSelectionFragment extends Fragment implements DatePickerDialog.
         }
     }
 
-    public void calculateNearestCleaningDay(int day1, int day2, int day3) {
-        int daysToWait = 7;
-        int i = 0;
-        boolean found = false;
-        DateTime dt = new DateTime();
-        DateTime result = dt.plusDays(daysToWait);
-        int dow = result.getDayOfWeek();
-
-        while(!found) {
-            if((dow+i)%7 == day1 || (dow+i)%7 == day2 || (dow+i)%7 == day3) {
-                found = true;
-                startDate = result.plusDays(i).getDayOfMonth();
-                startMonthInt = result.plusDays(i).getMonthOfYear();
-                DateTime.Property pdow = result.plusDays(i).monthOfYear();
-                startMonth = pdow.getAsShortText();
-                int date = result.plusDays(i).getDayOfWeek();
-                startDay = intIntoDay(date);
-                break;
-            } else {
-                i++;
-            }
-        }
-
-    }
-
     public String intToMonth(int month) {
         if (month==1) { return "JAN";
         } else if (month==2) { return  "FEB";
@@ -375,23 +352,6 @@ public class TimeSelectionFragment extends Fragment implements DatePickerDialog.
         } else if (month==11) { return "SEP";
         } else { return "DEC";
         }
-    }
-
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        DateTime dt = new DateTime(year,monthOfYear,dayOfMonth,0,0,0);
-        startYear = year;
-        startMonthInt = monthOfYear;
-        DateTime.Property pdow = dt.monthOfYear();
-        startDate = dt.getDayOfMonth();
-        startMonth = pdow.getAsShortText();
-        startDay = intIntoDay(dt.getDayOfWeek());
-        view4.setText(String.valueOf(startDate) + " " + startMonth + " " + startDay);
-    }
-
-    public int getStartDate() {
-        return startDate;
     }
 
 }

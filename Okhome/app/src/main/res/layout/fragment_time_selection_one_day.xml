@@ -1,0 +1,115 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_time_selection_one_day"
+    tools:context=".TimeSelectionOneDayFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/estimated_time" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/estimatedTime_one_day" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cleaningDay1_one_day" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/rdb_select_time1_day1_one_day"
+                android:layout_weight="1">
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eight_thirty"
+                    android:id="@+id/btn_eight_thirty_day1_one_day"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color_selector"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fourteen_zero"
+                    android:id="@+id/btn_fourteen_zero_day1_one_day"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color_selector"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nineteen_thirty"
+                    android:id="@+id/btn_nineteen_thirty_day1_one_day"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color_selector"/>
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/rdb_select_time2_day1_one_day"
+                android:layout_weight="1">
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nine_zero"
+                    android:id="@+id/btn_nine_zero_day1_one_day"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color_selector"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fourteen_thirty"
+                    android:id="@+id/btn_fourteen_thirty_day1_one_day"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color_selector"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/twenty_zero"
+                    android:id="@+id/btn_twenty_zero_day1_one_day"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color_selector"/>
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/start_date" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/startDate_one_day" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NEXT"
+            android:id="@+id/btn_end_of_time_selection_one_day"/>
+
+    </LinearLayout>
+
+</FrameLayout>

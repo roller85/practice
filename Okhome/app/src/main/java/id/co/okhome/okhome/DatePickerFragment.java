@@ -14,14 +14,14 @@ public class DatePickerFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        TimeSelectionFragment timeSelectionFragment = (TimeSelectionFragment) getParentFragment();
+        TimeSelectionThreeDaysFragment timeSelectionFragment = (TimeSelectionThreeDaysFragment) getParentFragment();
         final Calendar c = Calendar.getInstance();
 
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         Calendar cal = Calendar.getInstance();
-        int setDay = ((TimeSelectionFragment) getParentFragment()).getStartDate();
+        int setDay = ((TimeSelectionThreeDaysFragment) getParentFragment()).getStartDate();
         cal.add(Calendar.DAY_OF_MONTH, 7);
 
         /*

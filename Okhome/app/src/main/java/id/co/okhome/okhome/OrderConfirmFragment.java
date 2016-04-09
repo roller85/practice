@@ -87,10 +87,16 @@ public class OrderConfirmFragment extends Fragment {
 
         StringBuilder stringBuilder2 = new StringBuilder();
         stringBuilder2.append(day1);
-        stringBuilder2.append(" / ");
-        stringBuilder2.append(day2);
-        stringBuilder2.append(" / ");
-        stringBuilder2.append(day3);
+        if (day2 != null) {
+            stringBuilder2.append(" / ");
+            stringBuilder2.append(day2);
+            if (day3 != null) {
+                stringBuilder2.append(" / ");
+                stringBuilder2.append(day3);
+            }
+        }
+
+
 
         service_period = (TextView) fragment8View.findViewById(R.id.txv_service_days);
         service_period.setText(stringBuilder2);
