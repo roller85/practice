@@ -1,36 +1,39 @@
 package id.co.okhome.okhome;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.UUID;
 
 import id.co.okhome.okhome.Server.ServerAPI;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "id.co.okhome.okhome.MESSAGE";
+    public static final String KEY_USER_DATA = "user_data";
+    public static final String KEY_USER_DATA_TOKEN = "user_data_token";
     private EditText appEmail, appPassword;
+    private CheckBox checkBox;
+    private boolean checked;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +53,41 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         appEmail = (EditText) findViewById(R.id.app_email);
         appPassword = (EditText) findViewById(R.id.app_pw);
+        checkBox = (CheckBox) findViewById(R.id.chk_auto_login);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    checked = true;
+                } else if (!isChecked) {
+                    checked = false;
+                }
+            }
+        });
 
-        findViewById(R.id.btn_login).setOnClickListener(this);
-        findViewById(R.id.btn_signup).setOnClickListener(this);
+        findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checked) {
+                    attemptLoginWithAutoLogin();
+                } else {
+                    attemptLoginWithoutAutoLogin();
+                }
+            }
+        });
+
+        findViewById(R.id.btn_signup).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
+    /*
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -67,10 +100,91 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+    */
 
-    private void attemptLogin() {
+
+    private void attemptLoginWithoutAutoLogin() {
         String email = appEmail.getText().toString();
         String password = appPassword.getText().toString();
+
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        OkHttpClient client = new OkHttpClient();
+
+        Uri.Builder builder = new Uri.Builder()
+                .appendQueryParameter("email", email)
+                .appendQueryParameter("password", password);
+        String content = builder.build().getEncodedQuery();
+
+        RequestBody body = RequestBody.create(mediaType, content);
+        Request request = new Request.Builder()
+                .url(ServerAPI.LOGIN)
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Snackbar.make(findViewById(R.id.content_login), e.getMessage(),Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Snackbar.make(findViewById(R.id.content_login), response.body().toString(), Snackbar.LENGTH_SHORT).show();
+                Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
+                String message = appEmail.getText().toString();
+                intentMain.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intentMain);
+                finish();
+            }
+        });
+    }
+
+    private void attemptLoginWithAutoLogin() {
+        String email = appEmail.getText().toString();
+        String password = appPassword.getText().toString();
+        UUID uuid = UUID.randomUUID();
+        token = uuid.toString();
+
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        OkHttpClient client = new OkHttpClient();
+
+        Uri.Builder builder = new Uri.Builder()
+                .appendQueryParameter("email", email)
+                .appendQueryParameter("password", password)
+                .appendQueryParameter("user_token", token);
+        String content = builder.build().getEncodedQuery();
+
+        RequestBody body = RequestBody.create(mediaType, content);
+        Request request = new Request.Builder()
+                .url(ServerAPI.LOGINAUTO)
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Snackbar.make(findViewById(R.id.content_login), e.getMessage(),Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Snackbar.make(findViewById(R.id.content_login), response.body().toString(), Snackbar.LENGTH_LONG).show();
+                SharedPreferences sharedPreferences = getSharedPreferences(KEY_USER_DATA, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(KEY_USER_DATA_TOKEN, token);
+                editor.apply();
+
+                Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
+                String message = appEmail.getText().toString();
+                intentMain.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intentMain);
+                finish();
+            }
+        });
+    }
+
+
+        /*
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -81,8 +195,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else {
             Toast.makeText(getApplicationContext(), "No Connection", Toast.LENGTH_SHORT).show();
         }
-    }
+        */
 
+
+
+
+
+    /*
     private class LoginApiTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
@@ -167,4 +286,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             super.onPostExecute(aBoolean);
         }
     }
+    */
 }
+

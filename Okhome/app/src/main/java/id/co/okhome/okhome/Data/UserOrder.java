@@ -15,6 +15,21 @@ public class UserOrder implements Serializable {
     private CleaningDayInfo cleaningDayInfo;
     private AddressInfo addressInfo;
     private PriceInfo priceInfo;
+    private TopUpInfo topUpInfo;
+
+    public void AddTopUpExpectedInfo(int topUpCashExpected, int topUpPointExpected) {
+        this.topUpInfo = new TopUpInfo(topUpCashExpected, topUpPointExpected);
+    }
+
+    public class TopUpInfo {
+        private int topUpCashExpected;
+        private int topUpPointExpected;
+
+        public TopUpInfo(int topUpCashExpected, int topUpPointExpected) {
+            this.topUpCashExpected = topUpCashExpected;
+            this.topUpPointExpected = topUpPointExpected;
+        }
+    }
 
     public void AddPriceInfo(int chargePerHour, int cleaningHours, int cleaningDays, int chargePerWeek) {
         this.priceInfo = new PriceInfo(chargePerHour, cleaningHours, cleaningDays, chargePerWeek);

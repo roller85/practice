@@ -1,6 +1,7 @@
 package id.co.okhome.okhome;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 public class OrderConfirmFragment extends Fragment {
 
     public static final String TAG = "OrderConfirmFragment";
+    public static final String REQ_TOPUP = "OrderConfirmFragment_TopUp";
+    public static final int REQ_TOPUP_RETURN = 850116;
 
     private TextView service_start_schedule;
     private TextView service_duration;
@@ -113,7 +116,9 @@ public class OrderConfirmFragment extends Fragment {
         fragment8View.findViewById(R.id.btn_end_of_order_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.nextFragment(TopUpPackageFragment.newInstance(), TopUpPackageFragment.TAG);
+                Intent intent = new Intent(activity, TopUpActivity.class);
+                intent.putExtra("requestCode", REQ_TOPUP);
+                startActivityForResult(intent, REQ_TOPUP_RETURN);
             }
         });
 

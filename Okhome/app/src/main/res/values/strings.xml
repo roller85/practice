@@ -27,6 +27,7 @@
     <string name="multiply_unit"> x </string>
     <string name="hour_unit">hrs</string>
     <string name="day_unit">days</string>
+    <string name="auto_login">Auto Login</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="home_type">Type of your home</string>
@@ -95,7 +96,24 @@
     <string name="service_start_schedule">Service will starts from</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="top_up_page">TOP-UP</string>
+    <string name="top_up_10m">10M Rp (+10% Bonus)</string>
+    <string name="top_up_5m">5M Rp (+8% Bonus)</string>
+    <string name="top_up_2500k">2.500K Rp (+5% Bonus)</string>
+    <string name="top_up_1000k">1.000K Rp (+4% Bonus)</string>
+    <string name="top_up_800k">800K Rp</string>
+    <string name="okhome_bank_account">BCA Account No."\n"xxx-xxxx-xxx</string>
+    <string name="okhome_bank_account_holder">Holder Name: PT OKHOME</string>
+    <string name="send_transfer_info">Send to SMS</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="warning">WARNING</string>
+    <string name="warning_contents">If you login as a guest,"\n"you can use our service"\n"without registration."\n"
+        But please notice that"\n"multiple packages with bonus points"\n"only available for registered users."\n"
+        You can only book single time"\n"with out any benefits"\n"as a Guest user"\n""\n"Are you sure"\n"
+        you want to proceed as a Guest?</string>
+    <string name="proceed_guest">Proceed"\n"as a Guest</string>
+    <string name="title_activity_top_up">TopUpActivity</string>
 
 
 </resources>

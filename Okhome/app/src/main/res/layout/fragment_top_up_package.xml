@@ -5,9 +5,88 @@
     tools:context="id.co.okhome.okhome.TopUpPackageFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/top_up_page" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/rdb_select_topup_pkg">
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_top_up_10m"
+                android:background="@drawable/btn_color_selector"
+                android:text="@string/top_up_10m"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_top_up_5m"
+                android:background="@drawable/btn_color_selector"
+                android:text="@string/top_up_5m"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_top_up_2500k"
+                android:background="@drawable/btn_color_selector"
+                android:text="@string/top_up_2500k"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_top_up_1000k"
+                android:background="@drawable/btn_color_selector"
+                android:text="@string/top_up_1000k"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OR"
+                android:textAlignment="center"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_top_up_800k"
+                android:background="@drawable/btn_color_selector"
+                android:text="@string/top_up_800k"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/okhome_bank_account"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/okhome_bank_account_holder"
+            android:textAlignment="center"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_send_transfer_info"
+            android:text="@string/send_transfer_info"
+            android:textAlignment="center"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_end_of_top_up_package"
+            android:text="NEXT"
+            android:textAlignment="center"
+            android:layout_gravity="bottom"/>
+
+    </LinearLayout>
 
 </FrameLayout>
