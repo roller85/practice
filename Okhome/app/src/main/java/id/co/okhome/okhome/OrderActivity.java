@@ -18,6 +18,7 @@ public class OrderActivity extends AppCompatActivity{
     public final static String EXTRA_MESSAGE4 = "id.co.okhome.okhome.MESSAGE4";
     public final static String EXTRA_MESSAGE5 = "id.co.okhome.okhome.MESSAGE5";
     public final static String EXTRA_MESSAGE6 = "id.co.okhome.okhome.MESSAGE6";
+    public static final int REQ_TOPUP = 1003;
     /*
     private SectionsPagerAdapter mSectionPagerAdapter;
     private ViewPager mViewPager;

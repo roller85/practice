@@ -175,8 +175,6 @@ public class LoginActivity extends AppCompatActivity {
                 editor.apply();
 
                 Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
-                String message = appEmail.getText().toString();
-                intentMain.putExtra(EXTRA_MESSAGE, message);
                 startActivity(intentMain);
                 finish();
             }

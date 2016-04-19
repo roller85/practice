@@ -115,5 +115,22 @@
     <string name="proceed_guest">Proceed"\n"as a Guest</string>
     <string name="title_activity_top_up">TopUpActivity</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="topup_info">Top Up Info</string>
+    <string name="account_holder_name">Bank Account Holder Name</string>
+    <string name="user_bank_name">Name of Bank (e.g. BCA)</string>
+    <string name="user_amount_transfer">Amount To Be Transferred</string>
+    <string name="okhome_point_term_of_use">OKHOME"\'"s Point is neither exchangeable for"\n"
+        cash nor can it be credited to any account"\n"
+        OKHOME"\'"s Point can be only used within"\n"
+        OKHOME Application</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="top_up_confirm">Top Up Confirmation</string>
+    <string name="transaction_confirm">Confirming your transaction</string>
+    <string name="transaction_confirm_detail">As soon as confirmation is done,"\n"
+        we will let you know via SMS</string>
+    <string name="transaction_thank_message">Thank you for using OKHOME</string>
+
 
 </resources>

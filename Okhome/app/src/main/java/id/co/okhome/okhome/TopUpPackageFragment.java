@@ -1,7 +1,8 @@
 package id.co.okhome.okhome;
 
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ public class TopUpPackageFragment extends Fragment {
     private RadioGroup topUpPackage;
     private int topUpAmountCash;
     private int topUpAmountPoint;
+    private String user_token;
 
 
     public TopUpPackageFragment() {
@@ -72,6 +74,10 @@ public class TopUpPackageFragment extends Fragment {
             }
         });
 
+        TopUpActivity topUpActivity = (TopUpActivity) getActivity();
+        SharedPreferences sharedPreferences = topUpActivity.getSharedPreferences(LoginActivity.KEY_USER_DATA, Context.MODE_PRIVATE);
+        user_token = sharedPreferences.getString(LoginActivity.KEY_USER_DATA_TOKEN, "noToken");
+
         fragmentView.findViewById(R.id.btn_send_transfer_info).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,8 +91,12 @@ public class TopUpPackageFragment extends Fragment {
                 OrderActivity activity = (OrderActivity) getActivity();
                 TopUpActivity activityTopUp = (TopUpActivity)  getActivity();
                 activity.GetUserOrder().AddTopUpExpectedInfo(topUpAmountCash, topUpAmountPoint);
-                activityTopUp.nextFragment(SignUpRecommendFragment.newInstance(), SignUpRecommendFragment.TAG);
-                activityTopUp.setResult(Activity.RESULT_OK);
+                if(user_token == "noToken") {
+                    activityTopUp.nextFragment(SignUpRecommendFragment.newInstance(), SignUpRecommendFragment.TAG);
+                } else {
+                    activityTopUp.nextFragment(TopUpInfoFragment.newInstance(), TopUpInfoFragment.TAG);
+                }
+
             }
         });
 

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -73,9 +74,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textView.setText("Welcome " + message);
         } else {
             loadTokenFromDataBase();
-            RunThread thread = new RunThread();
-            thread.setDaemon(true);
-            thread.start();
         }
 
 
@@ -88,61 +86,69 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void run() {
             handler.sendEmptyMessage(0);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
+    }
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_toLogin:
-                    Intent intentToLogin = new Intent(this, LoginActivity.class);
-                    startActivity(intentToLogin);
-                    break;
-                case R.id.btn_newOrder:
-                    Intent intentToOrder = new Intent(this, OrderActivity.class);
-                    intentToOrder.putExtra(EXTRA_MESSAGE2, email);
-                    startActivity(intentToOrder);
-                    break;
-                case R.id.btn_topUp:
-                    Intent intentToTopUp = new Intent(this, TopUpActivity.class);
-                    intentToTopUp.putExtra("requestCode", REQ_TOPUP);
-                    startActivityForResult(intentToTopUp, REQ_TOPUP_RETURN);
-                    break;
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_toLogin:
+                Intent intentToLogin = new Intent(this, LoginActivity.class);
+                startActivity(intentToLogin);
+                break;
+            case R.id.btn_newOrder:
+                Intent intentToOrder = new Intent(this, OrderActivity.class);
+                intentToOrder.putExtra(EXTRA_MESSAGE2, email);
+                startActivity(intentToOrder);
+                break;
+            case R.id.btn_topUp:
+                Intent intentToTopUp = new Intent(this, TopUpActivity.class);
+                intentToTopUp.putExtra("requestCode", REQ_TOPUP);
+                startActivityForResult(intentToTopUp, REQ_TOPUP_RETURN);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQ_TOPUP) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Top UP Complete", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Top Up Canceled", Toast.LENGTH_SHORT).show();
             }
         }
+    }
 
 
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.menu_main, menu);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
             return true;
         }
 
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-                return true;
-            }
-
-            return super.onOptionsItemSelected(item);
-        }
-
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public void loadTokenFromDataBase() {
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -167,6 +173,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 email = response.body().string();
+                RunThread thread = new RunThread();
+                thread.setDaemon(true);
+                thread.start();
             }
         });
     }

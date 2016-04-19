@@ -21,13 +21,26 @@ public class UserOrder implements Serializable {
         this.topUpInfo = new TopUpInfo(topUpCashExpected, topUpPointExpected);
     }
 
+    public void AddTopUpUserInfo(String accountHolderName, String userBankName, String userAmountTransfer) {
+        this.topUpInfo = new TopUpInfo(accountHolderName, userBankName, userAmountTransfer);
+    }
+
     public class TopUpInfo {
         private int topUpCashExpected;
         private int topUpPointExpected;
+        private String accountHolderName;
+        private String userBankName;
+        private String userAmountTransfer;
 
         public TopUpInfo(int topUpCashExpected, int topUpPointExpected) {
             this.topUpCashExpected = topUpCashExpected;
             this.topUpPointExpected = topUpPointExpected;
+        }
+
+        public TopUpInfo(String accountName, String bankName, String amountTransfer) {
+            this.accountHolderName = accountName;
+            this.userBankName = bankName;
+            this.userAmountTransfer = amountTransfer;
         }
     }
 
