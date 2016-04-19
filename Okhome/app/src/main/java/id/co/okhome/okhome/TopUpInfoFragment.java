@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import id.co.okhome.okhome.Data.OrderInfo;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,9 +55,8 @@ public class TopUpInfoFragment extends Fragment {
         end_of_top_up_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrderActivity activityOrder = (OrderActivity) getActivity();
                 TopUpActivity activityTopUp = (TopUpActivity) getActivity();
-                activityOrder.GetUserOrder().AddTopUpUserInfo(acount_holder_name, user_bank_name, user_amount_transfer);
+                OrderInfo.getInstance().AddTopUpUserInfo(acount_holder_name, user_bank_name, user_amount_transfer);
                 activityTopUp.nextFragment(TopUpConfirmFragment.newInstance(), TopUpConfirmFragment.TAG);
 
             }

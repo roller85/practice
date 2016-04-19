@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import java.io.IOException;
 
+import id.co.okhome.okhome.Data.OrderInfo;
 import id.co.okhome.okhome.Server.ServerAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -22,6 +23,8 @@ import okhttp3.Response;
 
 
 public class BasicInfoFragment2 extends Fragment {
+
+    public static final String TAG = "BasicInfoFragment2";
 
     private EditText detailedInfo;
     public String email;
@@ -42,7 +45,7 @@ public class BasicInfoFragment2 extends Fragment {
         // Inflate the layout for this fragment
         View fragment2View = inflater.inflate(R.layout.fragment_basic_info_fragment2, container, false);
         detailedInfo = (EditText) fragment2View.findViewById(R.id.detailed_info);
-        email = getActivity().getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE2);
+        email = OrderInfo.getInstance().GetUserEmailInfo();
 
         fragment2View.findViewById(R.id.btn_end_of_basic_info2).setOnClickListener(new View.OnClickListener() {
 
@@ -85,7 +88,7 @@ public class BasicInfoFragment2 extends Fragment {
                 OrderActivity activity = (OrderActivity) getActivity();
 
                 String homeDetailInfo = detailedInfo.getText().toString();
-                activity.GetUserOrder().AddHomeDetailInfo(homeDetailInfo);
+                OrderInfo.getInstance().AddHomeDetailInfo(homeDetailInfo);
 
                 activity.nextFragment(PackageSelectionFragment.newInstance(), PackageSelectionFragment.TAG);
             }

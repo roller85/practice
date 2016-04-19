@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import id.co.okhome.okhome.Data.OrderInfo;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,7 +70,7 @@ public class RegisterAddressFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 OrderActivity activity = (OrderActivity) getActivity();
-                activity.GetUserOrder().AddAddressInfo(host_region, host_city, host_district, host_detailed_address,
+                OrderInfo.getInstance().AddAddressInfo(host_region, host_city, host_district, host_detailed_address,
                         host_location_detail, host_name, host_phone_number);
                 activity.nextFragment(OrderConfirmFragment.newInstance(), OrderConfirmFragment.TAG);
             }

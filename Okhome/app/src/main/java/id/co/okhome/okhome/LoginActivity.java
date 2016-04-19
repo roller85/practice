@@ -16,6 +16,7 @@ import android.widget.EditText;
 import java.io.IOException;
 import java.util.UUID;
 
+import id.co.okhome.okhome.Data.OrderInfo;
 import id.co.okhome.okhome.Server.ServerAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -27,7 +28,6 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public final static String EXTRA_MESSAGE = "id.co.okhome.okhome.MESSAGE";
     public static final String KEY_USER_DATA = "user_data";
     public static final String KEY_USER_DATA_TOKEN = "user_data_token";
     private EditText appEmail, appPassword;
@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                 Snackbar.make(findViewById(R.id.content_login), response.body().toString(), Snackbar.LENGTH_SHORT).show();
                 Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
                 String message = appEmail.getText().toString();
-                intentMain.putExtra(EXTRA_MESSAGE, message);
+                OrderInfo.getInstance().AddUserEmailInfo(message);
                 startActivity(intentMain);
                 finish();
             }
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLoginWithAutoLogin() {
-        String email = appEmail.getText().toString();
+        final String email = appEmail.getText().toString();
         String password = appPassword.getText().toString();
         UUID uuid = UUID.randomUUID();
         token = uuid.toString();
@@ -173,6 +173,9 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(KEY_USER_DATA_TOKEN, token);
                 editor.apply();
+
+                String message = appEmail.getText().toString();
+                OrderInfo.getInstance().AddUserEmailInfo(message);
 
                 Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intentMain);

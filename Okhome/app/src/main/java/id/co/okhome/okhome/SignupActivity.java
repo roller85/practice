@@ -29,7 +29,6 @@ import id.co.okhome.okhome.Server.ServerAPI;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public final static String EXTRA_MESSAGE2 = "id.co.okhome.okhome.MESSAGE2";
     private EditText signupEmail, signupPassword, signupPasswordRe;
 
     @Override

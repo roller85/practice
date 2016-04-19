@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import id.co.okhome.okhome.Data.OrderInfo;
 import id.co.okhome.okhome.Server.ServerAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -62,7 +63,7 @@ public class BasicInfoFragment1 extends Fragment {
         View fragment1View = inflater.inflate(R.layout.fragment_basic_info_fragment1, container, false);
         number_of_bedrooms = (TextView) fragment1View.findViewById(R.id.number_of_bedrooms);
         number_of_bathrooms = (TextView) fragment1View.findViewById(R.id.number_of_bathrooms);
-        email = getActivity().getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE2);
+        email = OrderInfo.getInstance().GetUserEmailInfo();
         pet_cat_existence = false;
         pet_dog_existence = false;
         pet_other_existence = false;
@@ -339,10 +340,13 @@ public class BasicInfoFragment1 extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Snackbar.make(getActivity().findViewById(R.id.fragment_basic_info1), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
+
                 OrderActivity activity = (OrderActivity) getActivity();
-                activity.GetUserOrder().AddHomeInfo(number_of_bedroom, number_of_bathroom, home_type, home_size, homeowner_existence);
-                activity.GetUserOrder().AddPetInfo(pet_cat_existence, pet_dog_existence, pet_other_existence, pet_nonexist);
-                activity.nextFragment(BasicInfoFragment2.newInstance(), "basic_info_fragment2");
+                OrderInfo.getInstance().AddHomeInfo(number_of_bedroom, number_of_bathroom, home_type, home_size, homeowner_existence);
+                OrderInfo.getInstance().AddPetInfo(pet_cat_existence, pet_dog_existence, pet_other_existence, pet_nonexist);
+                //activity.GetUserOrder().AddHomeInfo(number_of_bedroom, number_of_bathroom, home_type, home_size, homeowner_existence);
+                //activity.GetUserOrder().AddPetInfo(pet_cat_existence, pet_dog_existence, pet_other_existence, pet_nonexist);
+                activity.nextFragment(BasicInfoFragment2.newInstance(), BasicInfoFragment2.TAG);
             }
 
         });

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import id.co.okhome.okhome.Data.OrderInfo;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,15 +48,17 @@ public class OrderConfirmFragment extends Fragment {
 
         final OrderActivity activity = (OrderActivity) getActivity();
 
-        int month = activity.GetUserOrder().GetStartMonth();
+        int month = OrderInfo.getInstance().GetStartMonth();
+
         String service_start_month = intToMonth(month);
 
-        int date = activity.GetUserOrder().GetStartDate();
+        int date = OrderInfo.getInstance().GetStartDate();
 
-        int day = activity.GetUserOrder().GetStartDay();
+        int day = OrderInfo.getInstance().GetStartDay();
+
         String service_start_day = intIntoDay(day);
 
-        String start_time = activity.GetUserOrder().GetStartTimeDay1();
+        String start_time = OrderInfo.getInstance().GetStartTimeDay1();
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(service_start_month);
@@ -68,7 +72,7 @@ public class OrderConfirmFragment extends Fragment {
         service_start_schedule = (TextView) fragment8View.findViewById(R.id.txv_service_start_schedule);
         service_start_schedule.setText(stringBuilder);
 
-        int duration = activity.GetUserOrder().GetDurationInfo();
+        int duration = OrderInfo.getInstance().GetDurationInfo();
 
         StringBuilder stringBuilder1 = new StringBuilder();
         stringBuilder1.append(duration);
@@ -80,9 +84,9 @@ public class OrderConfirmFragment extends Fragment {
         service_duration = (TextView) fragment8View.findViewById(R.id.txv_service_duration);
         service_duration.setText(stringBuilder1);
 
-        visitDay1 = activity.GetUserOrder().GetVisitDay1();
-        visitDay2 = activity.GetUserOrder().GetVisitDay2();
-        visitDay3 = activity.GetUserOrder().GetVisitDay3();
+        visitDay1 = OrderInfo.getInstance().GetVisitDay1();
+        visitDay2 = OrderInfo.getInstance().GetVisitDay2();
+        visitDay3 = OrderInfo.getInstance().GetVisitDay3();
 
         String day1 = intIntoDay(visitDay1);
         String day2 = intIntoDay(visitDay2);
@@ -104,7 +108,7 @@ public class OrderConfirmFragment extends Fragment {
         service_period = (TextView) fragment8View.findViewById(R.id.txv_service_days);
         service_period.setText(stringBuilder2);
 
-        int chargePerWeek = activity.GetUserOrder().GetChargePerWeek();
+        int chargePerWeek = OrderInfo.getInstance().GetChargePerWeek();
 
         StringBuilder stringBuilder3 = new StringBuilder();
         stringBuilder3.append(chargePerWeek);

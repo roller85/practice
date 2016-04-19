@@ -1,18 +1,14 @@
-
 package id.co.okhome.okhome.Data;
 
 /**
- * Created by jhkim on 4/1/2016.
+ * Created by jhkim on 4/19/2016.
  */
+public class OrderInfo {
+    private static OrderInfo mInstance = new OrderInfo();
 
-/*
-
-import java.io.Serializable;
-
-public class UserOrder implements Serializable {
     private HomeInfo homeInfo;
-    private HomeInfo homeInfo1;
     private PetInfo petInfo;
+    private HomeInfo homeInfo1;
     private ScheduleInfo scheduleInfo;
     private ScheduleInfo scheduleInfo1;
     private ScheduleInfo scheduleInfo2;
@@ -20,6 +16,29 @@ public class UserOrder implements Serializable {
     private AddressInfo addressInfo;
     private PriceInfo priceInfo;
     private TopUpInfo topUpInfo;
+    private UserInfo userInfo;
+
+
+
+    private OrderInfo() {
+
+    }
+
+    public void AddUserEmailInfo(String email) {
+        this.userInfo = new UserInfo(email);
+    }
+
+    public String GetUserEmailInfo() {
+        return userInfo.email;
+    }
+
+    public class UserInfo {
+        private String email;
+
+        public UserInfo(String email) {
+            this.email = email;
+        }
+    }
 
     public void AddTopUpExpectedInfo(int topUpCashExpected, int topUpPointExpected) {
         this.topUpInfo = new TopUpInfo(topUpCashExpected, topUpPointExpected);
@@ -136,7 +155,7 @@ public class UserOrder implements Serializable {
     public int GetDurationInfo() {
         return scheduleInfo.duration;
     }
-    
+
     public int GetVisitDay1() {
         return scheduleInfo1.visitDay1;
     }
@@ -232,5 +251,8 @@ public class UserOrder implements Serializable {
             this.host_phone_number = host_phone_number;
         }
     }
+
+    public static OrderInfo getInstance() {
+        return mInstance;
+    }
 }
-*/

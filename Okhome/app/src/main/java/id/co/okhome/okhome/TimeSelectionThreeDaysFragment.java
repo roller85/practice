@@ -1,7 +1,5 @@
 package id.co.okhome.okhome;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.joda.time.DateTime;
+
+import id.co.okhome.okhome.Data.OrderInfo;
 
 
 public class TimeSelectionThreeDaysFragment extends Fragment {
@@ -57,14 +57,11 @@ public class TimeSelectionThreeDaysFragment extends Fragment {
         // Inflate the layout for this fragment
         final View fragment5View = inflater.inflate(R.layout.fragment_time_selection_three_days, container, false);
 
-        email = getActivity().getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE2);
+        email = OrderInfo.getInstance().GetUserEmailInfo();
 
-        SharedPreferences shared1 = getActivity().getPreferences(Context.MODE_PRIVATE);
-        visitDay1 = shared1.getInt(OrderActivity.EXTRA_MESSAGE4, 0);
-        SharedPreferences shared2 = getActivity().getPreferences(Context.MODE_PRIVATE);
-        visitDay2 = shared2.getInt(OrderActivity.EXTRA_MESSAGE5, 0);
-        SharedPreferences shared3 = getActivity().getPreferences(Context.MODE_PRIVATE);
-        visitDay3 = shared3.getInt(OrderActivity.EXTRA_MESSAGE6, 0);
+        visitDay1 = OrderInfo.getInstance().GetVisitDay1();
+        visitDay2 = OrderInfo.getInstance().GetVisitDay2();
+        visitDay3 = OrderInfo.getInstance().GetVisitDay3();
 
         for(int i =1; i < 8; i++) {
             if (visitDay1 == i) {
@@ -148,65 +145,65 @@ public class TimeSelectionThreeDaysFragment extends Fragment {
 
         view4 = (TextView) fragment5View.findViewById(R.id.startDate);
         OrderActivity activity = (OrderActivity) getActivity();
-        startDate = activity.GetUserOrder().GetStartDate();
-        int month = activity.GetUserOrder().GetStartMonth();
+        startDate = OrderInfo.getInstance().GetStartDate();
+        int month = OrderInfo.getInstance().GetStartMonth();
         startMonth = intToMonth(month);
-        int day = activity.GetUserOrder().GetStartDay();
+        int day = OrderInfo.getInstance().GetStartDay();
         startDay = intIntoDay(day);
         view4.setText(String.valueOf(startDate) + " " + startMonth + " " + startDay);
 
-            fragment5View.findViewById(R.id.btn_end_of_time_selection).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int chkId1_day1 = rg1_day1.getCheckedRadioButtonId();
-                    int chkId2_day1 = rg2_day1.getCheckedRadioButtonId();
-                    int chk_day1 = chkId1_day1 == -1 ? chkId2_day1 : chkId1_day1;
+        fragment5View.findViewById(R.id.btn_end_of_time_selection).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int chkId1_day1 = rg1_day1.getCheckedRadioButtonId();
+                int chkId2_day1 = rg2_day1.getCheckedRadioButtonId();
+                int chk_day1 = chkId1_day1 == -1 ? chkId2_day1 : chkId1_day1;
 
-                    switch (chk_day1) {
-                        case R.id.btn_eight_thirty_day1:
-                            day1Time = getString(R.string.eight_thirty);
-                            break;
-                        case R.id.btn_nine_zero_day1:
-                            day1Time = getString(R.string.nine_zero);
-                            break;
-                        case R.id.btn_fourteen_zero_day1:
-                            day1Time = getString(R.string.fourteen_zero);
-                            break;
-                        case R.id.btn_fourteen_thirty_day1:
-                            day1Time = getString(R.string.fourteen_thirty);
-                            break;
-                        case R.id.btn_nineteen_thirty_day1:
-                            day1Time = getString(R.string.nineteen_thirty);
-                            break;
-                        case R.id.btn_twenty_zero_day1:
-                            day1Time = getString(R.string.twenty_zero);
-                            break;
-                    }
+                switch (chk_day1) {
+                    case R.id.btn_eight_thirty_day1:
+                        day1Time = getString(R.string.eight_thirty);
+                        break;
+                    case R.id.btn_nine_zero_day1:
+                        day1Time = getString(R.string.nine_zero);
+                        break;
+                    case R.id.btn_fourteen_zero_day1:
+                        day1Time = getString(R.string.fourteen_zero);
+                        break;
+                    case R.id.btn_fourteen_thirty_day1:
+                        day1Time = getString(R.string.fourteen_thirty);
+                        break;
+                    case R.id.btn_nineteen_thirty_day1:
+                        day1Time = getString(R.string.nineteen_thirty);
+                        break;
+                    case R.id.btn_twenty_zero_day1:
+                        day1Time = getString(R.string.twenty_zero);
+                        break;
+                }
 
-                    int chkId1_day2 = rg1_day2.getCheckedRadioButtonId();
-                    int chkId2_day2 = rg2_day2.getCheckedRadioButtonId();
-                    int chk_day2 = chkId1_day2 == -1 ? chkId2_day2 : chkId1_day2;
+                int chkId1_day2 = rg1_day2.getCheckedRadioButtonId();
+                int chkId2_day2 = rg2_day2.getCheckedRadioButtonId();
+                int chk_day2 = chkId1_day2 == -1 ? chkId2_day2 : chkId1_day2;
 
-                    switch (chk_day2) {
-                        case R.id.btn_eight_thirty_day2:
-                            day2Time = getString(R.string.eight_thirty);
-                            break;
-                        case R.id.btn_nine_zero_day2:
-                            day2Time = getString(R.string.nine_zero);
-                            break;
-                        case R.id.btn_fourteen_zero_day2:
-                            day2Time = getString(R.string.fourteen_zero);
-                            break;
-                        case R.id.btn_fourteen_thirty_day2:
-                            day2Time = getString(R.string.fourteen_thirty);
-                            break;
-                        case R.id.btn_nineteen_thirty_day2:
-                            day2Time = getString(R.string.nineteen_thirty);
-                            break;
-                        case R.id.btn_twenty_zero_day2:
-                            day2Time = getString(R.string.twenty_zero);
-                            break;
-                    }
+                switch (chk_day2) {
+                    case R.id.btn_eight_thirty_day2:
+                        day2Time = getString(R.string.eight_thirty);
+                        break;
+                    case R.id.btn_nine_zero_day2:
+                        day2Time = getString(R.string.nine_zero);
+                        break;
+                    case R.id.btn_fourteen_zero_day2:
+                        day2Time = getString(R.string.fourteen_zero);
+                        break;
+                    case R.id.btn_fourteen_thirty_day2:
+                        day2Time = getString(R.string.fourteen_thirty);
+                        break;
+                    case R.id.btn_nineteen_thirty_day2:
+                        day2Time = getString(R.string.nineteen_thirty);
+                        break;
+                    case R.id.btn_twenty_zero_day2:
+                        day2Time = getString(R.string.twenty_zero);
+                        break;
+                }
 
                 int chkId1_day3 = rg1_day3.getCheckedRadioButtonId();
                 int chkId2_day3 = rg2_day3.getCheckedRadioButtonId();
@@ -234,7 +231,7 @@ public class TimeSelectionThreeDaysFragment extends Fragment {
                 }
 
                 OrderActivity activity = (OrderActivity) getActivity();
-                activity.GetUserOrder().AddVisitTimeInfo(day1Time, day2Time, day3Time);
+                OrderInfo.getInstance().AddVisitTimeInfo(day1Time, day2Time, day3Time);
                 activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
             }
         });

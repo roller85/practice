@@ -1,8 +1,6 @@
 package id.co.okhome.okhome;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import id.co.okhome.okhome.Data.OrderInfo;
 
 
 /**
@@ -57,11 +57,9 @@ public class TimeSelectionTwoDaysFragment extends Fragment {
 
         View fragmentView = inflater.inflate(R.layout.fragment_time_selection_two_days, container, false);
 
-        email = getActivity().getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE2);
-        SharedPreferences shared1 = getActivity().getPreferences(Context.MODE_PRIVATE);
-        visitDay1 = shared1.getInt(OrderActivity.EXTRA_MESSAGE4, 0);
-        SharedPreferences shared2 = getActivity().getPreferences(Context.MODE_PRIVATE);
-        visitDay2 = shared2.getInt(OrderActivity.EXTRA_MESSAGE5, 0);
+        email = OrderInfo.getInstance().GetUserEmailInfo();
+        visitDay1 = OrderInfo.getInstance().GetVisitDay1();
+        visitDay2 = OrderInfo.getInstance().GetVisitDay2();
 
         for(int i =1; i < 8; i++) {
             if (visitDay1 == i) {
@@ -92,10 +90,10 @@ public class TimeSelectionTwoDaysFragment extends Fragment {
 
         OrderActivity activity = (OrderActivity) getActivity();
         view4 = (TextView) fragmentView.findViewById(R.id.startDate_two_days);
-        startDate = activity.GetUserOrder().GetStartDate();
-        int month = activity.GetUserOrder().GetStartMonth();
+        startDate = OrderInfo.getInstance().GetStartDate();
+        int month = OrderInfo.getInstance().GetStartMonth();
         startMonth = intToMonth(month);
-        int day = activity.GetUserOrder().GetStartDay();
+        int day = OrderInfo.getInstance().GetStartDay();
         startDay = intIntoDay(day);
         view4.setText(String.valueOf(startDate) + " " + startMonth + " " + startDay);
 
@@ -153,7 +151,7 @@ public class TimeSelectionTwoDaysFragment extends Fragment {
                 }
 
                 OrderActivity activity = (OrderActivity) getActivity();
-                activity.GetUserOrder().AddVisitTimeInfo(day1Time, day2Time, day3Time);
+                OrderInfo.getInstance().AddVisitTimeInfo(day1Time, day2Time, day3Time);
                 activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
             }
         });

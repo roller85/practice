@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import id.co.okhome.okhome.Data.OrderInfo;
 import id.co.okhome.okhome.Server.ServerAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -29,7 +30,6 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String EXTRA_MESSAGE2 = "id.co.okhome.okhome.MESSAGE2";
     public static final int REQ_TOPUP = 1001;
     public static final int REQ_TOPUP_RETURN = 1002;
     private String email = "";
@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textView.setText("Welcome "+ message);
         email = message;
         */
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
+
+        String message = OrderInfo.getInstance().GetUserEmailInfo();
         textView = (TextView) findViewById(R.id.welcome);
 
         SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.KEY_USER_DATA, MODE_PRIVATE);
@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_newOrder:
                 Intent intentToOrder = new Intent(this, OrderActivity.class);
-                intentToOrder.putExtra(EXTRA_MESSAGE2, email);
                 startActivity(intentToOrder);
                 break;
             case R.id.btn_topUp:

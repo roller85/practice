@@ -1,7 +1,5 @@
 package id.co.okhome.okhome;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -17,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import id.co.okhome.okhome.Data.OrderInfo;
 import id.co.okhome.okhome.Server.ServerAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -61,12 +60,11 @@ public class SelectDayFragment extends Fragment {
 
         View fragment4View = inflater.inflate(R.layout.fragment_select_day, container, false);
 
-        email = getActivity().getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE2);
-        SharedPreferences shared = getActivity().getPreferences(Context.MODE_PRIVATE);
-        cleaning_period = shared.getInt(OrderActivity.EXTRA_MESSAGE3, 0);
+        email = OrderInfo.getInstance().GetUserEmailInfo();
+        //SharedPreferences shared = getActivity().getPreferences(Context.MODE_PRIVATE);
+        cleaning_period = OrderInfo.getInstance().GetDurationInfo();
 
-        OrderActivity activity = (OrderActivity) getActivity();
-        pressed_toggle_button = activity.GetUserOrder().GetStartDay();
+        pressed_toggle_button = OrderInfo.getInstance().GetStartDay();
 
         Toast.makeText(getActivity(),"Cleaning period is "+cleaning_period, Toast.LENGTH_LONG).show();
 
@@ -265,7 +263,7 @@ public class SelectDayFragment extends Fragment {
             public void onClick(View v) {
                 if (btnLimit == mSchedule.size()) {
                     allocateSchedule();
-
+/*
                     SharedPreferences shared1 = getActivity().getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor1 = shared1.edit();
                     editor1.putInt(OrderActivity.EXTRA_MESSAGE4, visitDay1);
@@ -280,7 +278,7 @@ public class SelectDayFragment extends Fragment {
                     SharedPreferences.Editor editor3 = shared3.edit();
                     editor3.putInt(OrderActivity.EXTRA_MESSAGE6, visitDay3);
                     editor3.commit();
-
+*/
                     Toast.makeText(getActivity(),"VisitDay1 ="+visitDay1+"VisitDay2 ="+visitDay2+"VisitDay3 ="+visitDay3,Toast.LENGTH_LONG).show();
                     attmpAddCleanigPackage();
                 }
@@ -341,7 +339,7 @@ public class SelectDayFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 Snackbar.make(getActivity().findViewById(R.id.fragment_select_day), "Okhttp : " + response.body().string(), Snackbar.LENGTH_LONG).show();
                 OrderActivity activity = (OrderActivity) getActivity();
-                activity.GetUserOrder().AddVisitDayInfo(visitDay1, visitDay2, visitDay3);
+                OrderInfo.getInstance().AddVisitDayInfo(visitDay1, visitDay2, visitDay3);
                 switch (btnLimit) {
                     case 1:
                         activity.nextFragment(TimeSelectionOneDayFragment.newInstance(), TimeSelectionOneDayFragment.TAG);

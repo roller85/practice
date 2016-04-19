@@ -13,6 +13,8 @@ import org.joda.time.DateTime;
 
 import java.util.Calendar;
 
+import id.co.okhome.okhome.Data.OrderInfo;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,7 +69,7 @@ public class SelectDateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 OrderActivity activity = (OrderActivity) getActivity();
-                activity.GetUserOrder().AddStartDayInfo(firstStartDay, firstStartDate, firstStartMonth, firstStartYear);
+                OrderInfo.getInstance().AddStartDayInfo(firstStartDay, firstStartDate, firstStartMonth, firstStartYear);
                 activity.nextFragment(SelectDayFragment.newInstance(), SelectDayFragment.TAG);
             }
         });

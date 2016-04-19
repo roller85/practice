@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
+import id.co.okhome.okhome.Data.OrderInfo;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +24,7 @@ public class TopUpPackageFragment extends Fragment {
     private int topUpAmountCash;
     private int topUpAmountPoint;
     private String user_token;
+    private String email;
 
 
     public TopUpPackageFragment() {
@@ -88,13 +91,13 @@ public class TopUpPackageFragment extends Fragment {
         fragmentView.findViewById(R.id.btn_end_of_top_up_package).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrderActivity activity = (OrderActivity) getActivity();
                 TopUpActivity activityTopUp = (TopUpActivity)  getActivity();
-                activity.GetUserOrder().AddTopUpExpectedInfo(topUpAmountCash, topUpAmountPoint);
-                if(user_token == "noToken") {
-                    activityTopUp.nextFragment(SignUpRecommendFragment.newInstance(), SignUpRecommendFragment.TAG);
-                } else {
+                OrderInfo.getInstance().AddTopUpExpectedInfo(topUpAmountCash, topUpAmountPoint);
+                email = OrderInfo.getInstance().GetUserEmailInfo();
+                if(email != null) {
                     activityTopUp.nextFragment(TopUpInfoFragment.newInstance(), TopUpInfoFragment.TAG);
+                } else {
+                    activityTopUp.nextFragment(SignUpRecommendFragment.newInstance(), SignUpRecommendFragment.TAG);
                 }
 
             }

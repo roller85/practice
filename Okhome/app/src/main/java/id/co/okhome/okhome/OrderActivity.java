@@ -10,14 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import id.co.okhome.okhome.Data.UserOrder;
-
 public class OrderActivity extends AppCompatActivity{
 
-    public final static String EXTRA_MESSAGE3 = "id.co.okhome.okhome.MESSAGE3";
-    public final static String EXTRA_MESSAGE4 = "id.co.okhome.okhome.MESSAGE4";
-    public final static String EXTRA_MESSAGE5 = "id.co.okhome.okhome.MESSAGE5";
-    public final static String EXTRA_MESSAGE6 = "id.co.okhome.okhome.MESSAGE6";
     public static final int REQ_TOPUP = 1003;
     /*
     private SectionsPagerAdapter mSectionPagerAdapter;
@@ -25,11 +19,12 @@ public class OrderActivity extends AppCompatActivity{
     private Fragment[] arrFragments;
     */
 
-    private UserOrder userOrder;
-
+//    private UserOrder userOrder;
+/*
     public UserOrder GetUserOrder() {
         return userOrder;
     }
+*/
 
     /*
     @Override
@@ -42,8 +37,7 @@ public class OrderActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userOrder = new UserOrder();
-//        userOrder = (UserOrder) savedInstanceState.getSerializable("tempData");
+//        userOrder = new UserOrder();
         setContentView(R.layout.activity_order);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

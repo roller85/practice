@@ -1,7 +1,5 @@
 package id.co.okhome.okhome;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import id.co.okhome.okhome.Data.OrderInfo;
 
 
 public class PackageSelectionFragment extends Fragment {
@@ -44,7 +43,7 @@ public class PackageSelectionFragment extends Fragment {
         // Inflate the layout for this fragment
         View fragment3View = inflater.inflate(R.layout.fragment_package_selection, container, false);
 
-        email = getActivity().getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE2);
+        email = OrderInfo.getInstance().GetUserEmailInfo();
         weekly_charge = (TextView) fragment3View.findViewById(R.id.weeklyCharge);
         weekly_charge_equation = (TextView) fragment3View.findViewById(R.id.weeklyChargeEquation);
 
@@ -87,13 +86,9 @@ public class PackageSelectionFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                SharedPreferences shared = getActivity().getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = shared.edit();
-                editor.putInt(OrderActivity.EXTRA_MESSAGE3, cleaning_period);
-                editor.commit();
                 OrderActivity activity = (OrderActivity) getActivity();
-                activity.GetUserOrder().AddPeriodInfo(cleaning_period, cleaning_hours);
-                activity.GetUserOrder().AddPriceInfo(charge_per_hour, cleaning_hours, cleaning_days, charge_per_week);
+                OrderInfo.getInstance().AddPeriodInfo(cleaning_period, cleaning_hours);
+                OrderInfo.getInstance().AddPriceInfo(charge_per_hour, cleaning_hours, cleaning_days, charge_per_week);
                 activity.nextFragment(SelectDateFragment.newInstance(), SelectDateFragment.TAG);
             }
         });
