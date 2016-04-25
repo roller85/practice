@@ -27,7 +27,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_top_up_10m"
                 android:background="@drawable/btn_color_selector"
-                android:checked="true"
                 android:text="@string/top_up_10m"/>
             <RadioButton
                 android:layout_width="match_parent"

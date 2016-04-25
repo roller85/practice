@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import id.co.okhome.okhome.Data.OrderInfo;
 
@@ -86,10 +87,15 @@ public class PackageSelectionFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                OrderActivity activity = (OrderActivity) getActivity();
-                OrderInfo.getInstance().AddPeriodInfo(cleaning_period, cleaning_hours);
-                OrderInfo.getInstance().AddPriceInfo(charge_per_hour, cleaning_hours, cleaning_days, charge_per_week);
-                activity.nextFragment(SelectDateFragment.newInstance(), SelectDateFragment.TAG);
+                if (cleaningPackage.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(getActivity(), "you need to select", Toast.LENGTH_SHORT).show();
+                } else {
+                    OrderActivity activity = (OrderActivity) getActivity();
+                    OrderInfo.getInstance().AddPeriodInfo(cleaning_period);
+                    OrderInfo.getInstance().AddPriceInfo(charge_per_hour, cleaning_hours, cleaning_days, charge_per_week);
+                    activity.nextFragment(SelectDateFragment.newInstance(), SelectDateFragment.TAG);
+                }
+
             }
         });
 

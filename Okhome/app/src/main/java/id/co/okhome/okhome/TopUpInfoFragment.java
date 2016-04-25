@@ -29,8 +29,8 @@ public class TopUpInfoFragment extends Fragment {
     }
 
     public static TopUpInfoFragment newInstance() {
-        TopUpInfoFragment fragment = new TopUpInfoFragment();
-        return fragment;
+        TopUpInfoFragment topUpInfoFragment = new TopUpInfoFragment();
+        return topUpInfoFragment;
     }
 
 

@@ -31,9 +31,9 @@ public class TimeSelectionThreeDaysFragment extends Fragment {
     public RadioGroup rg2_day2;
     public RadioGroup rg1_day3;
     public RadioGroup rg2_day3;
-    public String day1Time;
-    public String day2Time;
-    public String day3Time;
+    public String day1Time =" ";
+    public String day2Time=" ";
+    public String day3Time=" ";
     private String startMonth;
     private int startMonthInt;
     private int startDate;
@@ -230,9 +230,13 @@ public class TimeSelectionThreeDaysFragment extends Fragment {
                         break;
                 }
 
-                OrderActivity activity = (OrderActivity) getActivity();
-                OrderInfo.getInstance().AddVisitTimeInfo(day1Time, day2Time, day3Time);
-                activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
+                if (day1Time.equals(" ")||day2Time.equals(" ")||day3Time.equals(" ")) {
+                    Toast.makeText(getActivity(), "you need to select time", Toast.LENGTH_SHORT).show();
+                }else {
+                    OrderActivity activity = (OrderActivity) getActivity();
+                    OrderInfo.getInstance().AddVisitTimeInfo(day1Time, day2Time, day3Time);
+                    activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
+                }
             }
         });
 

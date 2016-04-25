@@ -1,25 +1,13 @@
 package id.co.okhome.okhome;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import java.io.IOException;
-
 import id.co.okhome.okhome.Data.OrderInfo;
-import id.co.okhome.okhome.Server.ServerAPI;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class BasicInfoFragment2 extends Fragment {
@@ -51,12 +39,16 @@ public class BasicInfoFragment2 extends Fragment {
 
             @Override
             public void onClick(View v) {
-                attempAddBasicInfo2();
+                OrderActivity activity = (OrderActivity) getActivity();
+                String homeDetailInfo = detailedInfo.getText().toString();
+                OrderInfo.getInstance().AddHomeDetailInfo(homeDetailInfo);
+                activity.nextFragment(PackageSelectionFragment.newInstance(), PackageSelectionFragment.TAG);
             }
         });
         return fragment2View;
     }
 
+    /*
     private void attempAddBasicInfo2() {
 
         String detail = detailedInfo.getText().toString();
@@ -94,4 +86,5 @@ public class BasicInfoFragment2 extends Fragment {
             }
         });
     }
+    */
 }

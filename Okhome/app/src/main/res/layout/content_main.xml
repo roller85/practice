@@ -104,6 +104,13 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/btn_toLogOut"
+        android:text="@string/toLogOut"
+        android:layout_gravity="end" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/btn_customerService"
         android:text="@string/customerService"
         android:layout_gravity="end" />

@@ -18,8 +18,7 @@ import id.co.okhome.okhome.Data.OrderInfo;
 public class OrderConfirmFragment extends Fragment {
 
     public static final String TAG = "OrderConfirmFragment";
-    public static final String REQ_TOPUP = "OrderConfirmFragment_TopUp";
-    public static final int REQ_TOPUP_RETURN = 850116;
+
 
     private TextView service_start_schedule;
     private TextView service_duration;
@@ -46,7 +45,7 @@ public class OrderConfirmFragment extends Fragment {
         // Inflate the layout for this fragment
         View fragment8View = inflater.inflate(R.layout.fragment_order_confirm, container, false);
 
-        final OrderActivity activity = (OrderActivity) getActivity();
+        OrderActivity activity = (OrderActivity) getActivity();
 
         int month = OrderInfo.getInstance().GetStartMonth();
 
@@ -72,7 +71,7 @@ public class OrderConfirmFragment extends Fragment {
         service_start_schedule = (TextView) fragment8View.findViewById(R.id.txv_service_start_schedule);
         service_start_schedule.setText(stringBuilder);
 
-        int duration = OrderInfo.getInstance().GetDurationInfo();
+        int duration = OrderInfo.getInstance().GetCleaningHours();
 
         StringBuilder stringBuilder1 = new StringBuilder();
         stringBuilder1.append(duration);
@@ -120,9 +119,12 @@ public class OrderConfirmFragment extends Fragment {
         fragment8View.findViewById(R.id.btn_end_of_order_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, TopUpActivity.class);
-                intent.putExtra("requestCode", REQ_TOPUP);
-                startActivityForResult(intent, REQ_TOPUP_RETURN);
+                OrderActivity activity1 = (OrderActivity) getActivity();
+                Intent intent = new Intent(activity1, TopUpActivity.class);
+                intent.putExtra("requestCode", OrderActivity.REQ_TOPUP);
+                activity1.startActivityForResult(intent, OrderActivity.REQ_TOPUP_RETURN);
+
+                // Balance가 얼마인지 확인해서 있으면 그냥 넘어갈 수 있게 해야함
             }
         });
 

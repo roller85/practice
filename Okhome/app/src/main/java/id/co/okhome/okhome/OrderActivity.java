@@ -1,5 +1,6 @@
 package id.co.okhome.okhome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,10 +10,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 public class OrderActivity extends AppCompatActivity{
 
     public static final int REQ_TOPUP = 1003;
+//    public static final String REQ_TOPUP = "OrderConfirmFragment_TopUp";
+    public static final int REQ_TOPUP_RETURN = 1007;
     /*
     private SectionsPagerAdapter mSectionPagerAdapter;
     private ViewPager mViewPager;
@@ -89,6 +93,22 @@ public class OrderActivity extends AppCompatActivity{
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionPagerAdapter);
         */
+    }
+
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQ_TOPUP_RETURN) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Order Complete", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Order failed, order again", Toast.LENGTH_SHORT).show();
+                nextFragment(BasicInfoFragment1.newInstance(),BasicInfoFragment1.TAG);
+            }
+        }
     }
 
     public void nextFragment(Fragment fr, String mtag) {

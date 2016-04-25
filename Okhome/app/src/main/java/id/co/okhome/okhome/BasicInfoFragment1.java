@@ -1,9 +1,7 @@
 package id.co.okhome.okhome;
 
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,21 +10,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
 import id.co.okhome.okhome.Data.OrderInfo;
-import id.co.okhome.okhome.Server.ServerAPI;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class BasicInfoFragment1 extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
+
+    public static final String TAG = "BasicInfoFragment1";
 
     private int number_of_bedroom = 2;
     private int number_of_bathroom = 2;
@@ -296,10 +286,13 @@ public class BasicInfoFragment1 extends Fragment {
         fragment1View.findViewById(R.id.btn_end_of_basic_info1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (home_type != null && home_size != null) {
-                    attempAddBasicInfo1();
-                } else {
+                if (home_type.equals("") || home_size.equals("") || homeExistence.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getActivity(), "Fill Out All The Information", Toast.LENGTH_SHORT).show();
+                } else {
+                    OrderInfo.getInstance().AddHomeInfo(number_of_bedroom, number_of_bathroom, home_type, home_size, homeowner_existence);
+                    OrderInfo.getInstance().AddPetInfo(pet_cat_existence, pet_dog_existence, pet_other_existence, pet_nonexist);
+                    OrderActivity activity = (OrderActivity) getActivity();
+                    activity.nextFragment(BasicInfoFragment2.newInstance(), BasicInfoFragment2.TAG);
                 }
             }
         });
@@ -307,6 +300,49 @@ public class BasicInfoFragment1 extends Fragment {
         return fragment1View;
     }
 
+    public void incrementOfBedroom() {
+        number_of_bedroom = number_of_bedroom + 1;
+        displayNumberOfBedroom(number_of_bedroom, number_of_bedrooms);
+    }
+
+    public void decrementOfBedroom() {
+        if(number_of_bedroom > 0) {
+            number_of_bedroom = number_of_bedroom - 1;
+            displayNumberOfBedroom(number_of_bedroom, number_of_bedrooms);
+        }
+        else {
+            Toast.makeText(getActivity(), "Number Of Bedroom Cannot be Minus", Toast.LENGTH_SHORT).show();
+            displayNumberOfBedroom(number_of_bedroom, number_of_bedrooms);
+        }
+    }
+
+    public void incrementOfBathroom() {
+        number_of_bathroom = number_of_bathroom + 1;
+        displayNumberOfBathroom(number_of_bathroom, number_of_bathrooms);
+    }
+
+    public void decrementOfBathroom() {
+        if(number_of_bathroom > 0) {
+            number_of_bathroom = number_of_bathroom - 1;
+            displayNumberOfBathroom(number_of_bathroom, number_of_bathrooms);
+        }
+        else {
+            Toast.makeText(getActivity(), "Number Of Bathroom Cannot be Minus", Toast.LENGTH_SHORT).show();
+            displayNumberOfBathroom(number_of_bathroom, number_of_bathrooms);
+        }
+    }
+
+    private void displayNumberOfBedroom(int number, TextView tv) {
+        this.number_of_bedrooms = tv;
+        number_of_bedrooms.setText(String.valueOf(number));
+    }
+
+    private void displayNumberOfBathroom(int number, TextView tv) {
+        this.number_of_bathrooms = tv;
+        number_of_bathrooms.setText(String.valueOf(number));
+    }
+
+    /*
     private void attempAddBasicInfo1() {
 
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -351,47 +387,5 @@ public class BasicInfoFragment1 extends Fragment {
 
         });
     }
-
-    public void incrementOfBedroom() {
-        number_of_bedroom = number_of_bedroom + 1;
-        displayNumberOfBedroom(number_of_bedroom, number_of_bedrooms);
-    }
-
-    public void decrementOfBedroom() {
-        if(number_of_bedroom > 0) {
-            number_of_bedroom = number_of_bedroom - 1;
-            displayNumberOfBedroom(number_of_bedroom, number_of_bedrooms);
-        }
-        else {
-            Toast.makeText(getActivity(), "Number Of Bedroom Cannot be Minus", Toast.LENGTH_SHORT).show();
-            displayNumberOfBedroom(number_of_bedroom, number_of_bedrooms);
-        }
-
-    }
-
-    public void incrementOfBathroom() {
-        number_of_bathroom = number_of_bathroom + 1;
-        displayNumberOfBathroom(number_of_bathroom, number_of_bathrooms);
-    }
-
-    public void decrementOfBathroom() {
-        if(number_of_bathroom > 0) {
-            number_of_bathroom = number_of_bathroom - 1;
-            displayNumberOfBathroom(number_of_bathroom, number_of_bathrooms);
-        }
-        else {
-            Toast.makeText(getActivity(), "Number Of Bathroom Cannot be Minus", Toast.LENGTH_SHORT).show();
-            displayNumberOfBathroom(number_of_bathroom, number_of_bathrooms);
-        }
-    }
-
-    private void displayNumberOfBedroom(int number, TextView tv) {
-        this.number_of_bedrooms = tv;
-        number_of_bedrooms.setText(String.valueOf(number));
-    }
-
-    private void displayNumberOfBathroom(int number, TextView tv) {
-        this.number_of_bathrooms = tv;
-        number_of_bathrooms.setText(String.valueOf(number));
-    }
+    */
 }

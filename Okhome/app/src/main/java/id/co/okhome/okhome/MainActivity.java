@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final int REQ_TOPUP = 1001;
     public static final int REQ_TOPUP_RETURN = 1002;
+    public static final int REQ_LOGIN = 1005;
+    public static final int REQ_LOGIN_RETURN = 1006;
     private String email = "";
     private String user_token = "";
     public TextView textView;
@@ -62,16 +64,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         email = message;
         */
 
-        String message = OrderInfo.getInstance().GetUserEmailInfo();
-        textView = (TextView) findViewById(R.id.welcome);
-
         SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.KEY_USER_DATA, MODE_PRIVATE);
         user_token = sharedPreferences.getString(LoginActivity.KEY_USER_DATA_TOKEN, "noToken");
 
+        textView = (TextView) findViewById(R.id.welcome);
+
+        try {
+            OrderInfo.getInstance().GetUserEmailInfo();
+        } catch (NullPointerException e) {
+            OrderInfo.getInstance().AddUserEmailInfo("guest");
+        }
 
 
-        if(user_token == "noToken") {
-            textView.setText("Welcome " + message);
+        if(user_token.equals("noToken")) {
+            textView.setText("Welcome " + OrderInfo.getInstance().GetUserEmailInfo());
         } else {
             loadTokenFromDataBase();
         }
@@ -80,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_toLogin).setOnClickListener(this);
         findViewById(R.id.btn_newOrder).setOnClickListener(this);
         findViewById(R.id.btn_topUp).setOnClickListener(this);
+        findViewById(R.id.btn_toLogOut).setOnClickListener(this);
     }
 
     class RunThread extends Thread {
@@ -99,7 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_toLogin:
                 Intent intentToLogin = new Intent(this, LoginActivity.class);
-                startActivity(intentToLogin);
+                intentToLogin.putExtra("requestCode", REQ_LOGIN);
+                startActivityForResult(intentToLogin, REQ_LOGIN_RETURN);
                 break;
             case R.id.btn_newOrder:
                 Intent intentToOrder = new Intent(this, OrderActivity.class);
@@ -110,6 +118,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intentToTopUp.putExtra("requestCode", REQ_TOPUP);
                 startActivityForResult(intentToTopUp, REQ_TOPUP_RETURN);
                 break;
+            case R.id.btn_toLogOut:
+                SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.KEY_USER_DATA, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(LoginActivity.KEY_USER_DATA_TOKEN, "noToken");
+                editor.apply();
+
+                Intent intentToLogout = new Intent(this, LogOutActivity.class);
+                startActivity(intentToLogout);
         }
     }
 
@@ -117,11 +133,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQ_TOPUP) {
+        if (requestCode == REQ_TOPUP_RETURN) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Top UP Complete", Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Top Up Canceled", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == REQ_LOGIN_RETURN) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Login Complete", Toast.LENGTH_SHORT).show();
+                textView.setText("Welcome " + OrderInfo.getInstance().GetUserEmailInfo());
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Login Canceled", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -183,7 +206,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 0) {
+                OrderInfo.getInstance().AddUserEmailInfo(email);
                 textView.setText("Welcome "+email);
+
             }
         }
     };

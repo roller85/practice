@@ -148,9 +148,17 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         protected void onPostExecute(Boolean aBoolean) {
             if (aBoolean) {
                 Toast.makeText(getApplicationContext(), "Sign up Complete", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                int requestCode = getIntent().getIntExtra("requestCode", -1);
+
+                if (requestCode == TopUpActivity.REQ_SIGNUP) {
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             } else {
                 Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
             }

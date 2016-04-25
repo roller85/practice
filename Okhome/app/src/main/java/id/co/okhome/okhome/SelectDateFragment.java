@@ -50,8 +50,14 @@ public class SelectDateFragment extends Fragment {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        Calendar calendar1 = Calendar.getInstance();
+
         calendar.add(Calendar.DAY_OF_MONTH, 2);
+        calendar1.add(Calendar.MONTH, 2);
         datePicker.setMinDate(calendar.getTimeInMillis());
+        datePicker.setMaxDate(calendar1.getTimeInMillis());
+
         datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {

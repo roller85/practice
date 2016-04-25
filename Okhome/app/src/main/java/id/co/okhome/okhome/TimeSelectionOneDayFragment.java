@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import id.co.okhome.okhome.Data.OrderInfo;
 
@@ -64,8 +65,8 @@ public class TimeSelectionOneDayFragment extends Fragment {
         TextView view1 = (TextView) fragmentView.findViewById(R.id.cleaningDay1_one_day);
         view1.setText(day1);
 
-        rg1_day1 = (RadioGroup) fragmentView.findViewById(R.id.rdb_select_time1_day1_two_days);
-        rg2_day1 = (RadioGroup) fragmentView.findViewById(R.id.rdb_select_time2_day1_two_days);
+        rg1_day1 = (RadioGroup) fragmentView.findViewById(R.id.rdb_select_time1_day1_one_day);
+        rg2_day1 = (RadioGroup) fragmentView.findViewById(R.id.rdb_select_time2_day1_one_day);
         rg1_day1.clearCheck();
         rg2_day1.clearCheck();
         rg1_day1.setOnCheckedChangeListener(listener1);
@@ -108,9 +109,13 @@ public class TimeSelectionOneDayFragment extends Fragment {
                         break;
                 }
 
-                OrderActivity activity = (OrderActivity) getActivity();
-                OrderInfo.getInstance().AddVisitTimeInfo(day1Time, day2Time, day3Time);
-                activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
+                if (day1Time.equals(" ")) {
+                    Toast.makeText(getActivity(), "you need to select time", Toast.LENGTH_SHORT).show();
+                } else {
+                    OrderActivity activity = (OrderActivity) getActivity();
+                    OrderInfo.getInstance().AddVisitTimeInfo(day1Time, day2Time, day3Time);
+                    activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
+                }
             }
         });
 

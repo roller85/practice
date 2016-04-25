@@ -2,6 +2,7 @@ package id.co.okhome.okhome;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -44,7 +45,13 @@ public class TopUpConfirmFragment extends Fragment {
                     topUpActivity.finish();
                 } else if (requestCode == OrderActivity.REQ_TOPUP) {
                     //Need to do: send Order info + Top up Info to server
+                    topUpActivity.setResult(Activity.RESULT_OK);
+                    topUpActivity.finish();
 
+                } else {
+                    TopUpActivity activity = (TopUpActivity) getActivity();
+                    Intent intent = new Intent(activity, MainActivity.class);
+                    startActivity(intent);
                 }
 
             }

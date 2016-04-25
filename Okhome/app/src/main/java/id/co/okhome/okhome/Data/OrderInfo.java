@@ -17,6 +17,7 @@ public class OrderInfo {
     private PriceInfo priceInfo;
     private TopUpInfo topUpInfo;
     private UserInfo userInfo;
+    private GuestInfo guestInfo;
 
 
 
@@ -28,16 +29,35 @@ public class OrderInfo {
         this.userInfo = new UserInfo(email);
     }
 
-    public String GetUserEmailInfo() {
-        return userInfo.email;
-    }
-
     public class UserInfo {
         private String email;
 
         public UserInfo(String email) {
             this.email = email;
         }
+
+    }
+
+    public String GetUserEmailInfo() {
+        return userInfo.email;
+    }
+
+
+    public void AddGuestInfo(String guest) {
+        this.guestInfo = new GuestInfo(guest);
+    }
+
+    public String GetGuestInfo() {
+        return guestInfo.guest;
+    }
+
+    public class GuestInfo {
+        private String guest;
+
+        public GuestInfo(String guest) {
+            this.guest = guest;
+        }
+
     }
 
     public void AddTopUpExpectedInfo(int topUpCashExpected, int topUpPointExpected) {
@@ -73,6 +93,10 @@ public class OrderInfo {
 
     public int GetChargePerWeek() {
         return priceInfo.chargePerWeek;
+    }
+
+    public int GetCleaningHours() {
+        return priceInfo.cleaningHours;
     }
 
     public class PriceInfo {
@@ -136,8 +160,8 @@ public class OrderInfo {
         }
     }
 
-    public void AddPeriodInfo(int period, int duration) {
-        this.scheduleInfo = new ScheduleInfo(period, duration);
+    public void AddPeriodInfo(int period) {
+        this.scheduleInfo = new ScheduleInfo(period);
     }
 
     public void AddVisitDayInfo(int visitDay1, int visitDay2, int visitDay3) {
@@ -152,8 +176,8 @@ public class OrderInfo {
         return scheduleInfo2.timeDay1;
     }
 
-    public int GetDurationInfo() {
-        return scheduleInfo.duration;
+    public int GetPeriodInfo() {
+        return scheduleInfo.period;
     }
 
     public int GetVisitDay1() {
@@ -170,7 +194,6 @@ public class OrderInfo {
 
     public class ScheduleInfo {
         private int period;
-        private int duration;
         private int visitDay1;
         private int visitDay2;
         private int visitDay3;
@@ -179,9 +202,8 @@ public class OrderInfo {
         private String timeDay3;
 
 
-        public ScheduleInfo(int period1, int duration1) {
-            this.period = period1;
-            this.duration = duration1;
+        public ScheduleInfo(int period) {
+            this.period = period;
         }
 
         public ScheduleInfo(int visitDay1, int visitDay2, int visitDay3) {

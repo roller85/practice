@@ -1,8 +1,6 @@
 package id.co.okhome.okhome;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,19 +9,10 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import id.co.okhome.okhome.Data.OrderInfo;
-import id.co.okhome.okhome.Server.ServerAPI;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class SelectDayFragment extends Fragment {
@@ -62,8 +51,7 @@ public class SelectDayFragment extends Fragment {
 
         email = OrderInfo.getInstance().GetUserEmailInfo();
         //SharedPreferences shared = getActivity().getPreferences(Context.MODE_PRIVATE);
-        cleaning_period = OrderInfo.getInstance().GetDurationInfo();
-
+        cleaning_period = OrderInfo.getInstance().GetPeriodInfo();
         pressed_toggle_button = OrderInfo.getInstance().GetStartDay();
 
         Toast.makeText(getActivity(),"Cleaning period is "+cleaning_period, Toast.LENGTH_LONG).show();
@@ -262,7 +250,6 @@ public class SelectDayFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (btnLimit == mSchedule.size()) {
-                    allocateSchedule();
 /*
                     SharedPreferences shared1 = getActivity().getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor1 = shared1.edit();
@@ -279,19 +266,35 @@ public class SelectDayFragment extends Fragment {
                     editor3.putInt(OrderActivity.EXTRA_MESSAGE6, visitDay3);
                     editor3.commit();
 */
-                    Toast.makeText(getActivity(),"VisitDay1 ="+visitDay1+"VisitDay2 ="+visitDay2+"VisitDay3 ="+visitDay3,Toast.LENGTH_LONG).show();
-                    attmpAddCleanigPackage();
+                    allocateSchedule();
+                    if (visitDay1 == OrderInfo.getInstance().GetStartDay() || visitDay2 == OrderInfo.getInstance().GetStartDay() ||
+                            visitDay3 == OrderInfo.getInstance().GetStartDay()) {
+                        Toast.makeText(getActivity(),"VisitDay1 ="+visitDay1+"VisitDay2 ="+visitDay2+"VisitDay3 ="+visitDay3,Toast.LENGTH_LONG).show();
+
+                        OrderActivity activity = (OrderActivity) getActivity();
+                        OrderInfo.getInstance().AddVisitDayInfo(visitDay1, visitDay2, visitDay3);
+
+                        switch (btnLimit) {
+                            case 1:
+                                activity.nextFragment(TimeSelectionOneDayFragment.newInstance(), TimeSelectionOneDayFragment.TAG);
+                                break;
+                            case 2:
+                                activity.nextFragment(TimeSelectionTwoDaysFragment.newInstance(), TimeSelectionTwoDaysFragment.TAG);
+                                break;
+                            case 3:
+                                activity.nextFragment(TimeSelectionThreeDaysFragment.newInstance(), TimeSelectionThreeDaysFragment.TAG);
+                        }
+                    } else {
+                        int selectedDay = OrderInfo.getInstance().GetStartDay();
+                        String selectedFirstDay = intIntoDay(selectedDay);
+                        Toast.makeText(getActivity(),"you need to select "+selectedFirstDay,Toast.LENGTH_LONG).show();
+                    }
                 }
                 else {
                     Toast.makeText(getActivity(), "You need to choose more or less days", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
-
-
-
 
         return fragment4View;
     }
@@ -310,6 +313,34 @@ public class SelectDayFragment extends Fragment {
         }
     }
 
+    public String intIntoDay(int day) {
+        if (day == 1) {
+            return (String) getText(R.string.monday);
+        }
+        if (day == 2) {
+            return (String) getText(R.string.tuesday);
+        }
+        if (day == 3) {
+            return (String) getText(R.string.wednesday);
+        }
+        if (day == 4) {
+            return (String) getText(R.string.thursday);
+        }
+        if (day == 5) {
+            return (String) getText(R.string.friday);
+        }
+        if (day == 6) {
+            return (String) getText(R.string.saturday);
+        }
+        if (day == 7) {
+            return (String) getText(R.string.sunday);
+        }
+        else {
+            return null;
+        }
+    }
+
+    /*
     public void attmpAddCleanigPackage() {
 
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -353,6 +384,7 @@ public class SelectDayFragment extends Fragment {
             }
         });
     }
+*/
 
 
 }

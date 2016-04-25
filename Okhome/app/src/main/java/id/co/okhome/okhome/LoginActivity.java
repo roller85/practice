@@ -30,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String KEY_USER_DATA = "user_data";
     public static final String KEY_USER_DATA_TOKEN = "user_data_token";
+    public static final int REQ_TOPUP = 1011;
+
     private EditText appEmail, appPassword;
     private CheckBox checkBox;
     private boolean checked;
@@ -130,11 +132,26 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Snackbar.make(findViewById(R.id.content_login), response.body().toString(), Snackbar.LENGTH_SHORT).show();
-                Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
+
+                int requestCode = getIntent().getIntExtra("requestCode", -1);
+
                 String message = appEmail.getText().toString();
                 OrderInfo.getInstance().AddUserEmailInfo(message);
-                startActivity(intentMain);
-                finish();
+
+                if (requestCode == MainActivity.REQ_LOGIN) {
+                    setResult(RESULT_OK);
+                    finish();
+                } else if (requestCode == TopUpActivity.REQ_LOGIN) {
+                    Intent intent = new Intent(LoginActivity.this, TopUpActivity.class);
+                    intent.putExtra("requestCode", REQ_TOPUP);
+                    startActivity(intent);
+                }
+                /*
+                else if (requestCode == TopUpActivity.REQ_SIGNUP) {
+                    setResult(RESULT_OK);
+                    finish();
+                }
+                */
             }
         });
     }
@@ -177,9 +194,19 @@ public class LoginActivity extends AppCompatActivity {
                 String message = appEmail.getText().toString();
                 OrderInfo.getInstance().AddUserEmailInfo(message);
 
-                Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intentMain);
-                finish();
+                int requestCode = getIntent().getIntExtra("requestCode", -1);
+                if (requestCode == MainActivity.REQ_LOGIN) {
+                    setResult(RESULT_OK);
+                    finish();
+                }
+                /*
+                else if (requestCode == TopUpActivity.REQ_SIGNUP) {
+                    setResult(RESULT_OK);
+                    finish();
+                }
+                */
+
+
             }
         });
     }

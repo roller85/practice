@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import id.co.okhome.okhome.Data.OrderInfo;
 
@@ -91,14 +92,19 @@ public class TopUpPackageFragment extends Fragment {
         fragmentView.findViewById(R.id.btn_end_of_top_up_package).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TopUpActivity activityTopUp = (TopUpActivity)  getActivity();
-                OrderInfo.getInstance().AddTopUpExpectedInfo(topUpAmountCash, topUpAmountPoint);
-                email = OrderInfo.getInstance().GetUserEmailInfo();
-                if(email != null) {
-                    activityTopUp.nextFragment(TopUpInfoFragment.newInstance(), TopUpInfoFragment.TAG);
+                if (topUpPackage.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(getActivity(), "you need to select package", Toast.LENGTH_SHORT).show();
                 } else {
-                    activityTopUp.nextFragment(SignUpRecommendFragment.newInstance(), SignUpRecommendFragment.TAG);
+                    TopUpActivity activityTopUp = (TopUpActivity)  getActivity();
+                    OrderInfo.getInstance().AddTopUpExpectedInfo(topUpAmountCash, topUpAmountPoint);
+                    email = OrderInfo.getInstance().GetUserEmailInfo();
+                    if(email.equals("guest")) {
+                        activityTopUp.nextFragment(SignUpRecommendFragment.newInstance(), SignUpRecommendFragment.TAG);
+                    } else {
+                        activityTopUp.nextFragment(TopUpInfoFragment.newInstance(), TopUpInfoFragment.TAG);
+                    }
                 }
+
 
             }
         });

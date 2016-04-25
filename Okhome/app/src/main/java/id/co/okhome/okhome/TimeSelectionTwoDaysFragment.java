@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import id.co.okhome.okhome.Data.OrderInfo;
 
@@ -150,9 +151,13 @@ public class TimeSelectionTwoDaysFragment extends Fragment {
                         break;
                 }
 
-                OrderActivity activity = (OrderActivity) getActivity();
-                OrderInfo.getInstance().AddVisitTimeInfo(day1Time, day2Time, day3Time);
-                activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
+                if (day1Time.equals(" ")||day2Time.equals(" ")) {
+                    Toast.makeText(getActivity(), "you need to select time", Toast.LENGTH_SHORT).show();
+                } else {
+                    OrderActivity activity = (OrderActivity) getActivity();
+                    OrderInfo.getInstance().AddVisitTimeInfo(day1Time, day2Time, day3Time);
+                    activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
+                }
             }
         });
 
