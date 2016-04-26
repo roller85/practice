@@ -16,6 +16,7 @@ public class OrderInfo {
     private AddressInfo addressInfo;
     private PriceInfo priceInfo;
     private TopUpInfo topUpInfo;
+    private TopUpInfo topUpInfo1;
     private UserInfo userInfo;
     private GuestInfo guestInfo;
 
@@ -60,24 +61,42 @@ public class OrderInfo {
 
     }
 
-    public void AddTopUpExpectedInfo(int topUpCashExpected, int topUpPointExpected) {
-        this.topUpInfo = new TopUpInfo(topUpCashExpected, topUpPointExpected);
+    public void AddTopUpExpectedInfo(int topUpCashExpected, int topUpPointExpected, int bonus) {
+        this.topUpInfo = new TopUpInfo(topUpCashExpected, topUpPointExpected, bonus);
     }
 
     public void AddTopUpUserInfo(String accountHolderName, String userBankName, String userAmountTransfer) {
-        this.topUpInfo = new TopUpInfo(accountHolderName, userBankName, userAmountTransfer);
+        this.topUpInfo1 = new TopUpInfo(accountHolderName, userBankName, userAmountTransfer);
+    }
+
+    public int GetExpectedCash() {
+        return topUpInfo.topUpCashExpected;
+    }
+
+    public int GetBonus() {
+        return topUpInfo.bonus;
+    }
+
+    public String GetAccountHolderName() {
+        return topUpInfo1.accountHolderName;
+    }
+
+    public String GetUserBankName() {
+        return topUpInfo1.userBankName;
     }
 
     public class TopUpInfo {
         private int topUpCashExpected;
         private int topUpPointExpected;
+        private int bonus;
         private String accountHolderName;
         private String userBankName;
         private String userAmountTransfer;
 
-        public TopUpInfo(int topUpCashExpected, int topUpPointExpected) {
+        public TopUpInfo(int topUpCashExpected, int topUpPointExpected, int bonus) {
             this.topUpCashExpected = topUpCashExpected;
             this.topUpPointExpected = topUpPointExpected;
+            this.bonus = bonus;
         }
 
         public TopUpInfo(String accountName, String bankName, String amountTransfer) {
@@ -121,6 +140,30 @@ public class OrderInfo {
         this.homeInfo1 = new HomeInfo(homeDetail);
     }
 
+    public int GetNumberOfBedroom() {
+        return homeInfo.numberOfBedroom;
+    }
+
+    public int GetNumberOfBathroom() {
+        return homeInfo.numberOfBathroom;
+    }
+
+    public String GetHomeType() {
+        return homeInfo.homeType;
+    }
+
+    public String GetHomeSize() {
+        return homeInfo.homeSize;
+    }
+
+    public boolean GetHomeOwnerExistence() {
+        return homeInfo.homeownerExistence;
+    }
+
+    public String GetHomeDetailInfo() {
+        return homeInfo1.homeDetail;
+    }
+
     public class HomeInfo {
         private int numberOfBedroom;
         private int numberOfBathroom;
@@ -142,21 +185,19 @@ public class OrderInfo {
         }
     }
 
-    public void AddPetInfo(boolean catExistence, boolean dogExistence, boolean otherExistence, boolean nonexist) {
-        this.petInfo = new PetInfo(catExistence, dogExistence, otherExistence, nonexist);
+    public void AddPetInfo(String pet_category) {
+        this.petInfo = new PetInfo(pet_category);
+    }
+
+    public String GetPetInfo() {
+        return petInfo.pet_category;
     }
 
     public class PetInfo {
-        private boolean catExistence;
-        private boolean dogExistence;
-        private boolean otherExistence;
-        private boolean nonexist;
+        private String pet_category;
 
-        public PetInfo(boolean catExistence, boolean dogExistence, boolean otherExistence, boolean nonexist) {
-            this.catExistence = catExistence;
-            this.dogExistence = dogExistence;
-            this.otherExistence = otherExistence;
-            this.nonexist = nonexist;
+        public PetInfo(String pet_category) {
+            this.pet_category = pet_category;
         }
     }
 
@@ -174,6 +215,14 @@ public class OrderInfo {
 
     public String GetStartTimeDay1() {
         return scheduleInfo2.timeDay1;
+    }
+
+    public String GetStartTimeDay2() {
+        return scheduleInfo2.timeDay2;
+    }
+
+    public String GetStartTimeDay3() {
+        return scheduleInfo2.timeDay3;
     }
 
     public int GetPeriodInfo() {
@@ -252,6 +301,35 @@ public class OrderInfo {
     public void AddAddressInfo(String region, String city, String district, String detailed_address, String location_detail, String host_name, String host_phone_number) {
         this.addressInfo = new AddressInfo(region, city, district, detailed_address, location_detail, host_name, host_phone_number);
     }
+
+    public String GetPhoneNumber() {
+        return addressInfo.host_phone_number;
+    }
+
+    public String GetHostName() {
+        return addressInfo.host_name;
+    }
+
+    public String GetHostRegion() {
+        return addressInfo.host_region;
+    }
+
+    public String GetHostCity() {
+        return addressInfo.host_city;
+    }
+
+    public String GetHostDistrict(){
+        return addressInfo.host_district;
+    }
+
+    public String GetHostDetailedAddress() {
+        return addressInfo.host_detailed_address;
+    }
+
+    public String GetHostLocationDetail() {
+        return addressInfo.host_location_detail;
+    }
+
 
     public class AddressInfo {
         private String host_region;

@@ -114,9 +114,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentToOrder);
                 break;
             case R.id.btn_topUp:
-                Intent intentToTopUp = new Intent(this, TopUpActivity.class);
-                intentToTopUp.putExtra("requestCode", REQ_TOPUP);
-                startActivityForResult(intentToTopUp, REQ_TOPUP_RETURN);
+                if (OrderInfo.getInstance().GetUserEmailInfo().equals("guest")) {
+                    Toast.makeText(this, "if you are guest,"+"\n"+"you need to order first", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intentToTopUp = new Intent(this, TopUpActivity.class);
+                    intentToTopUp.putExtra("requestCode", REQ_TOPUP);
+                    startActivityForResult(intentToTopUp, REQ_TOPUP_RETURN);
+                }
                 break;
             case R.id.btn_toLogOut:
                 SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.KEY_USER_DATA, MODE_PRIVATE);

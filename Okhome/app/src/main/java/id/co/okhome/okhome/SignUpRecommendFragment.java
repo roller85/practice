@@ -53,7 +53,7 @@ public class SignUpRecommendFragment extends Fragment {
             public void onClick(View v) {
                 UUID uuid = UUID.randomUUID();
                 String number = uuid.toString();
-                String guestNumber = "guest" + number.substring(12);
+                String guestNumber = "g-" + number;
                 OrderInfo.getInstance().AddGuestInfo(guestNumber);
                 TopUpActivity topUpActivity = (TopUpActivity) getActivity();
                 topUpActivity.nextFragment(TopUpInfoFragment.newInstance(), TopUpInfoFragment.TAG);

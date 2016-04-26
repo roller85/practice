@@ -10,6 +10,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import id.co.okhome.okhome.Data.OrderInfo;
 
 
@@ -23,10 +25,7 @@ public class BasicInfoFragment1 extends Fragment {
     private String home_type = "";
     private String home_size = "";
     private boolean homeowner_existence;
-    private boolean pet_cat_existence;
-    private boolean pet_dog_existence;
-    private boolean pet_other_existence;
-    private boolean pet_nonexist;
+    private ArrayList<String> pet;
     public TextView number_of_bedrooms;
     public TextView number_of_bathrooms;
     public String email;
@@ -54,10 +53,7 @@ public class BasicInfoFragment1 extends Fragment {
         number_of_bedrooms = (TextView) fragment1View.findViewById(R.id.number_of_bedrooms);
         number_of_bathrooms = (TextView) fragment1View.findViewById(R.id.number_of_bathrooms);
         email = OrderInfo.getInstance().GetUserEmailInfo();
-        pet_cat_existence = false;
-        pet_dog_existence = false;
-        pet_other_existence = false;
-        pet_nonexist = false;
+        pet = new ArrayList<>();
 
         //increasing number of bedroom
         fragment1View.findViewById(R.id.btn_increment_bedroom).setOnClickListener(new View.OnClickListener() {
@@ -246,7 +242,16 @@ public class BasicInfoFragment1 extends Fragment {
             public void onClick(View v) {
                 pressed = !pressed;
                 v.setSelected(pressed);
-                pet_cat_existence = pressed;
+
+                if (pressed) {
+                    pet.add("cat");
+                } else {
+                    for(int i=0; i<pet.size(); i++) {
+                        if(pet.get(i).equals("cat")) {
+                            pet.remove(i);
+                        }
+                    }
+                }
             }
         });
 
@@ -257,7 +262,15 @@ public class BasicInfoFragment1 extends Fragment {
             public void onClick(View v) {
                 pressed = !pressed;
                 v.setSelected(pressed);
-                pet_dog_existence = pressed;
+                if(pressed) {
+                    pet.add("dog");
+                } else {
+                    for(int i=0; i<pet.size(); i++) {
+                        if (pet.get(i).equals("dog")) {
+                            pet.remove(i);
+                        }
+                    }
+                }
             }
         });
 
@@ -268,7 +281,15 @@ public class BasicInfoFragment1 extends Fragment {
             public void onClick(View v) {
                 pressed = !pressed;
                 v.setSelected(pressed);
-                pet_other_existence = pressed;
+                if(pressed) {
+                    pet.add("other");
+                } else {
+                    for(int i=0; i<pet.size(); i++) {
+                        if(pet.get(i).equals("other")) {
+                            pet.remove(i);
+                        }
+                    }
+                }
             }
         });
 
@@ -279,7 +300,15 @@ public class BasicInfoFragment1 extends Fragment {
             public void onClick(View v) {
                 pressed = !pressed;
                 v.setSelected(pressed);
-                pet_nonexist = pressed;
+                if(pressed) {
+                    pet.add("none");
+                } else {
+                    for(int i=0; i<pet.size(); i++) {
+                        if(pet.get(i).equals("none")) {
+                            pet.remove(i);
+                        }
+                    }
+                }
             }
         });
 
@@ -289,8 +318,15 @@ public class BasicInfoFragment1 extends Fragment {
                 if (home_type.equals("") || home_size.equals("") || homeExistence.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getActivity(), "Fill Out All The Information", Toast.LENGTH_SHORT).show();
                 } else {
+                    StringBuilder pets = new StringBuilder();
+                    for(int i=0; i<pet.size(); i++) {
+                        pets.append(pet.get(i));
+                        pets.append(" ");
+                    }
+                    String pet_category = pets.toString();
+
                     OrderInfo.getInstance().AddHomeInfo(number_of_bedroom, number_of_bathroom, home_type, home_size, homeowner_existence);
-                    OrderInfo.getInstance().AddPetInfo(pet_cat_existence, pet_dog_existence, pet_other_existence, pet_nonexist);
+                    OrderInfo.getInstance().AddPetInfo(pet_category);
                     OrderActivity activity = (OrderActivity) getActivity();
                     activity.nextFragment(BasicInfoFragment2.newInstance(), BasicInfoFragment2.TAG);
                 }

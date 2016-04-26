@@ -24,6 +24,7 @@ public class TopUpPackageFragment extends Fragment {
     private RadioGroup topUpPackage;
     private int topUpAmountCash;
     private int topUpAmountPoint;
+    private int bonus;
     private String user_token;
     private String email;
 
@@ -52,26 +53,31 @@ public class TopUpPackageFragment extends Fragment {
                     case R.id.btn_top_up_10m:
                         topUpAmountCash = 10000000;
                         topUpAmountPoint = 11000000;
+                        bonus = 1000000;
                         break;
 
                     case R.id.btn_top_up_5m:
                         topUpAmountCash = 5000000;
                         topUpAmountPoint = 5400000;
+                        bonus = 400000;
                         break;
 
                     case R.id.btn_top_up_2500k:
                         topUpAmountCash = 2500000;
                         topUpAmountPoint = 2625000;
+                        bonus = 125000;
                         break;
 
                     case R.id.btn_top_up_1000k:
                         topUpAmountCash = 1000000;
                         topUpAmountPoint = 1040000;
+                        bonus = 40000;
                         break;
 
                     case R.id.btn_top_up_800k:
                         topUpAmountCash = 800000;
                         topUpAmountPoint = 800000;
+                        bonus = 0;
                         break;
 
                 }
@@ -96,7 +102,7 @@ public class TopUpPackageFragment extends Fragment {
                     Toast.makeText(getActivity(), "you need to select package", Toast.LENGTH_SHORT).show();
                 } else {
                     TopUpActivity activityTopUp = (TopUpActivity)  getActivity();
-                    OrderInfo.getInstance().AddTopUpExpectedInfo(topUpAmountCash, topUpAmountPoint);
+                    OrderInfo.getInstance().AddTopUpExpectedInfo(topUpAmountCash, topUpAmountPoint, bonus);
                     email = OrderInfo.getInstance().GetUserEmailInfo();
                     if(email.equals("guest")) {
                         activityTopUp.nextFragment(SignUpRecommendFragment.newInstance(), SignUpRecommendFragment.TAG);
