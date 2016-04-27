@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import id.co.okhome.okhome.Data.OrderInfo;
 
@@ -23,10 +24,15 @@ public class RegisterAddressFragment extends Fragment {
     private String host_city;
     private String host_region;
     private String host_district;
-    private String host_detailed_address;
-    private String host_location_detail;
-    private String host_name;
-    private String host_phone_number;
+    private String host_detailed_address="";
+    private String host_location_detail="";
+    private String host_name="";
+    private String host_phone_number="";
+
+    private EditText detailed_address;
+    private EditText location_detail;
+    private EditText hName;
+    private EditText hPhoneNumber;
 
     public RegisterAddressFragment() {
         // Required empty public constructor
@@ -53,26 +59,28 @@ public class RegisterAddressFragment extends Fragment {
         district_spinner.setAdapter(adapter);
 
         host_district = district_spinner.getSelectedItem().toString();
-
-        EditText detailed_address = (EditText) fragment7View.findViewById(R.id.etx_detailed_address);
-        host_detailed_address = detailed_address.getText().toString();
-
-        EditText location_detail = (EditText) fragment7View.findViewById(R.id.etx_location_detail);
-        host_location_detail = location_detail.getText().toString();
-
-        EditText hName = (EditText) fragment7View.findViewById(R.id.etx_host_name);
-        host_name = hName.getText().toString();
-
-        EditText hPhoneNumber = (EditText) fragment7View.findViewById(R.id.etx_host_phone_number);
-        host_phone_number = hPhoneNumber.getText().toString();
+        detailed_address = (EditText) fragment7View.findViewById(R.id.etx_detailed_address);
+        location_detail = (EditText) fragment7View.findViewById(R.id.etx_location_detail);
+        hName = (EditText) fragment7View.findViewById(R.id.etx_host_name);
+        hPhoneNumber = (EditText) fragment7View.findViewById(R.id.etx_host_phone_number);
 
         fragment7View.findViewById(R.id.btn_end_of_address1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrderActivity activity = (OrderActivity) getActivity();
-                OrderInfo.getInstance().AddAddressInfo(host_region, host_city, host_district, host_detailed_address,
-                        host_location_detail, host_name, host_phone_number);
-                activity.nextFragment(OrderConfirmFragment.newInstance(), OrderConfirmFragment.TAG);
+
+                host_detailed_address = detailed_address.getText().toString();
+                host_location_detail = location_detail.getText().toString();
+                host_name = hName.getText().toString();
+                host_phone_number = hPhoneNumber.getText().toString();
+
+                if(host_detailed_address.equals("")||host_location_detail.equals("")||host_name.equals("")||host_phone_number.equals("")) {
+                    Toast.makeText(getActivity(), "You need to fill out all the information", Toast.LENGTH_SHORT).show();
+                } else {
+                    OrderActivity activity = (OrderActivity) getActivity();
+                    OrderInfo.getInstance().AddAddressInfo(host_region, host_city, host_district, host_detailed_address,
+                            host_location_detail, host_name, host_phone_number);
+                    activity.nextFragment(OrderConfirmFragment.newInstance(), OrderConfirmFragment.TAG);
+                }
             }
         });
 

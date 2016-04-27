@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import id.co.okhome.okhome.Data.OrderInfo;
@@ -44,6 +45,13 @@ public class TopUpInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_top_up_info, container, false);
+
+        TextView amountToTransfer = (TextView) fragmentView.findViewById(R.id.txv_amount_to_transfer);
+        if (OrderInfo.getInstance().GetUserEmailInfo().equals("guest")) {
+            amountToTransfer.setText(R.string.topup_amount);
+        } else {
+            amountToTransfer.setText("Amount to transfer: "+OrderInfo.getInstance().GetExpectedCash());
+        }
 
         holder_name = (EditText) fragmentView.findViewById(R.id.etx_account_holder_name);
         bank_name = (EditText) fragmentView.findViewById(R.id.etx_user_bank_name);

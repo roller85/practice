@@ -55,6 +55,12 @@ public class SignUpRecommendFragment extends Fragment {
                 String number = uuid.toString();
                 String guestNumber = "g-" + number;
                 OrderInfo.getInstance().AddGuestInfo(guestNumber);
+
+                int topUpAmountCash = 800000;
+                int topUpAmountPoint = 800000;
+                int bonus = 0;
+                OrderInfo.getInstance().AddTopUpExpectedInfo(topUpAmountCash, topUpAmountPoint, bonus);
+
                 TopUpActivity topUpActivity = (TopUpActivity) getActivity();
                 topUpActivity.nextFragment(TopUpInfoFragment.newInstance(), TopUpInfoFragment.TAG);
             }

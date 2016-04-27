@@ -24,6 +24,7 @@ public class OrderConfirmFragment extends Fragment {
     private TextView service_duration;
     private TextView service_period;
     private TextView service_charge;
+    private TextView service_every_or_not;
     private int visitDay1;
     private int visitDay2;
     private int visitDay3;
@@ -82,6 +83,13 @@ public class OrderConfirmFragment extends Fragment {
 
         service_duration = (TextView) fragment8View.findViewById(R.id.txv_service_duration);
         service_duration.setText(stringBuilder1);
+
+        service_every_or_not = (TextView) fragment8View.findViewById(R.id.txv_every_or_not);
+        if (OrderInfo.getInstance().GetPeriodInfo()==0) {
+            service_every_or_not.setText("in");
+        } else {
+            service_every_or_not.setText("in every");
+        }
 
         visitDay1 = OrderInfo.getInstance().GetVisitDay1();
         visitDay2 = OrderInfo.getInstance().GetVisitDay2();

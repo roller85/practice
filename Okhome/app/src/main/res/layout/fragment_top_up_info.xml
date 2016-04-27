@@ -28,6 +28,13 @@
             android:text="@string/okhome_bank_account_holder"
             android:textAlignment="center"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txv_amount_to_transfer"
+            android:text="0"
+            android:textAlignment="center"/>
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

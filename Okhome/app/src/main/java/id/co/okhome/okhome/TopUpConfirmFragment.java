@@ -69,7 +69,6 @@ public class TopUpConfirmFragment extends Fragment {
                     if (OrderInfo.getInstance().GetUserEmailInfo().equals("guest")) {
                         try {
                             guestInfoAdd();
-                            chargeInfoAdd();
                         } catch (Exception e) {
                             Snackbar.make(fragmentView.findViewById(R.id.fragment_top_up_confirm), e.getMessage(), Snackbar.LENGTH_LONG).show();
                         }
@@ -81,8 +80,6 @@ public class TopUpConfirmFragment extends Fragment {
                             Snackbar.make(fragmentView.findViewById(R.id.fragment_top_up_confirm), e.getMessage(), Snackbar.LENGTH_LONG).show();
                         }
                     }
-
-
 
                 } else {
                     TopUpActivity activity = (TopUpActivity) getActivity();
@@ -173,10 +170,18 @@ public class TopUpConfirmFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Snackbar.make(getView().findViewById(R.id.fragment_top_up_confirm), response.body().toString(), Snackbar.LENGTH_LONG).show();
-                TopUpActivity topUpActivity = (TopUpActivity) getActivity();
-                topUpActivity.setResult(Activity.RESULT_OK);
-                topUpActivity.finish();
+                String confirm = response.body().string();
+                if (confirm.equals("update complete")) {
+                    Snackbar.make(getView().findViewById(R.id.fragment_top_up_confirm), response.body().toString(), Snackbar.LENGTH_LONG).show();
+                    TopUpActivity topUpActivity = (TopUpActivity) getActivity();
+                    topUpActivity.setResult(Activity.RESULT_OK);
+                    topUpActivity.finish();
+                } else {
+                    TopUpActivity topUpActivity = (TopUpActivity) getActivity();
+                    topUpActivity.setResult(Activity.RESULT_CANCELED);
+                    topUpActivity.finish();
+                }
+
             }
         });
 
@@ -370,23 +375,18 @@ public class TopUpConfirmFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String confirm = response.body().toString();
-                if (confirm.equals(OrderInfo.getInstance().GetPhoneNumber())) {
+                String confirm = response.body().string();
+                if (confirm.equals("success")) {
+                    //need to show register number to guest with pop-up window in MainAct
                     String register = OrderInfo.getInstance().GetGuestInfo();
                     String register_number = register.substring(12);
-                    Toast.makeText(getActivity(), "Order Complete, Order Number is " + register_number, Toast.LENGTH_SHORT).show();
+                    chargeInfoAdd();
 
-                    TopUpActivity topUpActivity = (TopUpActivity) getActivity();
-                    topUpActivity.setResult(Activity.RESULT_OK);
-                    topUpActivity.finish();
-                } else {
-                    Toast.makeText(getActivity(), "Order Failed, Please Try Again ", Toast.LENGTH_SHORT).show();
-
+                } else if (confirm.equals("failed")) {
                     TopUpActivity topUpActivity = (TopUpActivity) getActivity();
                     topUpActivity.setResult(Activity.RESULT_CANCELED);
                     topUpActivity.finish();
                 }
-
             }
         });
 

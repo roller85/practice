@@ -45,7 +45,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="in every"
+            android:text="0"
+            android:id="@+id/txv_every_or_not"
             android:textAlignment="center"/>
 
         <TextView

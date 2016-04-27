@@ -118,6 +118,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="topup_info">Top Up Info</string>
+    <string name="topup_amount">Amount to transfer: 800000 Rp"\n"Sorry, guest cannot use bonus pkg.</string>
     <string name="account_holder_name">Bank Account Holder Name</string>
     <string name="user_bank_name">Name of Bank (e.g. BCA)</string>
     <string name="user_amount_transfer">Amount To Be Transferred</string>

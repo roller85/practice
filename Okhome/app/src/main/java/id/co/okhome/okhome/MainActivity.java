@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(LoginActivity.KEY_USER_DATA_TOKEN, "noToken");
                 editor.apply();
+                OrderInfo.getInstance().AddUserEmailInfo("guest");
 
                 Intent intentToLogout = new Intent(this, LogOutActivity.class);
                 startActivity(intentToLogout);

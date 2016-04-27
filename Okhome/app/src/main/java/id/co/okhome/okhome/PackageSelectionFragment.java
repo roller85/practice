@@ -56,22 +56,37 @@ public class PackageSelectionFragment extends Fragment {
 
                 switch (checkedId) {
                     case R.id.btn_triple:
-                        cleaning_period = 3;
-                        calculationOfWeeklyCharge(100000, 3, 3);
-                        displayWeeklyCharge(charge_per_week, weekly_charge);
-                        displayWeeklyChargeEquation(charge_per_hour, cleaning_hours, cleaning_days, weekly_charge_equation);
+                        if(OrderInfo.getInstance().GetUserEmailInfo().equals("guest")) {
+                            Toast.makeText(getActivity(), "Sorry Guest can only use single pkg.", Toast.LENGTH_LONG).show();
+                            cleaningPackage.clearCheck();
+                        } else {
+                            cleaning_period = 3;
+                            calculationOfWeeklyCharge(100000, 3, 3);
+                            displayWeeklyCharge(charge_per_week, weekly_charge);
+                            displayWeeklyChargeEquation(charge_per_hour, cleaning_hours, cleaning_days, weekly_charge_equation);
+                        }
                         break;
                     case R.id.btn_double:
-                        cleaning_period = 2;
-                        calculationOfWeeklyCharge(100000, 4, 2);
-                        displayWeeklyCharge(charge_per_week, weekly_charge);
-                        displayWeeklyChargeEquation(charge_per_hour, cleaning_hours, cleaning_days, weekly_charge_equation);
+                        if(OrderInfo.getInstance().GetUserEmailInfo().equals("guest")) {
+                            Toast.makeText(getActivity(), "Sorry Guest can only use single pkg.", Toast.LENGTH_LONG).show();
+                            cleaningPackage.clearCheck();
+                        } else {
+                            cleaning_period = 2;
+                            calculationOfWeeklyCharge(100000, 4, 2);
+                            displayWeeklyCharge(charge_per_week, weekly_charge);
+                            displayWeeklyChargeEquation(charge_per_hour, cleaning_hours, cleaning_days, weekly_charge_equation);
+                        }
                         break;
                     case R.id.btn_single:
-                        cleaning_period = 1;
-                        calculationOfWeeklyCharge(100000, 8, 1);
-                        displayWeeklyCharge(charge_per_week, weekly_charge);
-                        displayWeeklyChargeEquation(charge_per_hour, cleaning_hours, cleaning_days, weekly_charge_equation);
+                        if(OrderInfo.getInstance().GetUserEmailInfo().equals("guest")) {
+                            Toast.makeText(getActivity(), "Sorry Guest can only use single pkg.", Toast.LENGTH_LONG).show();
+                            cleaningPackage.clearCheck();
+                        } else {
+                            cleaning_period = 1;
+                            calculationOfWeeklyCharge(100000, 8, 1);
+                            displayWeeklyCharge(charge_per_week, weekly_charge);
+                            displayWeeklyChargeEquation(charge_per_hour, cleaning_hours, cleaning_days, weekly_charge_equation);
+                        }
                         break;
                     case R.id.btn_onetime:
                         cleaning_period = 0;
