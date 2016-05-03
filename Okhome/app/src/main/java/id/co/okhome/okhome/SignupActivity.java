@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.joda.time.DateTime;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -72,13 +74,16 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         String email = signupEmail.getText().toString();
         String password = signupPassword.getText().toString();
 
+        DateTime dt = new DateTime();
+        String date = dt.toString();
+
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
         if (networkInfo != null && networkInfo.isConnected()) {
             SubmitApiTask submitApiTask = new SubmitApiTask();
-            submitApiTask.execute(email, password);
+            submitApiTask.execute(email, password, date);
         } else {
             Toast.makeText(getApplicationContext(), "No Connection", Toast.LENGTH_SHORT).show();
         }
@@ -91,6 +96,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
             String email = params[0];
             String password = params[1];
+            String date = params[2];
 
             try {
 
@@ -103,7 +109,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("email", email)
-                        .appendQueryParameter("password", password);
+                        .appendQueryParameter("password", password)
+                        .appendQueryParameter("joined_date", date);
                 String query = builder.build().getEncodedQuery();
 
                 Log.d("SubmitApiTask", query);

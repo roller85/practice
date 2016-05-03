@@ -12,6 +12,7 @@ public class ServerAPI{
     public static final String GUESTINFOADD = BASE_URL + "/guestInfoAdd.php";
 
     /*
+    public static final String GETBALANCE = BASE_URL + "/getBalance.php";
     public static final String BASICINFO1ADD = BASE_URL + "/basicInfo1Add.php";
     public static final String BASICINFO2ADD = BASE_URL + "/basicInfo2Add.php";
     public static final String CLEANINGPACKAGE = BASE_URL + "/cleaningPackageAdd.php";

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import id.co.okhome.okhome.Data.OrderInfo;
 import id.co.okhome.okhome.Server.ServerAPI;
@@ -37,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String email = "";
     private String user_token = "";
     public TextView textView;
+    public TextView txv_balance;
+    private int period;
+    private int balance;
+    private ArrayList<Integer> periodBalance;
 
 
     @Override
@@ -68,11 +73,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         user_token = sharedPreferences.getString(LoginActivity.KEY_USER_DATA_TOKEN, "noToken");
 
         textView = (TextView) findViewById(R.id.welcome);
+        txv_balance = (TextView) findViewById(R.id.current_balance2);
 
         try {
             OrderInfo.getInstance().GetUserEmailInfo();
         } catch (NullPointerException e) {
             OrderInfo.getInstance().AddUserEmailInfo("guest");
+        }
+
+        try {
+            period = OrderInfo.getInstance().GetPeriodInfo();
+        } catch (NullPointerException e) {
+            OrderInfo.getInstance().AddPeriodInfo(-1);
         }
 
 
@@ -110,8 +122,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivityForResult(intentToLogin, REQ_LOGIN_RETURN);
                 break;
             case R.id.btn_newOrder:
+                if(period==1||period==2||period==3) {
+                    Toast.makeText(this, "if you are periodic user, call OKHOME to change", Toast.LENGTH_SHORT).show();
+                } else {
                 Intent intentToOrder = new Intent(this, OrderActivity.class);
                 startActivity(intentToOrder);
+                }
                 break;
             case R.id.btn_topUp:
                 if (OrderInfo.getInstance().GetUserEmailInfo().equals("guest")) {
@@ -146,8 +162,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         } else if (requestCode == REQ_LOGIN_RETURN) {
             if (resultCode == RESULT_OK) {
+                periodBalance = new ArrayList<>();
+                periodBalance = data.getIntegerArrayListExtra("period_balance");
+                period = periodBalance.get(0);
+                balance = periodBalance.get(1);
+                String txt_balance = String.valueOf(balance);
                 Toast.makeText(this, "Login Complete", Toast.LENGTH_SHORT).show();
                 textView.setText("Welcome " + OrderInfo.getInstance().GetUserEmailInfo());
+                txv_balance.setText(txt_balance);
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Login Canceled", Toast.LENGTH_SHORT).show();
             }
@@ -199,7 +221,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                email = response.body().string();
+                String answer = response.body().string();
+                int dist = answer.indexOf(",");
+                int dist2 = answer.indexOf("/");
+                email = answer.substring(0,dist);
+                String per = answer.substring(dist+1,dist2);
+                period = Integer.parseInt(per);
+                String bal = answer.substring(dist2+1, answer.length()-1);
+                balance = Integer.parseInt(bal);
                 RunThread thread = new RunThread();
                 thread.setDaemon(true);
                 thread.start();
@@ -213,10 +242,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(msg.what == 0) {
                 OrderInfo.getInstance().AddUserEmailInfo(email);
                 textView.setText("Welcome "+email);
+                String txt_bal = String.valueOf(balance);
+                txv_balance.setText(txt_bal);
 
             }
         }
     };
-
 
 }

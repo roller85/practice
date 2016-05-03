@@ -34,6 +34,8 @@ public class TopUpConfirmFragment extends Fragment {
 
     public static final String TAG = "TopUpConfirmFragment";
 
+    public int requestCode;
+
 
     public TopUpConfirmFragment() {
         // Required empty public constructor
@@ -55,7 +57,7 @@ public class TopUpConfirmFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 TopUpActivity topUpActivity = (TopUpActivity) getActivity();
-                int requestCode = topUpActivity.getIntent().getIntExtra("requestCode", -1);
+                requestCode = topUpActivity.getIntent().getIntExtra("requestCode", -1);
                 if (requestCode == MainActivity.REQ_TOPUP) {
                     //Need to do: send Top UP info to the server only
                     try {
@@ -72,15 +74,19 @@ public class TopUpConfirmFragment extends Fragment {
                         } catch (Exception e) {
                             Snackbar.make(fragmentView.findViewById(R.id.fragment_top_up_confirm), e.getMessage(), Snackbar.LENGTH_LONG).show();
                         }
-                    } else {
+                    } else  {
                         try {
                             userInfoAdd();
-                            chargeInfoAdd();
                         } catch (Exception e) {
                             Snackbar.make(fragmentView.findViewById(R.id.fragment_top_up_confirm), e.getMessage(), Snackbar.LENGTH_LONG).show();
                         }
                     }
-
+                } else if (requestCode == LoginActivity.REQ_TOPUP) {
+                    try {
+                        userInfoAdd();
+                    } catch (Exception e) {
+                        Snackbar.make(fragmentView.findViewById(R.id.fragment_top_up_confirm), e.getMessage(), Snackbar.LENGTH_LONG).show();
+                    }
                 } else {
                     TopUpActivity activity = (TopUpActivity) getActivity();
                     Intent intent = new Intent(activity, MainActivity.class);
@@ -98,11 +104,11 @@ public class TopUpConfirmFragment extends Fragment {
         String email = OrderInfo.getInstance().GetUserEmailInfo();
         DateTime dateTime = new DateTime();
         int year = dateTime.getYear();
-        int month = dateTime.getMonthOfYear();
-        int day = dateTime.getDayOfMonth();
-        int hour = dateTime.getHourOfDay();
-        int min = dateTime.getMinuteOfHour();
-        int sec = dateTime.getSecondOfMinute();
+        String month = dateTime.toString("MM");
+        String day = dateTime.toString("dd");
+        String hour = dateTime.toString("HH");
+        String min = dateTime.toString("mm");
+        String sec = dateTime.toString("ss");
         String date = dateTime.toString();
 
         String bank_account_holder  = OrderInfo.getInstance().GetAccountHolderName();
@@ -172,10 +178,17 @@ public class TopUpConfirmFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 String confirm = response.body().string();
                 if (confirm.equals("update complete")) {
-                    Snackbar.make(getView().findViewById(R.id.fragment_top_up_confirm), response.body().toString(), Snackbar.LENGTH_LONG).show();
-                    TopUpActivity topUpActivity = (TopUpActivity) getActivity();
-                    topUpActivity.setResult(Activity.RESULT_OK);
-                    topUpActivity.finish();
+                    if (requestCode == LoginActivity.REQ_TOPUP) {
+                        TopUpActivity topUpActivity = (TopUpActivity) getActivity();
+                        Intent intentToMain = new Intent(topUpActivity, MainActivity.class);
+                        startActivity(intentToMain);
+                    } else  {
+                        Snackbar.make(getView().findViewById(R.id.fragment_top_up_confirm), response.body().toString(), Snackbar.LENGTH_LONG).show();
+                        TopUpActivity topUpActivity = (TopUpActivity) getActivity();
+                        topUpActivity.setResult(Activity.RESULT_OK);
+                        topUpActivity.finish();
+                    }
+
                 } else {
                     TopUpActivity topUpActivity = (TopUpActivity) getActivity();
                     topUpActivity.setResult(Activity.RESULT_CANCELED);
@@ -276,11 +289,15 @@ public class TopUpConfirmFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String message = response.body().toString();
-                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-                TopUpActivity topUpActivity = (TopUpActivity) getActivity();
-                topUpActivity.setResult(Activity.RESULT_OK);
-                topUpActivity.finish();
+                String message = response.body().string();
+                if (message.equals("update complete")) {
+                    chargeInfoAdd();
+                } else {
+                    TopUpActivity topUpActivity = (TopUpActivity) getActivity();
+                    topUpActivity.setResult(Activity.RESULT_CANCELED);
+                    topUpActivity.finish();
+                }
+
             }
         });
 

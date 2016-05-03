@@ -17,6 +17,7 @@ public class OrderInfo {
     private PriceInfo priceInfo;
     private TopUpInfo topUpInfo;
     private TopUpInfo topUpInfo1;
+    private TopUpInfo topUpInfo2;
     private UserInfo userInfo;
     private GuestInfo guestInfo;
 
@@ -69,6 +70,10 @@ public class OrderInfo {
         this.topUpInfo1 = new TopUpInfo(accountHolderName, userBankName, userAmountTransfer);
     }
 
+    public void AddBalanceInfo(int balance) {
+        this.topUpInfo2 = new TopUpInfo(balance);
+    }
+
     public int GetExpectedCash() {
         return topUpInfo.topUpCashExpected;
     }
@@ -85,6 +90,10 @@ public class OrderInfo {
         return topUpInfo1.userBankName;
     }
 
+    public int GetBalance() {
+        return topUpInfo2.balance;
+    }
+
     public class TopUpInfo {
         private int topUpCashExpected;
         private int topUpPointExpected;
@@ -92,6 +101,7 @@ public class OrderInfo {
         private String accountHolderName;
         private String userBankName;
         private String userAmountTransfer;
+        private int balance;
 
         public TopUpInfo(int topUpCashExpected, int topUpPointExpected, int bonus) {
             this.topUpCashExpected = topUpCashExpected;
@@ -103,6 +113,10 @@ public class OrderInfo {
             this.accountHolderName = accountName;
             this.userBankName = bankName;
             this.userAmountTransfer = amountTransfer;
+        }
+
+        public TopUpInfo(int balance) {
+            this.balance = balance;
         }
     }
 

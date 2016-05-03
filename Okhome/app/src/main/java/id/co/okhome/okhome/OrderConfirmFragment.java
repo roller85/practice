@@ -28,6 +28,7 @@ public class OrderConfirmFragment extends Fragment {
     private int visitDay1;
     private int visitDay2;
     private int visitDay3;
+    private int balance;
 
 
     public OrderConfirmFragment() {
@@ -45,6 +46,12 @@ public class OrderConfirmFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View fragment8View = inflater.inflate(R.layout.fragment_order_confirm, container, false);
+
+        try {
+            balance = OrderInfo.getInstance().GetBalance();
+        } catch (NullPointerException e) {
+            OrderInfo.getInstance().AddBalanceInfo(-1);
+        }
 
         OrderActivity activity = (OrderActivity) getActivity();
 
@@ -127,13 +134,28 @@ public class OrderConfirmFragment extends Fragment {
         fragment8View.findViewById(R.id.btn_end_of_order_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrderActivity activity1 = (OrderActivity) getActivity();
-                Intent intent = new Intent(activity1, TopUpActivity.class);
-                intent.putExtra("requestCode", OrderActivity.REQ_TOPUP);
-                activity1.startActivityForResult(intent, OrderActivity.REQ_TOPUP_RETURN);
+                if (OrderInfo.getInstance().GetUserEmailInfo().equals("guest")) {
+                    OrderActivity activity1 = (OrderActivity) getActivity();
+                    Intent intent = new Intent(activity1, TopUpActivity.class);
+                    intent.putExtra("requestCode", OrderActivity.REQ_TOPUP);
+                    activity1.startActivityForResult(intent, OrderActivity.REQ_TOPUP_RETURN);
+                } else if (balance > 0) {
 
-                // Balance가 얼마인지 확인해서 있으면 그냥 넘어갈 수 있게 해야함
+                    //if balance is greater than 0, need to upload this order
+                    //발란스있으면, 여기까지 오더를 올려야 함
+                    //0이 아니라 최소 청소 한번 할 수 있는 금액으로 바꿔야함
+
+                    OrderActivity activity1 = (OrderActivity) getActivity();
+                    Intent intent = new Intent(activity1, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    OrderActivity activity1 = (OrderActivity) getActivity();
+                    Intent intent = new Intent(activity1, TopUpActivity.class);
+                    intent.putExtra("requestCode", OrderActivity.REQ_TOPUP);
+                    activity1.startActivityForResult(intent, OrderActivity.REQ_TOPUP_RETURN);
+                }
             }
+
         });
 
         return fragment8View;

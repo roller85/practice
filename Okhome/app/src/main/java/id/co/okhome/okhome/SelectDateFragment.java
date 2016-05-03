@@ -24,10 +24,10 @@ public class SelectDateFragment extends Fragment {
     public static final String TAG = "SelectDateFragment";
 
     DatePicker datePicker;
-    private int firstStartDate;
-    private int firstStartDay;
-    private int firstStartMonth;
-    private int firstStartYear;
+    private int firstStartDate=0;
+    private int firstStartDay=0;
+    private int firstStartMonth=0;
+    private int firstStartYear=0;
 
     public SelectDateFragment() {
         // Required empty public constructor
@@ -74,9 +74,14 @@ public class SelectDateFragment extends Fragment {
         fragment6View.findViewById(R.id.btn_end_of_select_date_fragment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrderActivity activity = (OrderActivity) getActivity();
-                OrderInfo.getInstance().AddStartDayInfo(firstStartDay, firstStartDate, firstStartMonth, firstStartYear);
-                activity.nextFragment(SelectDayFragment.newInstance(), SelectDayFragment.TAG);
+                if(firstStartDate==0||firstStartDay==0||firstStartMonth==0||firstStartYear==0) {
+                    Toast.makeText(getActivity(), "Please Select Starting Date", Toast.LENGTH_SHORT).show();
+                } else {
+                    OrderActivity activity = (OrderActivity) getActivity();
+                    OrderInfo.getInstance().AddStartDayInfo(firstStartDay, firstStartDate, firstStartMonth, firstStartYear);
+                    activity.nextFragment(SelectDayFragment.newInstance(), SelectDayFragment.TAG);
+                }
+
             }
         });
 

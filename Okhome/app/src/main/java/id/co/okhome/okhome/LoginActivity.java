@@ -12,8 +12,10 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import id.co.okhome.okhome.Data.OrderInfo;
@@ -36,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox checkBox;
     private boolean checked;
     private String token;
+    private int period;
+    private int balance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,18 +137,48 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 Snackbar.make(findViewById(R.id.content_login), response.body().toString(), Snackbar.LENGTH_SHORT).show();
 
-                int requestCode = getIntent().getIntExtra("requestCode", -1);
+                String answer = response.body().string();
+                if (answer.equals("failed")) {
+                    Toast.makeText(LoginActivity.this, answer, Toast.LENGTH_SHORT).show();
+                } else {
+                    if (answer.equals(",")) {
+                        int requestCode = getIntent().getIntExtra("requestCode", -1);
+                        String message = appEmail.getText().toString();
+                        OrderInfo.getInstance().AddUserEmailInfo(message);
 
-                String message = appEmail.getText().toString();
-                OrderInfo.getInstance().AddUserEmailInfo(message);
+                        if (requestCode == MainActivity.REQ_LOGIN) {
+                            setResult(RESULT_OK);
+                            finish();
+                        } else if (requestCode == TopUpActivity.REQ_LOGIN) {
+                            Intent intent = new Intent(LoginActivity.this, TopUpActivity.class);
+                            intent.putExtra("requestCode", REQ_TOPUP);
+                            startActivity(intent);
+                        }
+                    } else {
+                        int dist = answer.indexOf(",");
+                        String per = answer.substring(0, dist);
+                        period = Integer.parseInt(per);
+                        String bal = answer.substring(dist+1, answer.length()-1);
+                        balance = Integer.parseInt(bal);
+                        int requestCode = getIntent().getIntExtra("requestCode", -1);
 
-                if (requestCode == MainActivity.REQ_LOGIN) {
-                    setResult(RESULT_OK);
-                    finish();
-                } else if (requestCode == TopUpActivity.REQ_LOGIN) {
-                    Intent intent = new Intent(LoginActivity.this, TopUpActivity.class);
-                    intent.putExtra("requestCode", REQ_TOPUP);
-                    startActivity(intent);
+                        String message = appEmail.getText().toString();
+                        OrderInfo.getInstance().AddUserEmailInfo(message);
+
+                        if (requestCode == MainActivity.REQ_LOGIN) {
+                            ArrayList<Integer> period_balance = new ArrayList<>();
+                            period_balance.add(period);
+                            period_balance.add(balance);
+                            Intent intent = new Intent();
+                            intent.putIntegerArrayListExtra("period_balance", period_balance);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        } else if (requestCode == TopUpActivity.REQ_LOGIN) {
+                            Intent intent = new Intent(LoginActivity.this, TopUpActivity.class);
+                            intent.putExtra("requestCode", REQ_TOPUP);
+                            startActivity(intent);
+                        }
+                    }
                 }
                 /*
                 else if (requestCode == TopUpActivity.REQ_SIGNUP) {
@@ -172,7 +206,7 @@ public class LoginActivity extends AppCompatActivity {
         String content = builder.build().getEncodedQuery();
 
         RequestBody body = RequestBody.create(mediaType, content);
-        Request request = new Request.Builder()
+        final Request request = new Request.Builder()
                 .url(ServerAPI.LOGINAUTO)
                 .post(body)
                 .build();
@@ -186,27 +220,61 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Snackbar.make(findViewById(R.id.content_login), response.body().toString(), Snackbar.LENGTH_LONG).show();
-                SharedPreferences sharedPreferences = getSharedPreferences(KEY_USER_DATA, MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(KEY_USER_DATA_TOKEN, token);
-                editor.apply();
+                String answer = response.body().string();
 
-                String message = appEmail.getText().toString();
-                OrderInfo.getInstance().AddUserEmailInfo(message);
+                if (answer.equals("failed")) {
+                    Toast.makeText(LoginActivity.this, answer, Toast.LENGTH_SHORT).show();
+                } else {
+                    if (answer.equals(",")) {
+                        SharedPreferences sharedPreferences = getSharedPreferences(KEY_USER_DATA, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(KEY_USER_DATA_TOKEN, token);
+                        editor.apply();
 
-                int requestCode = getIntent().getIntExtra("requestCode", -1);
-                if (requestCode == MainActivity.REQ_LOGIN) {
-                    setResult(RESULT_OK);
-                    finish();
+                        int requestCode = getIntent().getIntExtra("requestCode", -1);
+                        String message = appEmail.getText().toString();
+                        OrderInfo.getInstance().AddUserEmailInfo(message);
+
+                        if (requestCode == MainActivity.REQ_LOGIN) {
+                            setResult(RESULT_OK);
+                            finish();
+                        } else if (requestCode == TopUpActivity.REQ_LOGIN) {
+                            Intent intent = new Intent(LoginActivity.this, TopUpActivity.class);
+                            intent.putExtra("requestCode", REQ_TOPUP);
+                            startActivity(intent);
+                        }
+                    } else {
+                        SharedPreferences sharedPreferences = getSharedPreferences(KEY_USER_DATA, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(KEY_USER_DATA_TOKEN, token);
+                        editor.apply();
+
+                        int dist = answer.indexOf(",");
+                        String per = answer.substring(0, dist);
+                        period = Integer.parseInt(per);
+                        String bal = answer.substring(dist+1, answer.length()-1);
+                        balance = Integer.parseInt(bal);
+
+                        int requestCode = getIntent().getIntExtra("requestCode", -1);
+                        String message = appEmail.getText().toString();
+                        OrderInfo.getInstance().AddUserEmailInfo(message);
+
+                        if (requestCode == MainActivity.REQ_LOGIN) {
+                            ArrayList<Integer> period_balance = new ArrayList<>();
+                            period_balance.add(period);
+                            period_balance.add(balance);
+                            Intent intent = new Intent();
+                            intent.putIntegerArrayListExtra("period_balance", period_balance);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        } else if (requestCode == TopUpActivity.REQ_LOGIN) {
+                            Intent intent = new Intent(LoginActivity.this, TopUpActivity.class);
+                            intent.putExtra("requestCode", REQ_TOPUP);
+                            startActivity(intent);
+                        }
+                    }
+
                 }
-                /*
-                else if (requestCode == TopUpActivity.REQ_SIGNUP) {
-                    setResult(RESULT_OK);
-                    finish();
-                }
-                */
-
-
             }
         });
     }
