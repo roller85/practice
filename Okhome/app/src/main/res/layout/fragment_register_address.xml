@@ -1,10 +1,23 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="id.co.okhome.okhome.RegisterAddressFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/fragment_register_address_top">
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_register_address_top"
+        android:layout_above="@+id/btn_end_of_address1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +26,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/register_address_page" />
 
         <TextView
@@ -60,15 +73,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/etx_host_phone_number"
             android:hint="@string/host_phone_number"/>
-
+    </LinearLayout>
+    </ScrollView>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btn_end_of_address1"
             android:text="NEXT"
             android:textAlignment="center"
-            android:layout_gravity="center"/>
+            android:layout_alignParentBottom="true"/>
 
-    </LinearLayout>
-
-</FrameLayout>
+</RelativeLayout>

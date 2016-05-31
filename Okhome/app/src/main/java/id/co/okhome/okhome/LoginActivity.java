@@ -141,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (answer.equals("failed")) {
                     Toast.makeText(LoginActivity.this, answer, Toast.LENGTH_SHORT).show();
                 } else {
-                    if (answer.equals(",")) {
+                    if (answer.equals(",0")) {
                         int requestCode = getIntent().getIntExtra("requestCode", -1);
                         String message = appEmail.getText().toString();
                         OrderInfo.getInstance().AddUserEmailInfo(message);

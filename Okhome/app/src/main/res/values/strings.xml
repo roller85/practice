@@ -133,6 +133,7 @@
     <string name="transaction_confirm_detail">As soon as confirmation is done,"\n"
         we will let you know via SMS</string>
     <string name="transaction_thank_message">Thank you for using OKHOME</string>
+    <string name="title_activity_order_history">OrderHistoryActivity</string>
 
 
 </resources>

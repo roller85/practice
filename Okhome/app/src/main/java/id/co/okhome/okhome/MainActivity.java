@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -99,19 +97,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_newOrder).setOnClickListener(this);
         findViewById(R.id.btn_topUp).setOnClickListener(this);
         findViewById(R.id.btn_toLogOut).setOnClickListener(this);
+        findViewById(R.id.btn_orderHistory).setOnClickListener(this);
     }
 
+    /*
     class RunThread extends Thread {
         @Override
         public void run() {
             handler.sendEmptyMessage(0);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
+    */
 
     @Override
     public void onClick(View v) {
@@ -147,6 +143,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 Intent intentToLogout = new Intent(this, LogOutActivity.class);
                 startActivity(intentToLogout);
+                break;
+
+            case R.id.btn_orderHistory:
+                if (OrderInfo.getInstance().GetUserEmailInfo().equals("guest")) {
+                    Toast.makeText(this, "if you are guest," + "\n" + "you need to login to use this menu", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intentOrderHistory = new Intent(this, OrderHistoryActivity.class);
+                    startActivity(intentOrderHistory);
+                }
+                break;
         }
     }
 
@@ -229,13 +235,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 period = Integer.parseInt(per);
                 String bal = answer.substring(dist2+1, answer.length()-1);
                 balance = Integer.parseInt(bal);
-                RunThread thread = new RunThread();
-                thread.setDaemon(true);
-                thread.start();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        OrderInfo.getInstance().AddUserEmailInfo(email);
+                        textView.setText("Welcome "+email);
+                        String txt_bal = String.valueOf(balance);
+                        txv_balance.setText(txt_bal);
+                    }
+                });
+
+                //RunThread thread = new RunThread();
+                //thread.setDaemon(true);
+                //thread.start();
             }
         });
     }
 
+    /*
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -248,5 +266,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     };
+    */
 
 }

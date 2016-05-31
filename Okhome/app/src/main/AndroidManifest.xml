@@ -37,7 +37,12 @@
             android:name=".TopUpActivity"
             android:label="@string/title_activity_top_up"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LogOutActivity"></activity>
+        <activity android:name=".LogOutActivity" />
+        <activity
+            android:name=".OrderHistoryActivity"
+            android:label="@string/title_activity_order_history"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Data.MyAdapter"></activity>
     </application>
 
 </manifest>
