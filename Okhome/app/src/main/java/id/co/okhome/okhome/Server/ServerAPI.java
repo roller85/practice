@@ -10,6 +10,7 @@ public class ServerAPI{
     public static final String CHARGEINFOADD = BASE_URL + "/chargeInfoAdd.php";
     public static final String USERINFOADD = BASE_URL + "/userInfoAdd.php";
     public static final String GUESTINFOADD = BASE_URL + "/guestInfoAdd.php";
+    public static final String LOADORDERHISTORY = BASE_URL + "/loadOrderHistory.php";
 
     /*
     public static final String GETBALANCE = BASE_URL + "/getBalance.php";
