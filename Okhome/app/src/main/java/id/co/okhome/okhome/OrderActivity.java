@@ -121,8 +121,6 @@ public class OrderActivity extends AppCompatActivity{
         ft.replace(R.id.fragment_container,fragment, mtag);
         ft.commit();
     }
-
-
 /*
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -157,5 +155,4 @@ public class OrderActivity extends AppCompatActivity{
         }
     }
     */
-
 }

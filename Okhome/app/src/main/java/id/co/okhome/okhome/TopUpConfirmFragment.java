@@ -217,6 +217,9 @@ public class TopUpConfirmFragment extends Fragment {
         boolean home_existence = OrderInfo.getInstance().GetHomeOwnerExistence();
         String home_owner_existence = String.valueOf(home_existence);
 
+        boolean owner_tool = OrderInfo.getInstance().GetUseOwnerTools();
+        String use_owner_tool = String.valueOf(owner_tool);
+
         String pet_category = OrderInfo.getInstance().GetPetInfo();
         String detail_home = OrderInfo.getInstance().GetHomeDetailInfo();
 
@@ -272,7 +275,8 @@ public class TopUpConfirmFragment extends Fragment {
                 .appendQueryParameter("host_name", name)
                 .appendQueryParameter("phone", phone_number)
                 .appendQueryParameter("bank_name", bank_name)
-                .appendQueryParameter("account_holder_name", bank_account_holder_name);
+                .appendQueryParameter("account_holder_name", bank_account_holder_name)
+                .appendQueryParameter("use_owner_tool", use_owner_tool);
         String content = builder.build().getEncodedQuery();
 
         RequestBody body = RequestBody.create(mediaType, content);
@@ -319,6 +323,9 @@ public class TopUpConfirmFragment extends Fragment {
 
         boolean home_existence = OrderInfo.getInstance().GetHomeOwnerExistence();
         String home_owner_existence = String.valueOf(home_existence);
+
+        boolean owner_tool = OrderInfo.getInstance().GetUseOwnerTools();
+        String use_owner_tool = String.valueOf(owner_tool);
 
         String pet_category = OrderInfo.getInstance().GetPetInfo();
         String detail_home = OrderInfo.getInstance().GetHomeDetailInfo();
@@ -375,7 +382,8 @@ public class TopUpConfirmFragment extends Fragment {
                 .appendQueryParameter("host_name", name)
                 .appendQueryParameter("phone", phone_number)
                 .appendQueryParameter("bank_name", bank_name)
-                .appendQueryParameter("account_holder_name", bank_account_holder_name);
+                .appendQueryParameter("account_holder_name", bank_account_holder_name)
+                .appendQueryParameter("use_owner_tool", use_owner_tool);
         String content = builder.build().getEncodedQuery();
 
         RequestBody body = RequestBody.create(mediaType, content);

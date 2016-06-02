@@ -114,7 +114,7 @@ public class TimeSelectionOneDayFragment extends Fragment {
                 } else {
                     OrderActivity activity = (OrderActivity) getActivity();
                     OrderInfo.getInstance().AddVisitTimeInfo(day1Time, day2Time, day3Time);
-                    activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
+                    activity.nextFragment(BasicInfoFragment1.newInstance(), BasicInfoFragment1.TAG);
                 }
             }
         });

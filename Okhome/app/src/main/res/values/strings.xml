@@ -39,6 +39,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="tell_us_more">TELL US MORE</string>
     <string name="detailed_info">  (sample)"\n"- I want special cleaning on refridge </string>
+    <string name="use_cleaning_tools">Do you want cleaners to user your cleaning tools?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="regular_package">Regular Package</string>

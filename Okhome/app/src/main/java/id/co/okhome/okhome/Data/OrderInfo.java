@@ -150,8 +150,8 @@ public class OrderInfo {
         this.homeInfo = new HomeInfo(numberOfBedroom, numberOfBathroom, homeType, homeSize, homeownerExistence);
     }
 
-    public void AddHomeDetailInfo(String homeDetail) {
-        this.homeInfo1 = new HomeInfo(homeDetail);
+    public void AddHomeDetailInfo(String homeDetail, boolean checked) {
+        this.homeInfo1 = new HomeInfo(homeDetail, checked);
     }
 
     public int GetNumberOfBedroom() {
@@ -178,6 +178,10 @@ public class OrderInfo {
         return homeInfo1.homeDetail;
     }
 
+    public boolean GetUseOwnerTools() {
+        return homeInfo1.checked;
+    }
+
     public class HomeInfo {
         private int numberOfBedroom;
         private int numberOfBathroom;
@@ -185,6 +189,7 @@ public class OrderInfo {
         private String homeSize;
         private boolean homeownerExistence;
         private String homeDetail;
+        private boolean checked;
 
         public HomeInfo(int numberOfBedroom, int numberOfBathroom, String homeType, String homeSize, boolean homeownerExistence) {
             this.numberOfBedroom = numberOfBedroom;
@@ -194,8 +199,9 @@ public class OrderInfo {
             this.homeownerExistence = homeownerExistence;
         }
 
-        public HomeInfo(String homeDetail){
+        public HomeInfo(String homeDetail, boolean checked){
             this.homeDetail = homeDetail;
+            this.checked = checked;
         }
     }
 

@@ -141,43 +141,28 @@ public class LoginActivity extends AppCompatActivity {
                 if (answer.equals("failed")) {
                     Toast.makeText(LoginActivity.this, answer, Toast.LENGTH_SHORT).show();
                 } else {
-                    if (answer.equals(",0")) {
-                        int requestCode = getIntent().getIntExtra("requestCode", -1);
-                        String message = appEmail.getText().toString();
-                        OrderInfo.getInstance().AddUserEmailInfo(message);
+                    int dist = answer.indexOf(",");
+                    String per = answer.substring(0, dist);
+                    period = Integer.parseInt(per);
+                    String bal = answer.substring(dist+1);
+                    balance = Integer.parseInt(bal);
+                    int requestCode = getIntent().getIntExtra("requestCode", -1);
 
-                        if (requestCode == MainActivity.REQ_LOGIN) {
-                            setResult(RESULT_OK);
-                            finish();
-                        } else if (requestCode == TopUpActivity.REQ_LOGIN) {
-                            Intent intent = new Intent(LoginActivity.this, TopUpActivity.class);
-                            intent.putExtra("requestCode", REQ_TOPUP);
-                            startActivity(intent);
-                        }
-                    } else {
-                        int dist = answer.indexOf(",");
-                        String per = answer.substring(0, dist);
-                        period = Integer.parseInt(per);
-                        String bal = answer.substring(dist+1, answer.length()-1);
-                        balance = Integer.parseInt(bal);
-                        int requestCode = getIntent().getIntExtra("requestCode", -1);
+                    String message = appEmail.getText().toString();
+                    OrderInfo.getInstance().AddUserEmailInfo(message);
 
-                        String message = appEmail.getText().toString();
-                        OrderInfo.getInstance().AddUserEmailInfo(message);
-
-                        if (requestCode == MainActivity.REQ_LOGIN) {
-                            ArrayList<Integer> period_balance = new ArrayList<>();
-                            period_balance.add(period);
-                            period_balance.add(balance);
-                            Intent intent = new Intent();
-                            intent.putIntegerArrayListExtra("period_balance", period_balance);
-                            setResult(RESULT_OK, intent);
-                            finish();
-                        } else if (requestCode == TopUpActivity.REQ_LOGIN) {
-                            Intent intent = new Intent(LoginActivity.this, TopUpActivity.class);
-                            intent.putExtra("requestCode", REQ_TOPUP);
-                            startActivity(intent);
-                        }
+                    if (requestCode == MainActivity.REQ_LOGIN) {
+                        ArrayList<Integer> period_balance = new ArrayList<>();
+                        period_balance.add(period);
+                        period_balance.add(balance);
+                        Intent intent = new Intent();
+                        intent.putIntegerArrayListExtra("period_balance", period_balance);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    } else if (requestCode == TopUpActivity.REQ_LOGIN) {
+                        Intent intent = new Intent(LoginActivity.this, TopUpActivity.class);
+                        intent.putExtra("requestCode", REQ_TOPUP);
+                        startActivity(intent);
                     }
                 }
                 /*

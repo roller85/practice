@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import id.co.okhome.okhome.Data.OrderInfo;
@@ -16,6 +18,8 @@ public class BasicInfoFragment2 extends Fragment {
 
     private EditText detailedInfo;
     public String email;
+    private CheckBox useOwnerTools;
+    private Boolean checked;
 
     public BasicInfoFragment2() {
         // Required empty public constructor
@@ -35,19 +39,30 @@ public class BasicInfoFragment2 extends Fragment {
         detailedInfo = (EditText) fragment2View.findViewById(R.id.detailed_info);
         email = OrderInfo.getInstance().GetUserEmailInfo();
 
+        useOwnerTools = (CheckBox) fragment2View.findViewById(R.id.chk_cleaning_tools);
+        useOwnerTools.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    checked = true;
+                } else if (!isChecked) {
+                    checked = false;
+                }
+            }
+        });
+
         fragment2View.findViewById(R.id.btn_end_of_basic_info2).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 OrderActivity activity = (OrderActivity) getActivity();
                 String homeDetailInfo = detailedInfo.getText().toString();
-                OrderInfo.getInstance().AddHomeDetailInfo(homeDetailInfo);
-                activity.nextFragment(PackageSelectionFragment.newInstance(), PackageSelectionFragment.TAG);
+                OrderInfo.getInstance().AddHomeDetailInfo(homeDetailInfo, checked);
+                activity.nextFragment(RegisterAddressFragment.newInstance(), RegisterAddressFragment.TAG);
             }
         });
         return fragment2View;
     }
-
     /*
     private void attempAddBasicInfo2() {
 
