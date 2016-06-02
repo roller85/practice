@@ -60,9 +60,9 @@ public class OrderActivity extends AppCompatActivity{
                     return;
             }
 
-            BasicInfoFragment1 fragment1 = new BasicInfoFragment1();
-            fragment1.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment1).commit();
+            PackageSelectionFragment fragment = new PackageSelectionFragment();
+            fragment.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
 
             /*
             DatePickerFragment datePickerFragment = new DatePickerFragment();
