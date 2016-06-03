@@ -42,12 +42,12 @@ public class OrderHistoryActivity extends AppCompatActivity {
     public RatingBar rating;
     public String priceNameOfSupplier;
 
-    public static final String TAG_RESULT = "order_history_result";
-    public static final String TAG_DATE = "order_history_date";
-    public static final String TAG_DURATION = "order_history_duration";
-    public static final String TAG_PRICE = "order_history_price";
-    public static final String TAG_SUPPLIER = "order_history_supplier";
-    public static final String TAG_RATING = "order_history_rating";
+    public static final String TAG_RESULT = "result";
+    public static final String TAG_DATE = "cleaning_date";
+    public static final String TAG_DURATION = "duration";
+    public static final String TAG_PRICE = "payAmount";
+    public static final String TAG_SUPPLIER = "supplierId";
+    public static final String TAG_RATING = "performance";
 
     String myJSON;
 
@@ -78,6 +78,10 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
 
         LoadOrderHistoryDate();
+
+        mAdapter = new MyAdapter(orderHistoryList);
+        mRecyclerView.setAdapter(mAdapter);
+
 
     }
 
@@ -135,8 +139,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
                 orderHistoryList.add(eachOrderHistory);
             }
-            mAdapter = new MyAdapter(orderHistoryList);
-            mRecyclerView.setAdapter(mAdapter);
 
         } catch (JSONException e) {
             e.printStackTrace();
