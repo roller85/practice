@@ -1,4 +1,4 @@
-package id.co.okhome.okhome.Data;
+package id.co.okhome.okhome.data;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,13 +10,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import id.co.okhome.okhome.OrderHistoryActivity;
 import id.co.okhome.okhome.R;
+import id.co.okhome.okhome.model.OrderHistoryModel;
 
 /**
  * Created by jhkim on 6/1/2016.
  */
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.ViewHolder> {
     public ArrayList<HashMap<String, String>> historyList;
 
     // Provide a reference to the views for each data item
@@ -36,32 +36,32 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<HashMap<String, String>> orderHistoryList)
+    public OrderHistoryAdapter(ArrayList<HashMap<String, String>> orderHistoryList)
     {
         historyList = orderHistoryList;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public OrderHistoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_view, parent, false);
+                .inflate(R.layout.order_history_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        MyAdapter.ViewHolder vh = new MyAdapter.ViewHolder(v);
+        OrderHistoryAdapter.ViewHolder vh = new OrderHistoryAdapter.ViewHolder(v);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(OrderHistoryAdapter.ViewHolder holder, int position) {
         HashMap hashMap = historyList.get(position);
 
-        String date = hashMap.get(OrderHistoryActivity.TAG_DATE).toString();
-        String duration = hashMap.get(OrderHistoryActivity.TAG_DURATION).toString();
-        String price = hashMap.get(OrderHistoryActivity.TAG_PRICE).toString();
-        String supplier = hashMap.get(OrderHistoryActivity.TAG_SUPPLIER).toString();
-        String rating = hashMap.get(OrderHistoryActivity.TAG_RATING).toString();
+        String date = hashMap.get(OrderHistoryModel.TAG_DATE).toString();
+        String duration = hashMap.get(OrderHistoryModel.TAG_DURATION).toString();
+        String price = hashMap.get(OrderHistoryModel.TAG_PRICE).toString();
+        String supplier = hashMap.get(OrderHistoryModel.TAG_SUPPLIER).toString();
+        String rating = hashMap.get(OrderHistoryModel.TAG_RATING).toString();
 
         StringBuilder dateDuration = new StringBuilder();
         dateDuration.append(date);
@@ -81,7 +81,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - replace the contents of the view with that element
         holder.orderHistoryDate.setText(orderHistoryDateDuration);
         holder.priceNameOfSupplier.setText(orderHistoryPriceSupplier);
-        holder.ratingBar.setNumStars(ratingBar);
+        holder.ratingBar.setRating(ratingBar);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -16,8 +16,8 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 
-import id.co.okhome.okhome.Data.OrderInfo;
-import id.co.okhome.okhome.Server.ServerAPI;
+import id.co.okhome.okhome.data.OrderInfo;
+import id.co.okhome.okhome.server.ServerAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;

@@ -27,7 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import id.co.okhome.okhome.Server.ServerAPI;
+import id.co.okhome.okhome.server.ServerAPI;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 

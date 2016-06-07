@@ -1,4 +1,4 @@
-package id.co.okhome.okhome.Server;
+package id.co.okhome.okhome.server;
 
 public class ServerAPI{
 
@@ -11,6 +11,7 @@ public class ServerAPI{
     public static final String USERINFOADD = BASE_URL + "/userInfoAdd.php";
     public static final String GUESTINFOADD = BASE_URL + "/guestInfoAdd.php";
     public static final String LOADORDERHISTORY = BASE_URL + "/loadOrderHistory.php";
+    public static final String LOADORDERFUTURE = BASE_URL + "/loadOrderFuture.php";
 
     /*
     public static final String GETBALANCE = BASE_URL + "/getBalance.php";

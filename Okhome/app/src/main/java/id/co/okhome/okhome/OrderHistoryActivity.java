@@ -1,7 +1,6 @@
 package id.co.okhome.okhome;
 
 
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -9,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.RatingBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,10 +16,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-import id.co.okhome.okhome.Data.MyAdapter;
-import id.co.okhome.okhome.Data.OrderInfo;
-import id.co.okhome.okhome.Server.ServerAPI;
+import id.co.okhome.okhome.data.OrderHistoryAdapter;
+import id.co.okhome.okhome.data.OrderInfo;
+import id.co.okhome.okhome.model.OrderHistoryModel;
+import id.co.okhome.okhome.server.ServerAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -34,26 +34,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
-    public String date;
-    public String price;
-    public String nameOfSupplier;
-    public RatingBar rating;
-    public String priceNameOfSupplier;
-
-    public static final String TAG_RESULT = "result";
-    public static final String TAG_DATE = "cleaning_date";
-    public static final String TAG_DURATION = "duration";
-    public static final String TAG_PRICE = "payAmount";
-    public static final String TAG_SUPPLIER = "supplierId";
-    public static final String TAG_RATING = "performance";
-
     String myJSON;
-
     JSONArray orderHistory = null;
     ArrayList<HashMap<String, String>> orderHistoryList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,28 +44,24 @@ public class OrderHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_history);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.okhome_recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        orderHistoryList = new ArrayList<>();
-
-        // specify an adapter
-
-
+        
+        init();
         LoadOrderHistoryDate();
-
-        mAdapter = new MyAdapter(orderHistoryList);
+        mAdapter = new OrderHistoryAdapter(orderHistoryList);
         mRecyclerView.setAdapter(mAdapter);
+    }
 
+    private void init() {
+        initView();
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+    private void initView() {
+        mRecyclerView = (RecyclerView) findViewById(R.id.okhome_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
     }
 
 
@@ -119,25 +98,35 @@ public class OrderHistoryActivity extends AppCompatActivity {
     protected void showList() {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
-            orderHistory = jsonObj.getJSONArray(TAG_RESULT);
-            //orderHistory가 null로 인식되어있는듯함
+            orderHistoryList = new ArrayList<>();
+            orderHistory = jsonObj.getJSONArray(OrderHistoryModel.TAG_RESULT);
+            List<OrderHistoryModel> orderHistoryModels = new ArrayList<OrderHistoryModel>();
 
             for (int i = 0; i < orderHistory.length(); i++) {
                 JSONObject c = orderHistory.getJSONObject(i);
-                String date = c.getString(TAG_DATE);
-                String duration = c.getString(TAG_DURATION);
-                String price = c.getString(TAG_PRICE);
-                String supplier = c.getString(TAG_SUPPLIER);
-                String rating = c.getString(TAG_RATING);
+                String date = c.getString(OrderHistoryModel.TAG_DATE);
+                String duration = c.getString(OrderHistoryModel.TAG_DURATION);
+                String price = c.getString(OrderHistoryModel.TAG_PRICE);
+                String supplier = c.getString(OrderHistoryModel.TAG_SUPPLIER);
+                String performance = c.getString(OrderHistoryModel.TAG_RATING);
 
                 HashMap<String, String> eachOrderHistory = new HashMap<>();
-                eachOrderHistory.put(TAG_DATE, date);
-                eachOrderHistory.put(TAG_DURATION, duration);
-                eachOrderHistory.put(TAG_PRICE, price);
-                eachOrderHistory.put(TAG_SUPPLIER, supplier);
-                eachOrderHistory.put(TAG_RATING, rating);
+                eachOrderHistory.put(OrderHistoryModel.TAG_DATE, date);
+                eachOrderHistory.put(OrderHistoryModel.TAG_DURATION, duration);
+                eachOrderHistory.put(OrderHistoryModel.TAG_PRICE, price);
+                eachOrderHistory.put(OrderHistoryModel.TAG_SUPPLIER, supplier);
+                eachOrderHistory.put(OrderHistoryModel.TAG_RATING, performance);
 
                 orderHistoryList.add(eachOrderHistory);
+
+                OrderHistoryModel m = new OrderHistoryModel();
+                m.date = date;
+                m.duration = duration;
+                m.price = price;
+                m.supplier = supplier;
+                m.performance = performance;
+
+                orderHistoryModels.add(m);
             }
 
         } catch (JSONException e) {

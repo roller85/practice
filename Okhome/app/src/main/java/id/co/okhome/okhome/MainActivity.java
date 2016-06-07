@@ -17,8 +17,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import id.co.okhome.okhome.Data.OrderInfo;
-import id.co.okhome.okhome.Server.ServerAPI;
+import id.co.okhome.okhome.data.OrderInfo;
+import id.co.okhome.okhome.server.ServerAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_topUp).setOnClickListener(this);
         findViewById(R.id.btn_toLogOut).setOnClickListener(this);
         findViewById(R.id.btn_orderHistory).setOnClickListener(this);
+        findViewById(R.id.btn_changeOrder).setOnClickListener(this);
     }
 
     /*
@@ -151,6 +152,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     Intent intentOrderHistory = new Intent(this, OrderHistoryActivity.class);
                     startActivity(intentOrderHistory);
+                }
+                break;
+
+            case R.id.btn_changeOrder:
+                if (OrderInfo.getInstance().GetUserEmailInfo().equals("guest")) {
+                    Toast.makeText(this, "if you are guest," + "\n" + "you need to login to use this menu", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intentChangeOrder = new Intent(this, OrderChangeActivity.class);
+                    startActivity(intentChangeOrder);
                 }
                 break;
         }

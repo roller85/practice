@@ -135,6 +135,7 @@
         we will let you know via SMS</string>
     <string name="transaction_thank_message">Thank you for using OKHOME</string>
     <string name="title_activity_order_history">OrderHistoryActivity</string>
+    <string name="title_activity_order_change">OrderChangeActivity</string>
 
 
 </resources>

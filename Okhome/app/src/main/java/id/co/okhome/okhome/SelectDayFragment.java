@@ -12,7 +12,7 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import id.co.okhome.okhome.Data.OrderInfo;
+import id.co.okhome.okhome.data.OrderInfo;
 
 
 public class SelectDayFragment extends Fragment {

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
-import id.co.okhome.okhome.Data.OrderInfo;
+import id.co.okhome.okhome.data.OrderInfo;
 
 
 public class TimeSelectionThreeDaysFragment extends Fragment {

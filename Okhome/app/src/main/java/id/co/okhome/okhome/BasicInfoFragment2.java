@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
-import id.co.okhome.okhome.Data.OrderInfo;
+import id.co.okhome.okhome.data.OrderInfo;
 
 
 public class BasicInfoFragment2 extends Fragment {
@@ -40,6 +40,8 @@ public class BasicInfoFragment2 extends Fragment {
         email = OrderInfo.getInstance().GetUserEmailInfo();
 
         useOwnerTools = (CheckBox) fragment2View.findViewById(R.id.chk_cleaning_tools);
+        useOwnerTools.setChecked(false);
+        checked = false;
         useOwnerTools.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

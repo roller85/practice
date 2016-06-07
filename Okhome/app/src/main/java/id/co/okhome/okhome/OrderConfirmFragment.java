@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import id.co.okhome.okhome.Data.OrderInfo;
+import id.co.okhome.okhome.data.OrderInfo;
 
 
 /**

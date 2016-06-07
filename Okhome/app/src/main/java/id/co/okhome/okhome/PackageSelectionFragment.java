@@ -9,7 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import id.co.okhome.okhome.Data.OrderInfo;
+import id.co.okhome.okhome.data.OrderInfo;
 
 
 public class PackageSelectionFragment extends Fragment {

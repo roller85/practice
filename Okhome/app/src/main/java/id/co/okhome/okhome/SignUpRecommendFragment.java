@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import java.util.UUID;
 
-import id.co.okhome.okhome.Data.OrderInfo;
+import id.co.okhome.okhome.data.OrderInfo;
 
 
 /**

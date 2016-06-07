@@ -32,17 +32,22 @@
         <activity
             android:name=".OrderActivity"
             android:label="@string/title_activity_order"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".TopUpActivity"
             android:label="@string/title_activity_top_up"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".LogOutActivity" />
         <activity
             android:name=".OrderHistoryActivity"
             android:label="@string/title_activity_order_history"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Data.MyAdapter"></activity>
+        <activity
+            android:name=".OrderChangeActivity"
+            android:label="@string/title_activity_order_change"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

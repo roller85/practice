@@ -1,4 +1,4 @@
-package id.co.okhome.okhome.Data;
+package id.co.okhome.okhome.data;
 
 /**
  * Created by jhkim on 4/19/2016.
