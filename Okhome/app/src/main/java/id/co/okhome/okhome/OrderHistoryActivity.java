@@ -44,7 +44,8 @@ public class OrderHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_history);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
+
+        orderHistoryList = new ArrayList<>();
         init();
         LoadOrderHistoryDate();
         mAdapter = new OrderHistoryAdapter(orderHistoryList);
@@ -98,7 +99,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
     protected void showList() {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
-            orderHistoryList = new ArrayList<>();
             orderHistory = jsonObj.getJSONArray(OrderHistoryModel.TAG_RESULT);
             List<OrderHistoryModel> orderHistoryModels = new ArrayList<OrderHistoryModel>();
 

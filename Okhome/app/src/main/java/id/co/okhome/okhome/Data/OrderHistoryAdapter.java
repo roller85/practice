@@ -22,33 +22,18 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     // Provide a reference to the views for each data item
 // Complex data items may need more than one view per item, and
 // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView orderHistoryDate, priceNameOfSupplier;
-        public RatingBar ratingBar;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            orderHistoryDate = (TextView) itemView.findViewById(R.id.order_history_date);
-            priceNameOfSupplier = (TextView) itemView.findViewById(R.id.price_name_of_supplier);
-            ratingBar = (RatingBar) itemView.findViewById(R.id.rating_bar);
-        }
-    }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public OrderHistoryAdapter(ArrayList<HashMap<String, String>> orderHistoryList)
-    {
-        historyList = orderHistoryList;
-    }
+
 
     // Create new views (invoked by the layout manager)
     @Override
-    public OrderHistoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.order_history_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        OrderHistoryAdapter.ViewHolder vh = new OrderHistoryAdapter.ViewHolder(v);
+        ViewHolder vh = new OrderHistoryAdapter.ViewHolder(v);
         return vh;
     }
 
@@ -88,5 +73,23 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     @Override
     public int getItemCount() {
         return historyList.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        public TextView orderHistoryDate, priceNameOfSupplier;
+        public RatingBar ratingBar;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            orderHistoryDate = (TextView) itemView.findViewById(R.id.order_history_date);
+            priceNameOfSupplier = (TextView) itemView.findViewById(R.id.price_name_of_supplier);
+            ratingBar = (RatingBar) itemView.findViewById(R.id.rating_bar);
+        }
+    }
+    // Provide a suitable constructor (depends on the kind of dataset)
+    public OrderHistoryAdapter(ArrayList<HashMap<String, String>> orderHistoryList)
+    {
+        historyList = orderHistoryList;
     }
 }
