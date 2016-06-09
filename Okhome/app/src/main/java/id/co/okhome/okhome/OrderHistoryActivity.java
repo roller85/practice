@@ -32,8 +32,8 @@ import okhttp3.Response;
 
 public class OrderHistoryActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    RecyclerView mRecyclerView;
+    OrderHistoryAdapter mAdapter;
     String myJSON;
     JSONArray orderHistory = null;
     ArrayList<HashMap<String, String>> orderHistoryList;
@@ -45,15 +45,15 @@ public class OrderHistoryActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        orderHistoryList = new ArrayList<>();
+
         init();
         LoadOrderHistoryDate();
-        mAdapter = new OrderHistoryAdapter(orderHistoryList);
-        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void init() {
         initView();
+        mAdapter = new OrderHistoryAdapter(this);
+        mRecyclerView.setAdapter(mAdapter);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -61,6 +61,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        orderHistoryList = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.okhome_recycler_view);
         mRecyclerView.setHasFixedSize(true);
     }
@@ -100,7 +101,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         try {
             JSONObject jsonObj = new JSONObject(myJSON);
             orderHistory = jsonObj.getJSONArray(OrderHistoryModel.TAG_RESULT);
-            List<OrderHistoryModel> orderHistoryModels = new ArrayList<OrderHistoryModel>();
+            List<OrderHistoryModel> orderHistoryModels = new ArrayList<>();
 
             for (int i = 0; i < orderHistory.length(); i++) {
                 JSONObject c = orderHistory.getJSONObject(i);
@@ -128,6 +129,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
                 orderHistoryModels.add(m);
             }
+            mAdapter.setList(orderHistoryModels);
 
         } catch (JSONException e) {
             e.printStackTrace();
