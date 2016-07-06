@@ -59,6 +59,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+//
+//        private void loadAllConsultant(){
+//            RestClientFactory.getConsultantRestClient().getAllConsultant("10", "0").enqueue(new RetrofitCallback<List<ConsultantModel>>() {
+//                @Override
+//                public void onSuccess(List<ConsultantModel> result) {
+//
+//                }
+//
+//                @Override
+//                public void onJodevError(ErrorModel jodevErrorModel) {
+//
+//                }
+//
+//                @Override
+//                public void onFailure(retrofit2.Call<List<ConsultantModel>> call, Throwable t) {
+//
+//                }
+//            });
+//        }
         /*
         Intent intent = getIntent();
         String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
