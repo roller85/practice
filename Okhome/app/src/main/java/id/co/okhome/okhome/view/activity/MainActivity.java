@@ -1,5 +1,6 @@
 package id.co.okhome.okhome.view.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -19,6 +20,10 @@ import java.util.ArrayList;
 
 import id.co.okhome.okhome.R;
 import id.co.okhome.okhome.data.OrderInfo;
+import id.co.okhome.okhome.model.ErrorModel;
+import id.co.okhome.okhome.model.UserModel;
+import id.co.okhome.okhome.restclient.RestClientFactory;
+import id.co.okhome.okhome.restmodule.RetrofitCallback;
 import id.co.okhome.okhome.server.ServerAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -34,8 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int REQ_TOPUP_RETURN = 1002;
     public static final int REQ_LOGIN = 1005;
     public static final int REQ_LOGIN_RETURN = 1006;
+    public static final String REQ_DEVICE_TOKEN = "id.co.okhome.okhome.view.activity_token";
     private String email = "";
     private String user_token = "";
+    private String device_token;
     public TextView textView;
     public TextView txv_balance;
     private int period;
@@ -60,32 +67,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-//
-//        private void loadAllConsultant(){
-//            RestClientFactory.getConsultantRestClient().getAllConsultant("10", "0").enqueue(new RetrofitCallback<List<ConsultantModel>>() {
-//                @Override
-//                public void onSuccess(List<ConsultantModel> result) {
-//
-//                }
-//
-//                @Override
-//                public void onJodevError(ErrorModel jodevErrorModel) {
-//
-//                }
-//
-//                @Override
-//                public void onFailure(retrofit2.Call<List<ConsultantModel>> call, Throwable t) {
-//
-//                }
-//            });
-//        }
-        /*
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
-        TextView textView = (TextView) findViewById(R.id.welcome);
-        textView.setText("Welcome "+ message);
-        email = message;
-        */
+        SharedPreferences sharedToken = getSharedPreferences(REQ_DEVICE_TOKEN, MODE_PRIVATE);
+        device_token = sharedToken.getString(REQ_DEVICE_TOKEN, "noToken");
+
+        if(device_token.equals("noToken")) {
+            createToken();
+        } else {
+            loadToken();
+        }
 
         SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.KEY_USER_DATA, MODE_PRIVATE);
         user_token = sharedPreferences.getString(LoginActivity.KEY_USER_DATA_TOKEN, "noToken");
@@ -121,6 +110,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_changeOrder).setOnClickListener(this);
     }
 
+    private void loadToken() {
+        final ProgressDialog p = ProgressDialog.show(this, "Loading USer Info", "");
+
+        RestClientFactory.getUserRestClient().loadToken(device_token).enqueue(new RetrofitCallback<UserModel>() {
+            @Override
+            public void onSuccess(UserModel result) {
+                UserModel userModel = result;
+                Toast.makeText(MainActivity.this, "Welcome Back", Toast.LENGTH_LONG).show();
+                p.dismiss();
+            }
+
+            @Override
+            public void onJodevError(ErrorModel jodevErrorModel) {
+                Toast.makeText(MainActivity.this, jodevErrorModel.toString(), Toast.LENGTH_LONG).show();
+                p.dismiss();
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<UserModel> call, Throwable t) {
+                Toast.makeText(MainActivity.this, call.toString(), Toast.LENGTH_LONG).show();
+                p.dismiss();
+            }
+        });
+    }
+
+    private void createToken() {
+        final ProgressDialog p = ProgressDialog.show(this, "Loading...", "");
+
+        RestClientFactory.getUserRestClient().createToken().enqueue(new RetrofitCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                device_token = result;
+                SharedPreferences sharedPreferences = getSharedPreferences(REQ_DEVICE_TOKEN, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(REQ_DEVICE_TOKEN, device_token);
+                editor.apply();
+                Toast.makeText(MainActivity.this, device_token, Toast.LENGTH_LONG).show();
+                p.dismiss();
+            }
+
+            @Override
+            public void onJodevError(ErrorModel jodevErrorModel) {
+                Toast.makeText(MainActivity.this, "Error"+jodevErrorModel.toString(), Toast.LENGTH_LONG).show();
+                p.dismiss();
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<String> call, Throwable t) {
+                Toast.makeText(MainActivity.this, call.toString(), Toast.LENGTH_LONG).show();
+                p.dismiss();
+            }
+        });
+
+    }
+
     /*
     class RunThread extends Thread {
         @Override
@@ -142,8 +186,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(period==1||period==2||period==3) {
                     Toast.makeText(this, "if you are periodic user, call OKHOME to change", Toast.LENGTH_SHORT).show();
                 } else {
-                Intent intentToOrder = new Intent(this, OrderActivity.class);
-                startActivity(intentToOrder);
+                    Intent intentToOrder = new Intent(this, OrderActivity.class);
+                    startActivity(intentToOrder);
                 }
                 break;
             case R.id.btn_topUp:

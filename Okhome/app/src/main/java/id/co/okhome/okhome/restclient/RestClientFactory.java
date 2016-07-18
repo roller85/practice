@@ -34,4 +34,7 @@ public class RestClientFactory {
         return RestClientFactory.getInstance(UserConditionRestClient.class);
     }
 
+    public final static UserRestClient getUserRestClient(){
+        return RestClientFactory.getInstance(UserRestClient.class);
+    }
 }
