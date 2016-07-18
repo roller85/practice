@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import id.co.okhome.okhome.OrderChangeActivity;
+import id.co.okhome.okhome.view.activity.OrderChangeActivity;
 import id.co.okhome.okhome.R;
 
 /**
