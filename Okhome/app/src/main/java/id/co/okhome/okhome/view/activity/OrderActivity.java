@@ -1,4 +1,4 @@
-package id.co.okhome.okhome;
+package id.co.okhome.okhome.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
+
+import id.co.okhome.okhome.view.fragment.order_fragment.PackageSelectionFragment;
+import id.co.okhome.okhome.R;
+import id.co.okhome.okhome.view.fragment.order_fragment.BasicInfoFragment1;
 
 public class OrderActivity extends AppCompatActivity{
 

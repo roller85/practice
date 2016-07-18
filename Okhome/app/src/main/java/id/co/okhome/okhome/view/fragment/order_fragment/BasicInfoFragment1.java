@@ -1,4 +1,4 @@
-package id.co.okhome.okhome;
+package id.co.okhome.okhome.view.fragment.order_fragment;
 
 
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import id.co.okhome.okhome.view.activity.OrderActivity;
+import id.co.okhome.okhome.R;
 import id.co.okhome.okhome.data.OrderInfo;
 
 

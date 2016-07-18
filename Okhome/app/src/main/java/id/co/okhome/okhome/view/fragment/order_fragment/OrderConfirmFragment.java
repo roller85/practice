@@ -1,6 +1,7 @@
-package id.co.okhome.okhome;
+package id.co.okhome.okhome.view.fragment.order_fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import id.co.okhome.okhome.R;
+import id.co.okhome.okhome.view.activity.TopUpActivity;
 import id.co.okhome.okhome.data.OrderInfo;
+import id.co.okhome.okhome.restclient.RestClientFactory;
+import id.co.okhome.okhome.view.activity.MainActivity;
+import id.co.okhome.okhome.view.activity.OrderActivity;
 
 
 /**
@@ -144,6 +150,7 @@ public class OrderConfirmFragment extends Fragment {
                     //if balance is greater than 0, need to upload this order
                     //발란스있으면, 여기까지 오더를 올려야 함
                     //0이 아니라 최소 청소 한번 할 수 있는 금액으로 바꿔야함
+                    AddUserConditioninfo();
 
                     OrderActivity activity1 = (OrderActivity) getActivity();
                     Intent intent = new Intent(activity1, MainActivity.class);
@@ -159,6 +166,22 @@ public class OrderConfirmFragment extends Fragment {
         });
 
         return fragment8View;
+    }
+
+    private void AddUserConditioninfo() {
+        OrderActivity orderActivity = new OrderActivity();
+        final ProgressDialog p = ProgressDialog.show(orderActivity,"Loading","");
+
+        RestClientFactory.updateUserConditionRestClient().updateUserCondition("2", "3",
+                OrderInfo.getInstance().GetHomeType(),
+                OrderInfo.getInstance().GetHomeSize(),
+                OrderInfo.getInstance().GetHomeOwnerExistence(),
+                OrderInfo.getInstance().GetPetInfo(),
+                OrderInfo.getInstance().GetHomeDetailInfo(),
+                OrderInfo.getInstance().GetUseOwnerTools(),
+                OrderInfo.getInstance().GetStartDate(),
+                OrderInfo.getInstance().GetPeriodInfo(),
+                OrderInfo.getInstance().)
     }
 
     /*

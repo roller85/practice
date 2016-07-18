@@ -13,6 +13,8 @@ public class ServerAPI{
     public static final String LOADORDERHISTORY = BASE_URL + "/loadOrderHistory.php";
     public static final String LOADORDERFUTURE = BASE_URL + "/loadOrderFuture.php";
 
+    public static final String BASE_URL_1 = "http://192.168.0.15:8080/";
+
     /*
     public static final String GETBALANCE = BASE_URL + "/getBalance.php";
     public static final String BASICINFO1ADD = BASE_URL + "/basicInfo1Add.php";

@@ -1,4 +1,4 @@
-package id.co.okhome.okhome;
+package id.co.okhome.okhome.view.fragment;
 
 
 import android.content.Intent;
@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 
 import java.util.UUID;
 
+import id.co.okhome.okhome.R;
 import id.co.okhome.okhome.data.OrderInfo;
+import id.co.okhome.okhome.view.activity.SignupActivity;
+import id.co.okhome.okhome.view.activity.TopUpActivity;
+import id.co.okhome.okhome.view.fragment.topup_fragment.TopUpInfoFragment;
 
 
 /**

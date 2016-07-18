@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_time_selection_two_days"
-    tools:context=".TimeSelectionTwoDaysFragment">
+    tools:context=".view.fragment.order_fragment.TimeSelectionTwoDaysFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

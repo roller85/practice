@@ -1,4 +1,4 @@
-package id.co.okhome.okhome;
+package id.co.okhome.okhome.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import id.co.okhome.okhome.R;
 import id.co.okhome.okhome.server.ServerAPI;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {

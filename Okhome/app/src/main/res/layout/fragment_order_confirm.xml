@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="id.co.okhome.okhome.OrderConfirmFragment">
+    tools:context=".view.fragment.order_fragment.OrderConfirmFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

@@ -1,9 +1,9 @@
-package id.co.okhome.okhome.restmodule;
+package id.co.okhome.okhome.restclient;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import id.co.okhome.okhome.restclient.ConsultantRestClient;
+import id.co.okhome.okhome.restmodule.RetrofitFactory;
 
 /**
  * Created by josongmin on 2016-02-18.
@@ -27,6 +27,11 @@ public class RestClientFactory {
     /**유저용 레스트 클라이언트*/
     public final static ConsultantRestClient getConsultantRestClient(){
         return RestClientFactory.getInstance(ConsultantRestClient.class);
+    }
+
+    /**UserCondition용 레스트 클라이언트*/
+    public final static UserConditionRestClient getUserConditionRestClient() {
+        return RestClientFactory.getInstance(UserConditionRestClient.class);
     }
 
 }

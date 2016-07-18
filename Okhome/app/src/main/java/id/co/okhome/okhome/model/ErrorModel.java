@@ -1,4 +1,4 @@
-package id.co.okhome.okhome.restmodule;
+package id.co.okhome.okhome.model;
 
 /**
  * Created by josongmin on 2016-02-17.

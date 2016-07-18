@@ -13,9 +13,6 @@ public interface ConsultantRestClient {
 
     @GET("consultantController/getAllConsultant")
     Call<List<ConsultantModel>> getAllConsultant(@Query("pageSize") String pageSize, @Query("lastId") String lastId);
-
-    
-
 }
 
 

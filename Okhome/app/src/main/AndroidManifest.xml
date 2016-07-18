@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,30 +22,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".view.activity.SignupActivity"
             android:label="@string/title_activity_signup"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".OrderActivity"
+            android:name=".view.activity.OrderActivity"
             android:label="@string/title_activity_order"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:name=".TopUpActivity"
+            android:name=".view.activity.TopUpActivity"
             android:label="@string/title_activity_top_up"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".LogOutActivity" />
+        <activity android:name=".view.activity.LogOutActivity" />
         <activity
-            android:name=".OrderHistoryActivity"
+            android:name=".view.activity.OrderHistoryActivity"
             android:label="@string/title_activity_order_history"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".OrderChangeActivity"
+            android:name=".view.activity.OrderChangeActivity"
             android:label="@string/title_activity_order_change"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

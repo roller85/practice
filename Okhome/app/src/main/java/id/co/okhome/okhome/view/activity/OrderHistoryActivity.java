@@ -1,4 +1,4 @@
-package id.co.okhome.okhome;
+package id.co.okhome.okhome.view.activity;
 
 
 import android.net.Uri;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import id.co.okhome.okhome.R;
 import id.co.okhome.okhome.data.OrderHistoryAdapter;
 import id.co.okhome.okhome.data.OrderInfo;
 import id.co.okhome.okhome.model.OrderHistoryModel;

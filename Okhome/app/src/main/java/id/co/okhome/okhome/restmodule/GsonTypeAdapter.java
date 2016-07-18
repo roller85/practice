@@ -11,6 +11,8 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
+import id.co.okhome.okhome.model.ErrorModel;
+
 /**
  * Created by josongmin on 2016-02-17.
  */

@@ -1,4 +1,4 @@
-package id.co.okhome.okhome;
+package id.co.okhome.okhome.view.fragment.order_fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,7 +12,9 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import id.co.okhome.okhome.R;
 import id.co.okhome.okhome.data.OrderInfo;
+import id.co.okhome.okhome.view.activity.OrderActivity;
 
 
 public class SelectDayFragment extends Fragment {

@@ -1,5 +1,6 @@
 package id.co.okhome.okhome.restmodule;
 
+import id.co.okhome.okhome.model.ErrorModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

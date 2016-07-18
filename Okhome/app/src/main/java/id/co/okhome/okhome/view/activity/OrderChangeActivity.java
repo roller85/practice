@@ -1,4 +1,4 @@
-package id.co.okhome.okhome;
+package id.co.okhome.okhome.view.activity;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import id.co.okhome.okhome.R;
 import id.co.okhome.okhome.data.OrderChangeAdapter;
 import id.co.okhome.okhome.data.OrderInfo;
 import id.co.okhome.okhome.server.ServerAPI;

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_basic_info1"
-    tools:context="id.co.okhome.okhome.BasicInfoFragment1">
+    tools:context=".view.fragment.order_fragment.BasicInfoFragment1">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

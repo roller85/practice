@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:orientation="horizontal"
-    tools:context="id.co.okhome.okhome.TopUpActivity"
+    tools:context=".view.activity.TopUpActivity"
     tools:showIn="@layout/activity_top_up">
 
 </FrameLayout>

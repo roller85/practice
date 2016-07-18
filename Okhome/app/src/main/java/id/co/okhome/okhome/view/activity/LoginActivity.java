@@ -1,4 +1,4 @@
-package id.co.okhome.okhome;
+package id.co.okhome.okhome.view.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import id.co.okhome.okhome.R;
 import id.co.okhome.okhome.data.OrderInfo;
 import id.co.okhome.okhome.server.ServerAPI;
 import okhttp3.Call;

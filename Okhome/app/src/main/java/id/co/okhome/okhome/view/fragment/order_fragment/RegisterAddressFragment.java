@@ -1,4 +1,4 @@
-package id.co.okhome.okhome;
+package id.co.okhome.okhome.view.fragment.order_fragment;
 
 
 import android.os.Bundle;
@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import id.co.okhome.okhome.R;
 import id.co.okhome.okhome.data.OrderInfo;
+import id.co.okhome.okhome.view.activity.OrderActivity;
 
 
 /**
